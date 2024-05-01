@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#DAFFFB">
 
     <TextView
         android:id="@+id/lblSummary"
@@ -13,6 +14,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="10dp"
         android:text="Summary"
+        android:textStyle="bold"
         android:textSize="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,11 +31,12 @@
         android:textColor="#04364A"/>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardBMI"
+        android:id="@+id/cardBMR"
         android:layout_width="380dp"
         android:layout_height="104dp"
         android:layout_marginTop="11dp"
         app:cardBackgroundColor="#04364A"
+        app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDate" >
@@ -50,6 +53,7 @@
                 android:layout_marginTop="7dp"
                 android:text="BMI Status: "
                 android:textSize="18dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textColor="#64CCC5"/>
@@ -62,7 +66,7 @@
                 android:layout_marginBottom="9dp"
                 android:text="17.0"
                 android:textColor="#FFFFFF"
-                android:textSize="36dp"
+                android:textSize="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/lblBMIStatus"
                 app:layout_constraintTop_toBottomOf="@+id/lblBMIStatus"
@@ -73,10 +77,10 @@
                 android:layout_width="102dp"
                 android:layout_height="102dp"
                 android:layout_marginEnd="5dp"
-                android:src="@tools:sample/avatars"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
                 android:id="@+id/tvBMIStatus"
@@ -84,13 +88,73 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="Overweight"
+                android:textColor="@android:color/holo_red_dark"
                 android:textSize="22dp"
-                android:textColor="@color/material_dynamic_primary90"
                 app:layout_constraintBaseline_toBaselineOf="@+id/lblBMIStatus"
                 app:layout_constraintStart_toEndOf="@+id/lblBMIStatus" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="11dp"
+        app:cardBackgroundColor="#04364A"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardBMR"
+        app:layout_constraintStart_toStartOf="@+id/cardBMR"
+        app:layout_constraintTop_toBottomOf="@+id/cardBMR" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lblBMR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="108dp"
+                android:text="Basic Metabolism Rate (BMR)"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#64CCC5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/lblKcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kcal"
+                android:textColor="#8F8787"
+                android:textSize="18dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvKcal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.072"
+                app:layout_constraintStart_toEndOf="@+id/tvKcal" />
+
+            <TextView
+                android:id="@+id/tvKcal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="6dp"
+                android:text="1500"
+                android:textColor="#FFFFFF"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/lblBMR"
+                app:layout_constraintTop_toBottomOf="@+id/lblBMR"
+                app:layout_constraintVertical_bias="1.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

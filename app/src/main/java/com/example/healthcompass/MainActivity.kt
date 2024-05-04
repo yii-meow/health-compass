@@ -10,7 +10,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.summary)
+        setContentView(R.layout.activity_main)
 
         var tvDate: TextView = findViewById(R.id.tvDate)
         tvDate.text = "123"

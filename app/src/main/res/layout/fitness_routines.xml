@@ -30,6 +30,7 @@
             android:layout_width="380dp"
             android:layout_height="106dp"
             android:layout_marginTop="10dp"
+            app:cardCornerRadius="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblFitnessRoutines">
@@ -99,6 +100,7 @@
             android:layout_width="378dp"
             android:layout_height="332dp"
             android:layout_marginTop="12dp"
+            app:cardCornerRadius="12dp"
             app:layout_constraintLeft_toLeftOf="@id/cardCaloriesBurnt"
             app:layout_constraintRight_toRightOf="@id/cardCaloriesBurnt"
             app:layout_constraintTop_toBottomOf="@+id/cardCaloriesBurnt">
@@ -121,6 +123,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardWorkoutsSummary"
                     android:layout_width="358dp"
                     android:layout_height="71dp"
                     android:layout_marginTop="10dp"
@@ -201,6 +204,112 @@
                             app:layout_constraintTop_toBottomOf="@id/tvTotalWorkoutDuration" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/imgRunning"
+                    android:layout_width="50dp"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/running"
+                    app:layout_constraintLeft_toLeftOf="@id/cardWorkoutsSummary"
+                    app:layout_constraintTop_toBottomOf="@id/cardWorkoutsSummary" />
+
+                <TextView
+                    android:id="@+id/tvSport1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Running"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:layout_constraintLeft_toRightOf="@id/imgRunning"
+                    app:layout_constraintTop_toBottomOf="@id/cardWorkoutsSummary"
+                    android:layout_marginTop="12dp"/>
+
+                <ImageView
+                    android:id="@+id/imgDuration1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/duration"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSport1"
+                    app:layout_constraintTop_toBottomOf="@id/tvSport1" />
+
+                <TextView
+                    android:id="@+id/tvSportDuration1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="01:00:00"
+                    android:textColor="#D4C0C0"
+                    android:textSize="10dp"
+                    app:layout_constraintStart_toEndOf="@id/imgDuration1"
+                    app:layout_constraintTop_toTopOf="@id/imgDuration1"
+                    app:layout_constraintBottom_toBottomOf="@id/imgDuration1"
+                    />
+
+                <ImageView
+                    android:id="@+id/imgBurntCalories1"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/caloriesBurnt"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSport1"
+                    app:layout_constraintTop_toBottomOf="@id/imgDuration1" />
+
+                <TextView
+                    android:id="@+id/tvBurntCalories1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="200"
+                    android:textColor="#D4C0C0"
+                    android:textSize="10dp"
+                    app:layout_constraintTop_toTopOf="@id/imgBurntCalories1"
+                    app:layout_constraintBottom_toBottomOf="@id/imgBurntCalories1"
+                    app:layout_constraintStart_toEndOf="@id/imgDuration1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text="kcal"
+                    app:layout_constraintStart_toEndOf="@id/tvBurntCalories1"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvBurntCalories1"
+                    android:textColor="#D4C0C0"
+                    android:layout_marginLeft="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="24 Mar"
+                    android:id="@+id/tvSport1Date"
+                    android:textColor="#D4C0C0"
+                    android:textSize="10dp"
+                    app:layout_constraintRight_toRightOf="@id/cardWorkoutsSummary"
+                    app:layout_constraintTop_toTopOf="@id/tvSport1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13:00 - 15:00"
+                    android:id="@+id/tvSport1Duration"
+                    android:textSize="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvSport1Date"
+                    app:layout_constraintRight_toRightOf="@id/tvSport1Date"
+                    android:layout_marginTop="7dp"
+                    android:textColor="#D4C0C0"
+                    />
+
+                <View
+                    android:id="@+id/hr1"
+                    android:layout_width="358dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#64CCC5"
+                    app:layout_constraintLeft_toLeftOf="@id/imgRunning"
+                    app:layout_constraintTop_toBottomOf="@id/imgRunning" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

@@ -3,13 +3,203 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#DAFFFB">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        
+        <TextView
+            android:id="@+id/lblNutritionAdvice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="10dp"
+            android:text="Nutrition Advice"
+            android:textColor="@color/black"
+            android:textSize="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardNutrionWeekCircles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblNutritionAdvice">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#DAFFFB"
+                android:paddingHorizontal="15dp">
+
+                <LinearLayout
+                    android:id="@+id/llFrameLayouts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <FrameLayout
+                        android:id="@+id/flMonday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="M"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flTuesday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintLeft_toRightOf="@id/flMonday"
+                        app:layout_constraintTop_toTopOf="@id/flMonday">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="T"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flWednesday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintLeft_toRightOf="@id/flTuesday"
+                        app:layout_constraintTop_toTopOf="@id/flMonday">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="W"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flThursday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintLeft_toRightOf="@id/flWednesday"
+                        app:layout_constraintTop_toTopOf="@id/flMonday">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="T"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flFriday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintLeft_toRightOf="@id/flThursday"
+                        app:layout_constraintTop_toTopOf="@id/flMonday">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="F"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flSaturday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintLeft_toRightOf="@id/flFriday"
+                        app:layout_constraintTop_toTopOf="@id/flMonday">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="S"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/flSunday"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/nutrion_circle"
+                        app:layout_constraintLeft_toRightOf="@id/flSaturday"
+                        app:layout_constraintTop_toTopOf="@id/flMonday">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:gravity="center"
+                            android:text="S"
+                            android:textColor="@color/white" />
+                    </FrameLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="378dp"
+            android:layout_height="112dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintLeft_toLeftOf="@id/lblNutritionAdvice"
+            app:layout_constraintTop_toBottomOf="@+id/cardNutrionWeekCircles">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="CALORIES GOAL"
+                    android:textColor="#C7C2C2"
+                    android:textSize="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

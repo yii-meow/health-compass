@@ -10,21 +10,21 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.nutrition)
 
-        var tvDate: TextView = findViewById(R.id.tvDate)
-        tvDate.text = "123"
-
-        // Get the current date
-        val currentDate = Date()
-
-        // Define a date format
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
-        // Format the current date
-        val formattedDate = dateFormat.format(currentDate)
-
-        // Set the formatted date to the TextView
-        tvDate.text = formattedDate
+//        var tvDate: TextView = findViewById(R.id.tvDate)
+//        tvDate.text = "123"
+//
+//        // Get the current date
+//        val currentDate = Date()
+//
+//        // Define a date format
+//        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+//
+//        // Format the current date
+//        val formattedDate = dateFormat.format(currentDate)
+//
+//        // Set the formatted date to the TextView
+//        tvDate.text = formattedDate
     }
 }

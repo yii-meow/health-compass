@@ -253,7 +253,7 @@
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/caloriesBurnt"
+                    android:src="@drawable/calories_burnt"
                     app:layout_constraintLeft_toLeftOf="@id/tvSport1"
                     app:layout_constraintTop_toBottomOf="@id/imgDuration1" />
 
@@ -357,7 +357,7 @@
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/caloriesBurnt"
+                    android:src="@drawable/calories_burnt"
                     app:layout_constraintLeft_toLeftOf="@id/tvSport2"
                     app:layout_constraintTop_toBottomOf="@id/imgDuration2" />
 

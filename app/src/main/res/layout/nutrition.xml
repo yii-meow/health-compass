@@ -27,11 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
+            app:cardElevation="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lblNutritionAdvice"
-            app:cardElevation="0dp"
-            >
+            app:layout_constraintTop_toBottomOf="@id/lblNutritionAdvice">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -180,9 +179,11 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardCaloriesGoal"
             android:layout_width="378dp"
             android:layout_height="112dp"
             android:layout_marginTop="12dp"
+            app:cardCornerRadius="12dp"
             app:layout_constraintLeft_toLeftOf="@id/lblNutritionAdvice"
             app:layout_constraintTop_toBottomOf="@+id/cardNutrionWeekCircles">
 
@@ -213,7 +214,7 @@
                     app:layout_constraintTop_toBottomOf="@id/lblCaloriesGoal">
 
                     <TextView
-                        android:id="@+id/tvTotalConsumptionCalories"
+                        android:id="@+id/tvCaloriesGoal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -236,8 +237,8 @@
                         android:text="kcal"
                         android:textColor="#8F8787"
                         android:textStyle="bold"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tvTotalConsumptionCalories"
-                        app:layout_constraintLeft_toRightOf="@id/tvTotalConsumptionCalories" />
+                        app:layout_constraintBaseline_toBaselineOf="@id/tvCaloriesGoal"
+                        app:layout_constraintLeft_toRightOf="@id/tvCaloriesGoal" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <FrameLayout
@@ -258,8 +259,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        >
+                        android:layout_gravity="center">
 
                         <TextView
                             android:id="@+id/tvRemainingCalories"
@@ -268,9 +268,9 @@
                             android:text="1100"
                             android:textColor="@color/white"
                             android:textSize="13dp"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/lblRemaining"
@@ -281,11 +281,363 @@
                             android:textColor="@android:color/white"
                             android:textSize="13dp"
                             app:layout_constraintBaseline_toBaselineOf="@+id/tvRemainingCalories"
-                            app:layout_constraintStart_toEndOf="@id/tvRemainingCalories"
-                            />
+                            app:layout_constraintStart_toEndOf="@id/tvRemainingCalories" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTotalConsumption"
+            android:layout_width="378dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintLeft_toLeftOf="@id/cardCaloriesGoal"
+            app:layout_constraintTop_toBottomOf="@id/cardCaloriesGoal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#04364A">
+
+                <TextView
+                    android:id="@+id/lblTotalConsumptions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="TOTAL CONSUMPTION"
+                    android:textColor="#C7C2C2"
+                    android:textSize="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTotalConsumption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lblTotalConsumptions">
+
+                    <TextView
+                        android:id="@+id/tvTotalConsumptionCalories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="1100"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/lblTotalConsmptionKcal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="kcal"
+                        android:textColor="#8F8787"
+                        android:textStyle="bold"
+                        app:layout_constraintBaseline_toBaselineOf="@id/tvTotalConsumptionCalories"
+                        app:layout_constraintLeft_toRightOf="@id/tvTotalConsumptionCalories" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardWeightGoal"
+            android:layout_width="378dp"
+            android:layout_height="111dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintLeft_toLeftOf="@id/cardTotalConsumption"
+            app:layout_constraintTop_toBottomOf="@id/cardTotalConsumption">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#04364A">
+
+                <TextView
+                    android:id="@+id/lblMyGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="MY GOAL"
+                    android:textColor="#C7C2C2"
+                    android:textSize="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvWeightGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Gain Weight"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    app:layout_constraintLeft_toLeftOf="@id/lblMyGoal"
+                    app:layout_constraintRight_toRightOf="@id/lblMyGoal"
+                    app:layout_constraintTop_toBottomOf="@id/lblMyGoal" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_button"
+                    android:paddingHorizontal="30dp"
+                    android:text="Edit Your Goal"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:layout_constraintLeft_toLeftOf="@id/tvWeightGoal"
+                    app:layout_constraintRight_toRightOf="@id/tvWeightGoal"
+                    app:layout_constraintTop_toBottomOf="@id/tvWeightGoal" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="378dp"
+            android:layout_height="256dp"
+            android:layout_marginTop="12dp"
+            android:elevation="0dp"
+            app:cardBackgroundColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="@id/cardWeightGoal"
+            app:layout_constraintTop_toBottomOf="@id/cardWeightGoal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/card_border">
+
+                <TextView
+                    android:id="@+id/lblMeals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="MEALS"
+                    android:textColor="#04364A"
+                    android:textSize="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgDay"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/day"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lblMeals" />
+
+                <TextView
+                    android:id="@+id/lblBreakfast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Breakfast"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/imgDay"
+                    app:layout_constraintTop_toTopOf="@+id/imgDay" />
+
+                <TextView
+                    android:id="@+id/tvBreakfastList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Oatmilk, Egg"
+                    android:textSize="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgDay"
+                    app:layout_constraintLeft_toLeftOf="@+id/lblBreakfast"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBreakfastKcal"
+                    android:text="300"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="90dp"
+                    app:layout_constraintTop_toTopOf="@+id/tvBreakfastList"
+                    android:textSize="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="kcal"
+                    android:textColor="@color/black"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvBreakfastKcal"
+                    app:layout_constraintLeft_toRightOf="@id/tvBreakfastKcal"
+                    android:layout_marginLeft="6dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/imgBreakfastArrow"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintTop_toTopOf="@id/imgDay"
+                    app:layout_constraintBottom_toBottomOf="@id/imgDay"
+                    />
+
+                <View
+                    android:id="@+id/hr1"
+                    android:layout_width="350dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/black"
+                    app:layout_constraintLeft_toLeftOf="@id/imgDay"
+                    app:layout_constraintTop_toBottomOf="@id/imgDay" />
+
+                <ImageView
+                    android:id="@+id/imgNoon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/noon"
+                    app:layout_constraintLeft_toLeftOf="@id/imgDay"
+                    app:layout_constraintTop_toBottomOf="@id/hr1" />
+
+                <TextView
+                    android:id="@+id/lblLunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Lunch"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/imgNoon"
+                    app:layout_constraintTop_toTopOf="@+id/imgNoon" />
+
+                <TextView
+                    android:id="@+id/tvLunchList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fish and Chip, Iced Milo, Dumpling"
+                    android:textSize="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgNoon"
+                    app:layout_constraintLeft_toLeftOf="@+id/lblLunch"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvLunchKcal"
+                    android:text="800"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
+                    app:layout_constraintTop_toTopOf="@+id/tvLunchList"
+                    android:textSize="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="kcal"
+                    android:textColor="@color/black"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvLunchKcal"
+                    app:layout_constraintLeft_toRightOf="@id/tvLunchKcal"
+                    android:layout_marginLeft="6dp"
+                    />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintRight_toRightOf="@+id/imgBreakfastArrow"
+                    app:layout_constraintTop_toTopOf="@id/imgNoon"
+                    app:layout_constraintBottom_toBottomOf="@id/imgNoon"
+                    />
+
+                <View
+                    android:id="@+id/hr2"
+                    android:layout_width="350dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/black"
+                    app:layout_constraintLeft_toLeftOf="@id/imgNoon"
+                    app:layout_constraintTop_toBottomOf="@id/imgNoon" />
+
+                <ImageView
+                    android:id="@+id/imgNight"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/night"
+                    app:layout_constraintLeft_toLeftOf="@id/imgDay"
+                    app:layout_constraintTop_toBottomOf="@id/hr2" />
+
+                <TextView
+                    android:id="@+id/lblDinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Dinner"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toRightOf="@id/imgNight"
+                    app:layout_constraintTop_toTopOf="@+id/imgNight" />
+
+                <TextView
+                    android:id="@+id/tvDinnerList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ADD FOOD"
+                    android:textColor="#4161B3"
+                    android:textSize="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgNight"
+                    app:layout_constraintLeft_toLeftOf="@+id/lblDinner"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvDinnerKcal"
+                    android:text="No Record"
+                    android:textStyle="bold"
+                    android:textColor="#FF0000"
+                    app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
+                    app:layout_constraintTop_toTopOf="@+id/tvDinnerList"
+                    android:textSize="16dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvDinnerKcal"
+                    app:layout_constraintLeft_toRightOf="@id/tvDinnerKcal"
+                    android:layout_marginLeft="6dp"
+                    />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintRight_toRightOf="@+id/imgBreakfastArrow"
+                    app:layout_constraintTop_toTopOf="@id/imgNight"
+                    app:layout_constraintBottom_toBottomOf="@id/imgNight"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

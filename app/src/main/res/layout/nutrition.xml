@@ -405,11 +405,14 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardMeals"
             android:layout_width="378dp"
             android:layout_height="256dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:elevation="0dp"
-            app:cardBackgroundColor="@color/black"
+            app:cardBackgroundColor="#F2F0F0"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
             app:layout_constraintLeft_toLeftOf="@id/cardWeightGoal"
             app:layout_constraintTop_toBottomOf="@id/cardWeightGoal">
 
@@ -458,43 +461,39 @@
                     android:text="Oatmilk, Egg"
                     android:textSize="8dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgDay"
-                    app:layout_constraintLeft_toLeftOf="@+id/lblBreakfast"
-                    />
+                    app:layout_constraintLeft_toLeftOf="@+id/lblBreakfast" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tvBreakfastKcal"
-                    android:text="300"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="90dp"
-                    app:layout_constraintTop_toTopOf="@+id/tvBreakfastList"
+                    android:text="300"
+                    android:textColor="@color/black"
                     android:textSize="16dp"
-                    />
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvBreakfastList" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:layout_marginLeft="6dp"
                     android:text="kcal"
                     android:textColor="@color/black"
+                    android:textSize="12dp"
                     app:layout_constraintBaseline_toBaselineOf="@id/tvBreakfastKcal"
-                    app:layout_constraintLeft_toRightOf="@id/tvBreakfastKcal"
-                    android:layout_marginLeft="6dp"
-                    />
+                    app:layout_constraintLeft_toRightOf="@id/tvBreakfastKcal" />
 
                 <ImageView
                     android:id="@+id/imgBreakfastArrow"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/right_arrow"
-                    app:layout_constraintRight_toRightOf="parent"
                     android:layout_marginRight="10dp"
-                    app:layout_constraintTop_toTopOf="@id/imgDay"
+                    android:src="@drawable/right_arrow"
                     app:layout_constraintBottom_toBottomOf="@id/imgDay"
-                    />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgDay" />
 
                 <View
                     android:id="@+id/hr1"
@@ -532,40 +531,36 @@
                     android:text="Fish and Chip, Iced Milo, Dumpling"
                     android:textSize="8dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgNoon"
-                    app:layout_constraintLeft_toLeftOf="@+id/lblLunch"
-                    />
+                    app:layout_constraintLeft_toLeftOf="@+id/lblLunch" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tvLunchKcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="800"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
-                    app:layout_constraintTop_toTopOf="@+id/tvLunchList"
                     android:textSize="16dp"
-                    />
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
+                    app:layout_constraintTop_toTopOf="@+id/tvLunchList" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:layout_marginLeft="6dp"
                     android:text="kcal"
                     android:textColor="@color/black"
+                    android:textSize="12dp"
                     app:layout_constraintBaseline_toBaselineOf="@id/tvLunchKcal"
-                    app:layout_constraintLeft_toRightOf="@id/tvLunchKcal"
-                    android:layout_marginLeft="6dp"
-                    />
+                    app:layout_constraintLeft_toRightOf="@id/tvLunchKcal" />
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/right_arrow"
-                    app:layout_constraintRight_toRightOf="@+id/imgBreakfastArrow"
-                    app:layout_constraintTop_toTopOf="@id/imgNoon"
                     app:layout_constraintBottom_toBottomOf="@id/imgNoon"
-                    />
+                    app:layout_constraintRight_toRightOf="@+id/imgBreakfastArrow"
+                    app:layout_constraintTop_toTopOf="@id/imgNoon" />
 
                 <View
                     android:id="@+id/hr2"
@@ -604,40 +599,117 @@
                     android:textColor="#4161B3"
                     android:textSize="8dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgNight"
-                    app:layout_constraintLeft_toLeftOf="@+id/lblDinner"
-                    />
+                    app:layout_constraintLeft_toLeftOf="@+id/lblDinner" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tvDinnerKcal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="No Record"
-                    android:textStyle="bold"
                     android:textColor="#FF0000"
-                    app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
-                    app:layout_constraintTop_toTopOf="@+id/tvDinnerList"
                     android:textSize="16dp"
-                    />
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
+                    app:layout_constraintTop_toTopOf="@+id/tvDinnerList" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:layout_marginLeft="6dp"
                     android:text=""
                     android:textColor="@color/black"
+                    android:textSize="12dp"
                     app:layout_constraintBaseline_toBaselineOf="@id/tvDinnerKcal"
-                    app:layout_constraintLeft_toRightOf="@id/tvDinnerKcal"
-                    android:layout_marginLeft="6dp"
-                    />
+                    app:layout_constraintLeft_toRightOf="@id/tvDinnerKcal" />
 
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/right_arrow"
-                    app:layout_constraintRight_toRightOf="@+id/imgBreakfastArrow"
-                    app:layout_constraintTop_toTopOf="@id/imgNight"
                     app:layout_constraintBottom_toBottomOf="@id/imgNight"
-                    />
+                    app:layout_constraintRight_toRightOf="@+id/imgBreakfastArrow"
+                    app:layout_constraintTop_toTopOf="@id/imgNight" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="378dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/cardMeals"
+            app:layout_constraintTop_toBottomOf="@id/cardMeals">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/card_border">
+
+                <ImageView
+                    android:id="@+id/imgHydration"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/hydration"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTodayHydration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    app:layout_constraintLeft_toRightOf="@id/imgHydration"
+                    app:layout_constraintTop_toTopOf="@id/imgHydration" />
+
+                <TextView
+                    android:id="@+id/tempHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text=" / "
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvTodayHydration"
+                    app:layout_constraintLeft_toRightOf="@id/tvTodayHydration" />
+
+                <TextView
+                    android:id="@+id/tvTargetHydration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.0"
+                    android:textColor="@color/black"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvTodayHydration"
+                    app:layout_constraintLeft_toRightOf="@+id/tempHolder" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" L"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvTargetHydration"
+                    app:layout_constraintLeft_toRightOf="@id/tvTargetHydration" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="HYDRATION"
+                    android:textColor="#04364A"
+                    android:textSize="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgHydration"
+                    app:layout_constraintLeft_toRightOf="@id/imgHydration" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

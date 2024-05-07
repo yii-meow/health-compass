@@ -162,7 +162,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/today_nutrition_circle"
                         app:layout_constraintLeft_toRightOf="@id/flSaturday"
                         app:layout_constraintTop_toTopOf="@id/flMonday">
 

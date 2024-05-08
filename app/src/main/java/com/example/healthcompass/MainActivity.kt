@@ -2,6 +2,7 @@ package com.example.healthcompass
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -11,6 +12,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nutrition)
+
+        val btnEditGoal: Button = findViewById(R.id.btnEditGoal)
+
+        btnEditGoal.setOnClickListener{
+        }
 
 //        var tvDate: TextView = findViewById(R.id.tvDate)
 //        tvDate.text = "123"

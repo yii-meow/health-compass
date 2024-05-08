@@ -53,7 +53,7 @@
                         android:id="@+id/flMonday"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/nutrition_circle"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -72,7 +72,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/nutrition_circle"
                         app:layout_constraintLeft_toRightOf="@id/flMonday"
                         app:layout_constraintTop_toTopOf="@id/flMonday">
 
@@ -90,7 +90,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/nutrition_circle"
                         app:layout_constraintLeft_toRightOf="@id/flTuesday"
                         app:layout_constraintTop_toTopOf="@id/flMonday">
 
@@ -108,7 +108,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/nutrition_circle"
                         app:layout_constraintLeft_toRightOf="@id/flWednesday"
                         app:layout_constraintTop_toTopOf="@id/flMonday">
 
@@ -126,7 +126,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/nutrition_circle"
                         app:layout_constraintLeft_toRightOf="@id/flThursday"
                         app:layout_constraintTop_toTopOf="@id/flMonday">
 
@@ -144,7 +144,7 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/nutrion_circle"
+                        android:background="@drawable/nutrition_circle"
                         app:layout_constraintLeft_toRightOf="@id/flFriday"
                         app:layout_constraintTop_toTopOf="@id/flMonday">
 
@@ -390,6 +390,7 @@
                     app:layout_constraintTop_toBottomOf="@id/lblMyGoal" />
 
                 <Button
+                    android:id="@+id/btnEditGoal"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginTop="16dp"

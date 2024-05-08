@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.HealthCompass" parent="Base.Theme.HealthCompass" />
+
 </resources>

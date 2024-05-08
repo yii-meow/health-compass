@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DAFFFB"
     tools:context=".edit_hydration">
 
     <TextView
@@ -42,7 +43,7 @@
         <ImageView
             android:layout_width="65dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:src="@drawable/water" />
     </androidx.cardview.widget.CardView>
 
@@ -50,29 +51,28 @@
         android:id="@+id/lblWater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="Water"
+        android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/cardWater"
         app:layout_constraintRight_toRightOf="@id/cardWater"
-        app:layout_constraintTop_toBottomOf="@id/cardWater"
-        android:text="Water"
-        android:layout_marginTop="7dp"
-        android:textSize="15dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/cardWater" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardCoffee"
         android:layout_width="78dp"
         android:layout_height="74dp"
+        android:layout_marginLeft="16dp"
         app:cardBackgroundColor="#9F9F9F"
         app:cardCornerRadius="15dp"
-        app:layout_constraintLeft_toRightOf="@id/cardWater"
-        app:layout_constraintTop_toTopOf="@id/cardWater"
         app:layout_constraintBottom_toBottomOf="@id/cardWater"
-        android:layout_marginLeft="16dp">
+        app:layout_constraintLeft_toRightOf="@id/cardWater"
+        app:layout_constraintTop_toTopOf="@id/cardWater">
 
         <ImageView
             android:layout_width="65dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:src="@drawable/coffee" />
 
     </androidx.cardview.widget.CardView>
@@ -81,29 +81,28 @@
         android:id="@+id/lblCoffee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="Coffee"
+        android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/cardCoffee"
         app:layout_constraintRight_toRightOf="@id/cardCoffee"
-        app:layout_constraintTop_toBottomOf="@id/cardCoffee"
-        android:text="Coffee"
-        android:layout_marginTop="7dp"
-        android:textSize="15dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/cardCoffee" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardTea"
         android:layout_width="78dp"
         android:layout_height="74dp"
+        android:layout_marginLeft="16dp"
         app:cardBackgroundColor="#9F9F9F"
         app:cardCornerRadius="15dp"
-        app:layout_constraintLeft_toRightOf="@id/cardCoffee"
-        app:layout_constraintTop_toTopOf="@id/cardCoffee"
         app:layout_constraintBottom_toBottomOf="@id/cardCoffee"
-        android:layout_marginLeft="16dp">
+        app:layout_constraintLeft_toRightOf="@id/cardCoffee"
+        app:layout_constraintTop_toTopOf="@id/cardCoffee">
 
         <ImageView
             android:layout_width="65dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:src="@drawable/tea" />
     </androidx.cardview.widget.CardView>
 
@@ -111,29 +110,28 @@
         android:id="@+id/lblTea"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="Tea"
+        android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/cardTea"
         app:layout_constraintRight_toRightOf="@id/cardTea"
-        app:layout_constraintTop_toBottomOf="@id/cardTea"
-        android:text="Tea"
-        android:layout_marginTop="7dp"
-        android:textSize="15dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/cardTea" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardAlcohol"
         android:layout_width="78dp"
         android:layout_height="74dp"
+        android:layout_marginLeft="16dp"
         app:cardBackgroundColor="#9F9F9F"
         app:cardCornerRadius="15dp"
-        app:layout_constraintLeft_toRightOf="@id/cardTea"
-        app:layout_constraintTop_toTopOf="@id/cardTea"
         app:layout_constraintBottom_toBottomOf="@id/cardTea"
-        android:layout_marginLeft="16dp">
+        app:layout_constraintLeft_toRightOf="@id/cardTea"
+        app:layout_constraintTop_toTopOf="@id/cardTea">
 
         <ImageView
             android:layout_width="65dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:src="@drawable/alcohol" />
     </androidx.cardview.widget.CardView>
 
@@ -141,23 +139,188 @@
         android:id="@+id/lblAlcohol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="Alcohol"
+        android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/cardAlcohol"
         app:layout_constraintRight_toRightOf="@id/cardAlcohol"
-        app:layout_constraintTop_toBottomOf="@id/cardAlcohol"
-        android:text="Alcohol"
-        android:layout_marginTop="7dp"
-        android:textSize="15dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/cardAlcohol" />
 
     <TextView
+        android:id="@+id/lblSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="270dp"
+        android:text="SIZE"
         android:textColor="#999999"
         android:textSize="16dp"
-        android:text="SIZE"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/lblIntro"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="270dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card100ml"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/lblSize"
+        app:layout_constraintTop_toBottomOf="@id/lblSize">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="100 ml"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card250ml"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/card100ml"
+        app:layout_constraintLeft_toRightOf="@id/card100ml"
+        app:layout_constraintTop_toTopOf="@id/card100ml">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="250 ml"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card500ml"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/card100ml"
+        app:layout_constraintLeft_toRightOf="@id/card250ml"
+        app:layout_constraintTop_toTopOf="@id/card100ml">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="500 ml"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1L"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/card500ml"
+        app:layout_constraintLeft_toRightOf="@id/card500ml"
+        app:layout_constraintTop_toTopOf="@id/card500ml">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1 L"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/lblServings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="420dp"
+        android:text="NUMBER OF SERVINGS"
+        android:textColor="#999999"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/lblSize"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardServing1"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/lblServings"
+        app:layout_constraintTop_toBottomOf="@id/lblServings">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardServing2"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toRightOf="@id/cardServing1"
+        app:layout_constraintTop_toTopOf="@id/cardServing1"
+        app:layout_constraintBottom_toBottomOf="@id/cardServing1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardServing3"
+        android:layout_width="78dp"
+        android:layout_height="46dp"
+        app:cardBackgroundColor="#9F9F9F"
+        app:cardCornerRadius="15dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toRightOf="@id/cardServing2"
+        app:layout_constraintTop_toTopOf="@id/cardServing2"
+        app:layout_constraintBottom_toBottomOf="@id/cardServing2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="3"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+    
+    <Button
+        android:layout_width="384dp"
+        android:layout_height="44dp"
+        app:layout_constraintTop_toBottomOf="@id/cardServing1"
+        android:layout_marginTop="50dp"
+        android:text="DONE"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:background="#64CCC5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

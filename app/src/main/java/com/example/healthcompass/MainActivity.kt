@@ -1,5 +1,6 @@
 package com.example.healthcompass
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -15,7 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         val btnEditGoal: Button = findViewById(R.id.btnEditGoal)
 
-        btnEditGoal.setOnClickListener{
+        btnEditGoal.setOnClickListener {
+            val intent = Intent(this,edit_goal::class.java)
+            startActivity(intent)
         }
 
 //        var tvDate: TextView = findViewById(R.id.tvDate)

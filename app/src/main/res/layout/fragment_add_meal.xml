@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAFFFB"
+    tools:context=".add_meal">
+
+    <TextView
+        android:id="@+id/lblAddMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Add Meal"
+        android:textColor="@color/black"
+        android:textSize="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMealLabeling"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:cardBackgroundColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/lblAddMeal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="Meal"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="14dp"
+                android:text="Dinner"
+                android:textColor="#64CCC5"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAddFood"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:cardBackgroundColor="#04364A"
+        app:layout_constraintTop_toBottomOf="@id/cardMealLabeling">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lblSelectFood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="8dp"
+                android:text="Select Food"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinnerSelectFood"
+                android:layout_width="160dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="90dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblSelectFood"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <Spinner
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="6dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/spinnerSelectFood"
+                app:layout_constraintLeft_toRightOf="@id/spinnerSelectFood" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="1."
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/spinnerSelectFood"
+                app:layout_constraintRight_toLeftOf="@id/spinnerSelectFood" />
+
+            <ImageView
+                android:id="@+id/imgDeleteFood"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:layout_marginLeft="55dp"
+                android:src="@drawable/delete"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerSelectFood"
+                app:layout_constraintLeft_toRightOf="@id/spinnerSelectFood"
+                app:layout_constraintTop_toTopOf="@id/spinnerSelectFood" />
+
+            <TextView
+                android:id="@+id/lblTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="Time"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/lblSelectFood"
+                app:layout_constraintTop_toBottomOf="@+id/lblSelectFood" />
+
+            <Spinner
+                android:id="@+id/datePicker"
+                android:layout_width="160dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="@id/lblTime"
+                app:layout_constraintLeft_toLeftOf="@id/spinnerSelectFood"
+                app:layout_constraintTop_toTopOf="@id/lblTime" />
+
+            <ImageView
+                android:id="@+id/imgAddFood"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/green_add"
+                app:layout_constraintLeft_toLeftOf="@id/spinnerSelectFood"
+                app:layout_constraintTop_toBottomOf="@id/spinnerSelectFood" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="Add Food"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imgAddFood"
+                app:layout_constraintLeft_toRightOf="@id/imgAddFood"
+                app:layout_constraintTop_toTopOf="@id/imgAddFood" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="452dp"
+        app:cardBackgroundColor="#04364A"
+        app:layout_constraintTop_toBottomOf="@id/cardAddFood">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp">
+
+            <ImageView
+                android:id="@+id/imgNutritionFact"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginTop="17dp"
+                android:src="@drawable/nutrition_fact"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Nutrition Fact"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toBottomOf="@id/imgNutritionFact"
+                app:layout_constraintLeft_toRightOf="@id/imgNutritionFact"
+                app:layout_constraintTop_toTopOf="@id/imgNutritionFact" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Automatically generated by system for your food(s)."
+                android:textColor="#F2E6E6"
+                android:textSize="12dp"
+                app:layout_constraintLeft_toLeftOf="@id/imgNutritionFact"
+                app:layout_constraintTop_toBottomOf="@id/imgNutritionFact" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,7 +34,7 @@
         />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/stopButton"
+        android:id="@+id/btnStop"
         android:layout_width="120dp"
         android:layout_height="120dp"
         app:icon="@drawable/stop"
@@ -48,5 +48,5 @@
         android:backgroundTint="#FD6D6D"
         app:cornerRadius="60dp"
         />
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

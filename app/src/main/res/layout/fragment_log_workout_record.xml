@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAFFFB"
+    tools:context=".log_workout_record">
+
+    <TextView
+        android:id="@+id/lblLogWorkoutRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Log Workout Record"
+        android:textColor="@color/black"
+        android:textSize="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/flImgWorkout"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/circle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblLogWorkoutRecord">
+
+        <ImageView
+            android:id="@+id/imgLogWorkout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/running" />
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardLogWorkout"
+        android:layout_width="380dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="#04364A"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/flImgWorkout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/lblChooseActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose Activity"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="tvActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="Running"
+                android:textColor="#9F9F9F"
+                android:textSize="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblChooseActivity"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <View
+                android:id="@+id/hr1"
+                android:layout_width="358dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#9F9F9F"
+                app:layout_constraintLeft_toLeftOf="@id/lblChooseActivity"
+                app:layout_constraintTop_toBottomOf="@id/lblChooseActivity" />
+
+            <TextView
+                android:id="@+id/lblDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Duration"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblChooseActivity" />
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="00:45:00"
+                android:textColor="#9F9F9F"
+                android:textSize="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblDuration"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <View
+                android:id="@+id/hr2"
+                android:layout_width="358dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#9F9F9F"
+                app:layout_constraintLeft_toLeftOf="@id/lblDuration"
+                app:layout_constraintTop_toBottomOf="@id/lblDuration" />
+
+            <TextView
+                android:id="@+id/lblDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Distance"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblDuration" />
+
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="3.30 km"
+                android:textColor="#9F9F9F"
+                android:textSize="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblDistance"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <View
+                android:id="@+id/hr3"
+                android:layout_width="358dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#9F9F9F"
+                app:layout_constraintLeft_toLeftOf="@id/lblDistance"
+                app:layout_constraintTop_toBottomOf="@id/lblDistance" />
+
+            <TextView
+                android:id="@+id/lblDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Date"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblDistance" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="2024/03/20"
+                android:textColor="#9F9F9F"
+                android:textSize="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblDate"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <View
+                android:id="@+id/hr4"
+                android:layout_width="358dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#9F9F9F"
+                app:layout_constraintLeft_toLeftOf="@id/lblDate"
+                app:layout_constraintTop_toBottomOf="@id/lblDate" />
+
+            <TextView
+                android:id="@+id/lblStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Start Time"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblDate" />
+
+            <TextView
+                android:id="@+id/tvStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:text="17:25"
+                android:textColor="#9F9F9F"
+                android:textSize="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblStartTime"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="380dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="20dp"
+        android:text="DONE"
+        android:textSize="24dp"
+        app:cornerRadius="17dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardLogWorkout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

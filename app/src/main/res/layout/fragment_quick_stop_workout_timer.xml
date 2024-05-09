@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAFFFB"
+    tools:context=".quick_workout_timer">
+
+    <TextView
+        android:id="@+id/tvWorkoutTimerActivityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Running"
+        android:textColor="@color/black"
+        android:textSize="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="00:00:00"
+        android:textColor="#04364A"
+        android:textSize="48dp"
+        app:layout_constraintLeft_toLeftOf="@id/tvWorkoutTimerActivityName"
+        app:layout_constraintRight_toRightOf="@id/tvWorkoutTimerActivityName"
+        app:layout_constraintTop_toBottomOf="@id/tvWorkoutTimerActivityName" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="272dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#DAFFFB"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResume"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="#FD6D6D"
+                android:padding="20dp"
+                app:cornerRadius="60dp"
+                app:icon="@drawable/resume"
+                app:iconSize="80dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDone"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:backgroundTint="#4CAF50"
+                android:padding="20dp"
+                app:cornerRadius="60dp"
+                app:icon="@drawable/done"
+                app:iconSize="80dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/btnResume"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

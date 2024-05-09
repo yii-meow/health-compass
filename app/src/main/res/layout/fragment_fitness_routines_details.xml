@@ -35,73 +35,160 @@
                 android:id="@+id/imgActivity"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:src="@drawable/running"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
-                />
+                android:layout_marginTop="20dp"
+                android:src="@drawable/running"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/lblAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="at"
-                app:layout_constraintTop_toTopOf="@id/imgActivity"
+                android:textColor="#D4C0C0"
+                android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/imgActivity"
                 app:layout_constraintLeft_toRightOf="@id/imgActivity"
-                android:textSize="16dp"
-                android:textColor="#D4C0C0"
-                android:layout_marginLeft="10dp"
-                />
+                app:layout_constraintTop_toTopOf="@id/imgActivity" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/tvActivityTime"
-                app:layout_constraintLeft_toRightOf="@id/lblAt"
-                android:text="24 Mar, 07:00"
-                app:layout_constraintBaseline_toBaselineOf="@id/lblAt"
-                android:textColor="#D4C0C0"
-                android:layout_marginLeft="10dp"
-                />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="24 Mar, 07:00"
+                android:textColor="#D4C0C0"
+                app:layout_constraintBaseline_toBaselineOf="@id/lblAt"
+                app:layout_constraintLeft_toRightOf="@id/lblAt" />
+
+            <TextView
                 android:id="@+id/tvActivityDesc"
-                app:layout_constraintLeft_toLeftOf="@id/imgActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Running"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/imgActivity"
-                android:layout_marginTop="30dp"
                 android:textSize="24dp"
-                />
+                app:layout_constraintLeft_toLeftOf="@id/imgActivity"
+                app:layout_constraintTop_toBottomOf="@id/imgActivity" />
 
             <TextView
                 android:id="@+id/tvActivityDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="32dp"
-                android:textColor="@color/white"
-                android:layout_marginRight="40dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDesc"
+                android:layout_marginRight="45dp"
                 android:text="4.00"
+                android:textColor="@color/white"
+                android:textSize="32dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDesc"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/lblDistane"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="km"
+                android:textColor="#C7C2C2"
+                android:textSize="16dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDistance"
+                app:layout_constraintLeft_toRightOf="@id/tvActivityDistance" />
+
+            <TextView
+                android:id="@+id/tvActivityCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="200"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                app:layout_constraintLeft_toLeftOf="@id/tvActivityDesc"
+                app:layout_constraintTop_toBottomOf="@id/tvActivityDesc" />
+
+            <TextView
+                android:id="@+id/lblCalories"
+                app:layout_constraintLeft_toLeftOf="@id/tvActivityCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Calories Burnt"
+                app:layout_constraintTop_toBottomOf="@id/tvActivityCalories"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#C7C2C2"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/lblDistane"
-                app:layout_constraintLeft_toRightOf="@id/tvActivityDistance"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDistance"
-                android:text="km"
+                android:text="01:00:00"
+                android:textColor="@color/white"
+                android:id="@+id/tvActivityDuration"
+                app:layout_constraintTop_toBottomOf="@id/lblCalories"
+                app:layout_constraintLeft_toLeftOf="@id/lblCalories"
+                android:layout_marginTop="40dp"
+                android:textSize="24dp"
+                />
+
+            <TextView
+                android:id="@+id/lblDuration"
+                app:layout_constraintLeft_toLeftOf="@id/tvActivityCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Time Duration"
+                app:layout_constraintTop_toBottomOf="@id/tvActivityDuration"
                 android:textSize="16dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:textColor="#C7C2C2"
                 />
+
+            <TextView
+                android:id="@+id/tvActivityPace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@id/lblDuration"
+                app:layout_constraintLeft_toLeftOf="@id/lblDuration"
+                android:text="4.00 / h"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/lblPace"
+                app:layout_constraintLeft_toLeftOf="@id/tvActivityCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pace"
+                app:layout_constraintTop_toBottomOf="@id/tvActivityPace"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#C7C2C2"
+                />
+
+            <EditText
+                android:id="@+id/editTextNote"
+                android:layout_width="390dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="#C7C2C2"
+                android:text="How do you feel about this ?"
+                app:layout_constraintLeft_toLeftOf="@id/lblPace"
+                app:layout_constraintTop_toBottomOf="@id/lblPace"
+                android:layout_marginTop="50dp"/>
             
+            <Button
+                android:layout_width="111dp"
+                android:layout_height="29dp"
+                android:text="Add Note"
+                android:textColor="#73CCFF"
+                android:background="@color/black"
+                app:layout_constraintRight_toRightOf="@id/editTextNote"
+                app:layout_constraintTop_toTopOf="@id/editTextNote"
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

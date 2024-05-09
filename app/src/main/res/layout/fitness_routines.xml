@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#DAFFFB">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#DAFFFB">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/lblFitnessRoutines"
@@ -421,7 +421,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardStartWorkout"
             android:layout_width="378dp"
-            android:layout_height="209dp"
+            android:layout_height="220dp"
             android:layout_marginTop="12dp"
             app:cardCornerRadius="12dp"
             app:layout_constraintLeft_toLeftOf="@id/cardFitnessRecords"
@@ -599,33 +599,24 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="378dp"
-            android:layout_height="86dp"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintLeft_toLeftOf="@id/cardStartWorkout"
-            app:layout_constraintTop_toBottomOf="@id/cardStartWorkout">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogActivity"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/black"
+            android:paddingHorizontal="30dp"
+            android:text="Log An Activity"
+            android:textAllCaps="false"
+            android:textSize="17dp"
+            app:cornerRadius="8dp"
+            app:icon="@drawable/baseline_assignment_add_24"
+            app:iconPadding="20dp"
+            app:iconSize="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardStartWorkout" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#04364A">
-
-                <Button
-                    android:id="@+id/btnLogActivity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/black"
-                    android:paddingHorizontal="25dp"
-                    android:text="Log An Activity"
-                    android:textColor="@color/white"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

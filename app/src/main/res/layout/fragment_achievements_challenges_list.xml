@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".achievements_challenges_list">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnViewChallenge"
+        android:layout_width="251dp"
+        android:layout_height="42dp"
+        android:backgroundTint="#176B87"
+        android:text="View On-Going Challenge"
+        android:textColor="@color/white"
+        app:cornerRadius="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFilterChallenge"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#DAFFFB"
+        android:text="Filter"
+        android:textColor="@color/black"
+        app:icon="@drawable/filter"
+        app:iconPadding="15dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/black"
+        app:layout_constraintLeft_toLeftOf="@id/btnViewChallenge"
+        app:layout_constraintTop_toBottomOf="@id/btnViewChallenge" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="15dp"
+        app:cardBackgroundColor="#04364A"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintLeft_toLeftOf="@id/btnFilterChallenge"
+        app:layout_constraintTop_toBottomOf="@id/btnFilterChallenge">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardChallenge"
+                app:cardCornerRadius="20dp"
+                android:layout_width="348dp"
+                android:layout_height="110dp"
+                app:cardBackgroundColor="#64CCC5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvChallengeId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="# Challenge 1"
+                    android:textColor="#303030" />
+
+                <TextView
+                    android:id="@+id/tvChallengeDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="35dp"
+                    android:text="Finish 5 km running under 45 minutes."
+                    android:textColor="#000000" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="65dp"
+                    android:backgroundTint="#8F8787"
+                    android:paddingHorizontal="50dp"
+                    android:text="Join Challenge"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    app:cornerRadius="12dp" />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

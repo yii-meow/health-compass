@@ -42,7 +42,7 @@
                 android:src="@drawable/big_badge" />
 
             <TextView
-                android:id="@+id/lblBadgeType"
+                android:id="@+id/tvBadgeType"
                 android:layout_width="235dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -54,7 +54,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/lblBadgeTitle"
+                android:id="@+id/tvBadgeTitle"
                 android:layout_width="235dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

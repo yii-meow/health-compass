@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAFFFB"
+    android:padding="15dp"
+    tools:context=".achievements_milestones_details">
+
+    <TextView
+        android:id="@+id/lblCongratulations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congratulations"
+        android:textColor="@color/black"
+        android:textSize="32dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="548dp"
+        android:layout_marginTop="15dp"
+        app:cardBackgroundColor="#04364A"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintLeft_toLeftOf="@id/lblCongratulations"
+        app:layout_constraintTop_toBottomOf="@id/lblCongratulations">
+
+        <FrameLayout
+            android:id="@+id/badgeFitness3Days"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblFitnessActivity">
+
+            <ImageView
+                android:id="@+id/imgBadge"
+                android:layout_width="246dp"
+                android:layout_height="301dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/big_badge" />
+
+            <TextView
+                android:id="@+id/lblBadgeType"
+                android:layout_width="235dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Fitness"
+                android:layout_marginTop="50dp"
+                android:textAlignment="center"
+                android:textColor="#64CCC5"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblBadgeTitle"
+                android:layout_width="235dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="40dp"
+                android:text="3 Days Streak"
+                android:layout_marginTop="32dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShare"
+            android:layout_width="354dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="400dp"
+            android:backgroundTint="#176B87"
+            android:text="Share to Friends"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            app:cornerRadius="13dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDownload"
+            android:layout_width="354dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="470dp"
+            android:backgroundTint="#176B87"
+            android:text="Download Image"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            app:cornerRadius="13dp" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

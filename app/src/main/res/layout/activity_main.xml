@@ -553,6 +553,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardFitnessRoutines"
             android:layout_width="380dp"
             android:layout_height="265dp"
             android:layout_marginTop="11dp"

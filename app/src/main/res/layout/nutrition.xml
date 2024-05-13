@@ -389,12 +389,11 @@
                     app:layout_constraintRight_toRightOf="@id/lblMyGoal"
                     app:layout_constraintTop_toBottomOf="@id/lblMyGoal" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditGoal"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/rounded_button"
                     android:paddingHorizontal="30dp"
                     android:text="Edit Your Goal"
                     android:textAllCaps="false"

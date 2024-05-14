@@ -3,13 +3,14 @@ package com.example.healthcompass.data.NutritionFact
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import com.example.healthcompass.BuildConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class NutritionFactViewModel(application: Application) : AndroidViewModel(application) {
     fun getNutritionFact(callBack: OnRequestCompleteCallBack, foodName: String) {
-        val apiKey = "oVoTvHEaCQNZqWcLKooNsw==571TRwPspaNGCG49"
+        val apiKey = BuildConfig.API_KEY
         val call = NutritionFactRetrofitInstance.api.getFoodNutritionFact(foodName, apiKey)
 
         call.enqueue(object : Callback<NutritionFactRespond> {

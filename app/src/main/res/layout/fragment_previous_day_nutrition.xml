@@ -150,7 +150,7 @@
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_marginLeft="10dp"
-                            android:background="@drawable/today_nutrition_circle"
+                            android:background="@drawable/nutrition_circle"
                             app:layout_constraintLeft_toRightOf="@id/flFriday"
                             app:layout_constraintTop_toTopOf="@id/flMonday">
 
@@ -187,16 +187,17 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardCaloriesGoal"
                 android:layout_width="378dp"
-                android:layout_height="83dp"
-                android:layout_marginTop="12dp"
+                android:layout_height="74dp"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#04364A"
                 app:cardCornerRadius="12dp"
                 app:layout_constraintLeft_toLeftOf="@id/lblNutritionAdvice"
                 app:layout_constraintTop_toBottomOf="@+id/cardNutrionWeekCircles">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#04364A">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
                     <TextView
                         android:id="@+id/lblCaloriesGoal"
@@ -255,6 +256,7 @@
                 android:layout_width="378dp"
                 android:layout_height="69dp"
                 android:layout_marginTop="12dp"
+                app:cardCornerRadius="12dp"
                 app:layout_constraintLeft_toLeftOf="@id/cardCaloriesGoal"
                 app:layout_constraintTop_toBottomOf="@id/cardCaloriesGoal">
 

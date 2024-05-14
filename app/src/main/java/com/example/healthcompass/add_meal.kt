@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,6 +23,11 @@ class add_meal : Fragment() {
 
         val tvMealType: TextView = view.findViewById(R.id.tvMealType)
         tvMealType.text = args.mealType
+
+        val foodSpinner : Spinner = view.findViewById(R.id.spinnerSelectFood)
+
+        // TODO: Retrieve food from api
+
 
         val btnMakeMealChanges: Button = view.findViewById(R.id.btnMakeMealChanges)
         btnMakeMealChanges.setOnClickListener {

@@ -392,12 +392,12 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditGoal"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_height="33dp"
+                    android:layout_marginTop="12dp"
                     android:paddingHorizontal="30dp"
                     android:text="Edit Your Goal"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textSize="10dp"
                     app:layout_constraintLeft_toLeftOf="@id/tvWeightGoal"
                     app:layout_constraintRight_toRightOf="@id/tvWeightGoal"
                     app:layout_constraintTop_toBottomOf="@id/tvWeightGoal" />
@@ -555,6 +555,7 @@
                     app:layout_constraintLeft_toRightOf="@id/tvLunchKcal" />
 
                 <ImageView
+                    android:id="@+id/imgLunchArrow"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/black_right_arrow"
@@ -623,6 +624,7 @@
                     app:layout_constraintLeft_toRightOf="@id/tvDinnerKcal" />
 
                 <ImageView
+                    android:id="@+id/imgDinnerArrow"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:src="@drawable/black_right_arrow"
@@ -702,6 +704,7 @@
                     app:layout_constraintLeft_toRightOf="@id/imgHydration" />
 
                 <ImageView
+                    android:id="@+id/imgAddHydration"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginRight="10dp"

@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class edit_goal : Fragment() {
+class fitness_routines : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_edit_goal, container, false)
+        val view = inflater.inflate(R.layout.fragment_fitness_routines, container, false)
+
         return view
     }
 }

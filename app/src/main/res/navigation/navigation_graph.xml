@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/mainActivity">
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.healthcompass.MainActivity"
-        android:label="MainActivity" />
+    app:startDestination="@id/summary">
+    <fragment
+        android:id="@+id/edit_goal"
+        android:name="com.example.healthcompass.edit_goal"
+        android:label="fragment_edit_goal"
+        tools:layout="@layout/fragment_edit_goal">
+    </fragment>
+    <fragment
+        android:id="@+id/summary"
+        android:name="com.example.healthcompass.summary"
+        android:label="summary" >
+        <action
+            android:id="@+id/action_summary_to_fitness_routines"
+            app:destination="@id/fitness_routines" />
+        <action
+            android:id="@+id/action_summary_to_nutrition"
+            app:destination="@id/nutrition" />
+    </fragment>
+    <fragment
+        android:id="@+id/nutrition"
+        android:name="com.example.healthcompass.nutrition"
+        android:label="nutrition" >
+        <action
+            android:id="@+id/action_nutrition_to_edit_goal"
+            app:destination="@id/edit_goal" />
+        <action
+            android:id="@+id/action_nutrition_to_add_meal"
+            app:destination="@id/add_meal" />
+        <action
+            android:id="@+id/action_nutrition_to_edit_hydration"
+            app:destination="@id/edit_hydration" />
+        <action
+            android:id="@+id/action_nutrition_to_previous_day_nutrition"
+            app:destination="@id/previous_day_nutrition" />
+    </fragment>
+    <fragment
+        android:id="@+id/fitness_routines"
+        android:name="com.example.healthcompass.fitness_routines"
+        android:label="fragment_fitness_routines"
+        tools:layout="@layout/fragment_fitness_routines" />
+    <fragment
+        android:id="@+id/add_meal"
+        android:name="com.example.healthcompass.add_meal"
+        android:label="fragment_add_meal"
+        tools:layout="@layout/fragment_add_meal" />
+    <fragment
+        android:id="@+id/edit_hydration"
+        android:name="com.example.healthcompass.edit_hydration"
+        android:label="fragment_edit_hydration"
+        tools:layout="@layout/fragment_edit_hydration" />
+    <fragment
+        android:id="@+id/previous_day_nutrition"
+        android:name="com.example.healthcompass.previous_day_nutrition"
+        android:label="fragment_previous_day_nutrition"
+        tools:layout="@layout/fragment_previous_day_nutrition" />
 </navigation>

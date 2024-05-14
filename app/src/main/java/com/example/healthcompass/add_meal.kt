@@ -6,13 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.healthcompass.data.NutritionFact.FoodItem
+import com.example.healthcompass.data.NutritionFact.NutritionFactViewModel
+import com.example.healthcompass.data.NutritionFact.OnRequestCompleteCallBack
 
 class add_meal : Fragment() {
     private val args by navArgs<add_mealArgs>()
+    private lateinit var nutritionFactViewModel : NutritionFactViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,10 +31,21 @@ class add_meal : Fragment() {
         val tvMealType: TextView = view.findViewById(R.id.tvMealType)
         tvMealType.text = args.mealType
 
+        // TODO: Retrieve food from api
         val foodSpinner : Spinner = view.findViewById(R.id.spinnerSelectFood)
 
-        // TODO: Retrieve food from api
 
+        // TODO: Retrieve Nutrition Fact of the food
+        nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
+        val imgAddFood : ImageView = view.findViewById(R.id.imgAddFood)
+
+        imgAddFood.setOnClickListener {
+            nutritionFactViewModel.getNutritionFact(object: OnRequestCompleteCallBack{
+                override fun onSuccess(list: ArrayList<FoodItem>) {
+                    Toast.makeText(requireContext(),"Retrieved nutrition fact $list",Toast.LENGTH_LONG).show()
+                }
+            },"apple")
+        }
 
         val btnMakeMealChanges: Button = view.findViewById(R.id.btnMakeMealChanges)
         btnMakeMealChanges.setOnClickListener {

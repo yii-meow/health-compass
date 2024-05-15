@@ -46,14 +46,13 @@ class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener
 
         viewModel.getFitnessActivity(object : OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
-                Toast.makeText(requireContext(), "$list", Toast.LENGTH_LONG).show()
                 fitnessActivityList = list
                 adapter.setData(fitnessActivityList)
+                Toast.makeText(requireContext(), "${adapter.itemCount}", Toast.LENGTH_LONG).show()
             }
 
             override fun onFailure(error: DatabaseError) {
                 Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
-
             }
         })
         return view

@@ -39,7 +39,6 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
 //                    fitnessActivities.add(fitnessActivity)
                 }
                 fitnessActivities.add(FitnessActivity("1", "1", 1.0, "1", "1", "1", 1.0))
-                fitnessActivitiesLiveData.postValue(fitnessActivities)
                 callback?.onSuccess(fitnessActivities)
             }
 

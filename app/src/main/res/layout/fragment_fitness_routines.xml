@@ -127,7 +127,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardWorkoutsSummary"
                     android:layout_width="358dp"
-                    android:layout_height="71dp"
+                    android:layout_height="70dp"
                     android:layout_marginTop="10dp"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintLeft_toLeftOf="@id/lblRecords"
@@ -156,7 +156,7 @@
                             android:layout_height="wrap_content"
                             android:text="Total Workouts This Week"
                             android:textColor="@color/white"
-                            android:textSize="10dp"
+                            android:textSize="12dp"
                             app:layout_constraintLeft_toLeftOf="@id/tvTotalWorkoutsThisWeek"
                             app:layout_constraintRight_toRightOf="@id/tvTotalWorkoutsThisWeek"
                             app:layout_constraintTop_toBottomOf="@id/tvTotalWorkoutsThisWeek" />
@@ -200,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:text="Total Workout Duration"
                             android:textColor="@color/white"
-                            android:textSize="10dp"
+                            android:textSize="12dp"
                             app:layout_constraintLeft_toLeftOf="@id/tvTotalWorkoutDuration"
                             app:layout_constraintRight_toRightOf="@id/lblWorkoutMin"
                             app:layout_constraintTop_toBottomOf="@id/tvTotalWorkoutDuration" />
@@ -244,7 +244,7 @@
                     android:layout_marginLeft="6dp"
                     android:text="01:00:00"
                     android:textColor="#D4C0C0"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgDuration1"
                     app:layout_constraintStart_toEndOf="@id/imgDuration1"
                     app:layout_constraintTop_toTopOf="@id/imgDuration1" />
@@ -265,7 +265,7 @@
                     android:layout_marginLeft="6dp"
                     android:text="200"
                     android:textColor="#D4C0C0"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgBurntCalories1"
                     app:layout_constraintStart_toEndOf="@id/imgDuration1"
                     app:layout_constraintTop_toTopOf="@id/imgBurntCalories1" />
@@ -273,7 +273,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginLeft="5dp"
                     android:text="kcal"
                     android:textColor="#D4C0C0"
                     android:textSize="10dp"
@@ -286,7 +286,7 @@
                     android:layout_height="wrap_content"
                     android:text="24 Mar"
                     android:textColor="#D4C0C0"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     app:layout_constraintRight_toRightOf="@id/cardWorkoutsSummary"
                     app:layout_constraintTop_toTopOf="@id/tvSport1" />
 
@@ -297,7 +297,7 @@
                     android:layout_marginTop="7dp"
                     android:text="13:00 - 15:00"
                     android:textColor="#D4C0C0"
-                    android:textSize="8dp"
+                    android:textSize="10dp"
                     app:layout_constraintRight_toRightOf="@id/tvSport1Date"
                     app:layout_constraintTop_toBottomOf="@id/tvSport1Date" />
 
@@ -305,7 +305,7 @@
                     android:id="@+id/hr1"
                     android:layout_width="358dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:background="#64CCC5"
                     app:layout_constraintLeft_toLeftOf="@id/imgRunning"
                     app:layout_constraintTop_toBottomOf="@id/imgRunning" />
@@ -348,7 +348,7 @@
                     android:layout_marginLeft="6dp"
                     android:text="01:00:00"
                     android:textColor="#D4C0C0"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgDuration2"
                     app:layout_constraintStart_toEndOf="@id/imgDuration2"
                     app:layout_constraintTop_toTopOf="@id/imgDuration2" />
@@ -369,7 +369,7 @@
                     android:layout_marginLeft="6dp"
                     android:text="400"
                     android:textColor="#D4C0C0"
-                    android:textSize="10dp"
+                    android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="@id/imgBurntCalories2"
                     app:layout_constraintStart_toEndOf="@id/imgDuration2"
                     app:layout_constraintTop_toTopOf="@id/imgBurntCalories2" />
@@ -377,7 +377,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginLeft="5dp"
                     android:text="kcal"
                     android:textColor="#D4C0C0"
                     android:textSize="10dp"
@@ -401,7 +401,7 @@
                     android:layout_marginTop="7dp"
                     android:text="13:00 - 15:00"
                     android:textColor="#D4C0C0"
-                    android:textSize="8dp"
+                    android:textSize="12dp"
                     app:layout_constraintRight_toRightOf="@id/tvSport2Date"
                     app:layout_constraintTop_toBottomOf="@id/tvSport2Date" />
 

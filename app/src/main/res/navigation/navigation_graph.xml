@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_fitness_routines_to_log_workout_record"
             app:destination="@id/log_workout_record" />
+        <action
+            android:id="@+id/action_fitness_routines_to_start_quick_workout"
+            app:destination="@id/start_quick_workout" />
     </fragment>
     <fragment
         android:id="@+id/add_meal"
@@ -91,10 +94,42 @@
         android:id="@+id/fitness_routines_list"
         android:name="com.example.healthcompass.fitness_routines_list"
         android:label="fragment_fitness_routines_list"
-        tools:layout="@layout/fragment_fitness_routines_list" />
+        tools:layout="@layout/fragment_fitness_routines_list" >
+        <action
+            android:id="@+id/action_fitness_routines_list_to_fitness_routines_details"
+            app:destination="@id/fitness_routines_details" />
+    </fragment>
     <fragment
         android:id="@+id/log_workout_record"
         android:name="com.example.healthcompass.log_workout_record"
         android:label="fragment_log_workout_record"
         tools:layout="@layout/fragment_log_workout_record" />
+    <fragment
+        android:id="@+id/done_quick_workout"
+        android:name="com.example.healthcompass.done_quick_workout"
+        android:label="fragment_done_quick_workout"
+        tools:layout="@layout/fragment_done_quick_workout" />
+    <fragment
+        android:id="@+id/start_quick_workout"
+        android:name="com.example.healthcompass.start_quick_workout"
+        android:label="fragment_start_quick_workout"
+        tools:layout="@layout/fragment_start_quick_workout" >
+        <action
+            android:id="@+id/action_start_quick_workout_to_quick_workout_timer"
+            app:destination="@id/quick_workout_timer" />
+    </fragment>
+    <fragment
+        android:id="@+id/quick_workout_timer"
+        android:name="com.example.healthcompass.quick_workout_timer"
+        android:label="fragment_quick_workout_timer"
+        tools:layout="@layout/fragment_quick_workout_timer" >
+        <action
+            android:id="@+id/action_quick_workout_timer_to_done_quick_workout"
+            app:destination="@id/done_quick_workout" />
+    </fragment>
+    <fragment
+        android:id="@+id/fitness_routines_details"
+        android:name="com.example.healthcompass.fitness_routines_details"
+        android:label="fragment_fitness_routines_details"
+        tools:layout="@layout/fragment_fitness_routines_details" />
 </navigation>

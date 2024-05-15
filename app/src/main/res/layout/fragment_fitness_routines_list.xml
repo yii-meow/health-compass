@@ -23,116 +23,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="749dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="#04364A"
-        app:layout_constraintTop_toBottomOf="@id/lblAllActivities"
-        android:layout_marginTop="16dp">
+        app:layout_constraintTop_toBottomOf="@id/lblAllActivities">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardActivity1"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="30dp"
-                app:cardBackgroundColor="#04364A"
-                app:layout_constraintTop_toTopOf="parent"
-                app:cardElevation="0dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="380dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center">
-
-                    <ImageView
-                        android:id="@+id/imgActivity1"
-                        android:layout_width="43dp"
-                        android:layout_height="55dp"
-                        android:src="@drawable/running"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvActivity1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="Running"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        android:textStyle="bold"
-                        app:layout_constraintLeft_toRightOf="@id/imgActivity1"
-                        app:layout_constraintTop_toTopOf="@id/imgActivity1" />
-
-                    <TextView
-                        android:id="@+id/tvActivity1Time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="24 Mar, 07:00"
-                        android:textColor="#D4C0C0"
-                        android:textSize="10dp"
-                        app:layout_constraintLeft_toLeftOf="@id/tvActivity1"
-                        app:layout_constraintTop_toBottomOf="@id/tvActivity1" />
-
-                    <TextView
-                        android:id="@+id/tvActivity1Duration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="01:00:00"
-                        android:textColor="#D4C0C0"
-                        android:textSize="10dp"
-                        app:layout_constraintLeft_toLeftOf="@id/tvActivity1Time"
-                        app:layout_constraintTop_toBottomOf="@id/tvActivity1Time" />
-
-                    <TextView
-                        android:id="@+id/tvActivity1Calories"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:text="200"
-                        android:textColor="#D4C0C0"
-                        android:textSize="10dp"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tvActivity1Duration"
-                        app:layout_constraintLeft_toRightOf="@id/tvActivity1Duration" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="Kcal"
-                        android:textColor="#D4C0C0"
-                        android:textSize="10dp"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tvActivity1Calories"
-                        app:layout_constraintLeft_toRightOf="@id/tvActivity1Calories" />
-                    
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:src="@drawable/grey_right_arrow"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:id="@+id/hr1"
-                android:layout_width="380dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="25dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardActivity1" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fitness_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center" />
 
     </androidx.cardview.widget.CardView>
 

@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.healthcompass.data.NutritionFact.OnRequestCompleteCallBack
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -23,7 +22,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         return fitnessActivitiesLiveData
     }
 
-    fun getFitnessActivity() {
+    fun getFitnessActivity(callback: OnRequestCompleteCallBack) {
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
         val name = "yiyi"
         val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
@@ -32,7 +31,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val fitnessActivities = mutableListOf<FitnessActivity>()
+                val fitnessActivities = arrayListOf<FitnessActivity>()
                 for (childSnapshot in snapshot.children) {
                     val hydration = childSnapshot.getValue(Int::class.java)
                     Toast.makeText(getApplication(), "$hydration", Toast.LENGTH_LONG).show()
@@ -41,6 +40,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                 }
                 fitnessActivities.add(FitnessActivity("1", "1", 1.0, "1", "1", "1", 1.0))
                 fitnessActivitiesLiveData.postValue(fitnessActivities)
+                callback?.onSuccess(fitnessActivities)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -48,4 +48,9 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
             }
         })
     }
+}
+
+interface OnRequestCompleteCallBack {
+    fun onSuccess(list: List<FitnessActivity>)
+    fun onFailure(error: DatabaseError)
 }

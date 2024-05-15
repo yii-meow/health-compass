@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
+import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
 import com.example.healthcompass.dataAdapter.FitnessListAdapter
+import com.google.firebase.database.DatabaseError
 
 class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener {
     private lateinit var viewModel: FitnessActivityViewModel
@@ -36,13 +39,23 @@ class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener
 
         viewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
 
-        viewModel.getFitnessActivitiesLiveData()
-            .observe(viewLifecycleOwner, Observer { activities ->
-                adapter.setData(activities)
-            })
-//
-        viewModel.getFitnessActivity()
+//        viewModel.getFitnessActivitiesLiveData()
+//            .observe(viewLifecycleOwner, Observer { activities ->
+////                adapter.submitList(activities)
+//            })
 
+        viewModel.getFitnessActivity(object : OnRequestCompleteCallBack {
+            override fun onSuccess(list: List<FitnessActivity>) {
+                Toast.makeText(requireContext(), "$list", Toast.LENGTH_LONG).show()
+                fitnessActivityList = list
+                adapter.setData(fitnessActivityList)
+            }
+
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+
+            }
+        })
         return view
     }
 

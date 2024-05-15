@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_summary_to_nutrition"
             app:destination="@id/nutrition" />
+        <action
+            android:id="@+id/action_summary_to_fitness_routines_list"
+            app:destination="@id/fitness_routines_list" />
     </fragment>
     <fragment
         android:id="@+id/nutrition"
@@ -41,7 +44,14 @@
         android:id="@+id/fitness_routines"
         android:name="com.example.healthcompass.fitness_routines"
         android:label="fragment_fitness_routines"
-        tools:layout="@layout/fragment_fitness_routines" />
+        tools:layout="@layout/fragment_fitness_routines" >
+        <action
+            android:id="@+id/action_fitness_routines_to_fitness_routines_list"
+            app:destination="@id/fitness_routines_list" />
+        <action
+            android:id="@+id/action_fitness_routines_to_log_workout_record"
+            app:destination="@id/log_workout_record" />
+    </fragment>
     <fragment
         android:id="@+id/add_meal"
         android:name="com.example.healthcompass.add_meal"
@@ -77,4 +87,14 @@
             android:defaultValue="2"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/fitness_routines_list"
+        android:name="com.example.healthcompass.fitness_routines_list"
+        android:label="fragment_fitness_routines_list"
+        tools:layout="@layout/fragment_fitness_routines_list" />
+    <fragment
+        android:id="@+id/log_workout_record"
+        android:name="com.example.healthcompass.log_workout_record"
+        android:label="fragment_log_workout_record"
+        tools:layout="@layout/fragment_log_workout_record" />
 </navigation>

@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.data.NutritionFact.FoodItem
 import com.example.healthcompass.data.NutritionFact.Meal
@@ -38,17 +39,6 @@ class add_meal : Fragment() {
 
         val tvMealType: TextView = view.findViewById(R.id.tvMealType)
         tvMealType.text = args.mealType
-
-        // TODO: Retrieve food from api
-//        val foodSpinner : Spinner = view.findViewById(R.id.tvSelectFood)
-//        val foodAdapter = ArrayAdapter.createFromResource(
-//            requireContext(),
-//            R.layout.custom_spinner_item
-//        )
-
-//        foodAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-
-//        foodSpinner.adapter = foodAdapter
 
         nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
 
@@ -156,6 +146,11 @@ class add_meal : Fragment() {
                 setNutrionFact(mealMap)
             }
         }
+
+        view.findViewById<Button>(R.id.btnBack).setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         return view
     }
 

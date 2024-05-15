@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:layout_marginEnd="15dp"
-            android:text=""
             android:textColor="#04364A"
+            android:textSize="22dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -221,7 +221,7 @@
                     android:id="@+id/tvBreakfastKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="300"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@id/imgBreakfast"
                     app:layout_constraintLeft_toLeftOf="@id/lblBreakfast" />
@@ -247,43 +247,7 @@
                     app:layout_constraintLeft_toRightOf="@id/lblDailyIntake"
                     app:layout_constraintTop_toBottomOf="@id/lblDailyIntake">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#04364A">
 
-                        <TextView
-                            android:id="@+id/breakfastFood1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1. Oatmilk"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/breakfastFood2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="2. Egg"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="@id/breakfastFood1"
-                            app:layout_constraintTop_toBottomOf="@+id/breakfastFood1" />
-
-                        <TextView
-                            android:id="@+id/breakfastFood3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="3. Egg"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="@id/breakfastFood2"
-                            app:layout_constraintTop_toBottomOf="@+id/breakfastFood2" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
                 <View
@@ -318,7 +282,7 @@
                     android:id="@+id/tvLunchKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="300"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@id/imgLunch"
                     app:layout_constraintLeft_toLeftOf="@id/lblLunch" />
@@ -343,44 +307,6 @@
                     app:cardBackgroundColor="#04364A"
                     app:layout_constraintLeft_toRightOf="@id/lblDailyIntake"
                     app:layout_constraintTop_toBottomOf="@id/hr1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#04364A">
-
-                        <TextView
-                            android:id="@+id/lunchFood1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1. Fish and Chip"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/lunchFood2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="1. Fish and Chip"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/lunchFood1" />
-
-                        <TextView
-                            android:id="@+id/lunchFood3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="1. Fish and Chip"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/lunchFood2" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
                 <View
@@ -415,7 +341,7 @@
                     android:id="@+id/tvDinnerKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="300"
+                    android:text="0"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@id/imgDinner"
                     app:layout_constraintLeft_toLeftOf="@id/lblDinner" />
@@ -440,44 +366,6 @@
                     app:cardBackgroundColor="#04364A"
                     app:layout_constraintLeft_toRightOf="@id/lblDailyIntake"
                     app:layout_constraintTop_toBottomOf="@id/hr2">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#04364A">
-
-                        <TextView
-                            android:id="@+id/dinnerFood1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1. Fish and Chip"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/dinnerFood2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="1. Fish and Chip"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/dinnerFood1" />
-
-                        <TextView
-                            android:id="@+id/dinnerFood3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="1. Fish and Chip"
-                            android:textColor="#FFFFFF"
-                            android:textSize="10dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/dinnerFood2" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
                 <View
@@ -544,7 +432,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/black"
                         android:paddingHorizontal="20dp"
-                        android:paddingVertical="13dp"
+                        android:paddingVertical="8dp"
                         android:text="NORMAL"
                         android:textColor="#4CAF50"
                         android:textStyle="bold" />

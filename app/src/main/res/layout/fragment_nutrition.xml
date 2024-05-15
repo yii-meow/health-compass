@@ -549,7 +549,7 @@
                     android:id="@+id/tvLunchKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="800"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold"
@@ -618,12 +618,22 @@
                     android:id="@+id/tvDinnerKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No Record"
-                    android:textColor="#FF0000"
+                    android:text="0"
+                    android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
                     app:layout_constraintTop_toTopOf="@+id/tvDinnerList" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="kcal"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvDinnerKcal"
+                    app:layout_constraintLeft_toRightOf="@id/tvDinnerKcal" />
 
                 <TextView
                     android:layout_width="wrap_content"

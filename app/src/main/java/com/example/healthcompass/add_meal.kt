@@ -53,6 +53,8 @@ class add_meal : Fragment() {
         nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
 
         val imgAddFood: ImageView = view.findViewById(R.id.imgAddFood)
+        val imgDeleteFood : ImageView = view.findViewById(R.id.imgDeleteFood)
+
         var foodCounter = 1
 
         // Add new food row
@@ -161,6 +163,7 @@ class add_meal : Fragment() {
         val nutritionRowContainer = view?.findViewById<LinearLayout>(R.id.nutritionFactContainer)
 
         val foodList = mutableListOf<FoodItem>()
+        var totalCaloriesConsumption: Double = 0.0
 
         // Iterate over each food item in the map
         for ((index, entry) in foodMap.entries.withIndex()) {
@@ -207,7 +210,11 @@ class add_meal : Fragment() {
                     newTvFoodNutritionCarbohydrates.text =
                         (food.carbohydrates_total_g * quantity).toString()
                     newTvFoodNutritionProtein.text = (food.protein_g * quantity).toString()
-                    newTvFoodNutritionCalories.text = (food.calories * quantity).toString()
+
+                    totalCaloriesConsumption += (food.calories * quantity)
+
+                    newTvFoodNutritionCalories.text =
+                        String.format("%.2f", totalCaloriesConsumption)
 
                     foodList.add(food)
                     nutritionRowContainer?.addView(newNutritionRow)
@@ -218,7 +225,7 @@ class add_meal : Fragment() {
                         val date = Date()
                         val formatter = SimpleDateFormat("yyyy-MM-dd")
                         val strDate: String = formatter.format(date)
-                        val meal = Meal(strDate, args.mealType, foodList)
+                        val meal = Meal(strDate, args.mealType, foodList, totalCaloriesConsumption)
                         addMealsToDB(meal)
                     }
                 }
@@ -230,8 +237,6 @@ class add_meal : Fragment() {
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
 
         val name = "yiyi"
-
-        Toast.makeText(requireContext(), "$meal", Toast.LENGTH_LONG).show()
 
         dbRef.child(name).child(meal.date).child(meal.mealType).setValue(meal)
             .addOnCompleteListener {

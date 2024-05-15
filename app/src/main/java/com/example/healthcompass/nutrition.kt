@@ -11,13 +11,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class nutrition : Fragment() {
-
+    private lateinit var dbRef: DatabaseReference
+    private lateinit var tvBreakfastKcal: TextView
+    private lateinit var tvLunchKcal: TextView
+    private lateinit var tvDinnerKcal: TextView
+    private lateinit var tvTotalConsumptionCalories: TextView
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_nutrition, container, false)
@@ -145,6 +156,58 @@ class nutrition : Fragment() {
             findNavController().navigate(previousNutritionAction)
         }
 
+        tvBreakfastKcal = view.findViewById(R.id.tvBreakfastKcal)
+        tvLunchKcal = view.findViewById(R.id.tvLunchKcal)
+        tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
+        tvTotalConsumptionCalories = view.findViewById(R.id.tvTotalConsumptionCalories)
+
+        fetchCaloriesConsumption()
+
         return view
+    }
+
+    private fun fetchCaloriesConsumption() {
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+
+        // Retrieve the data for today from Firebase
+        // TODO: Replace with the username or user id
+        dbRef.child("yiyi").child(currentDate)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Create a map to store the total calories consumption for each meal type
+                    val caloriesConsumptionMap = mutableMapOf<String, Double>()
+
+                    // Iterate through the dataSnapshot to calculate the total calories consumption for each meal type
+                    for (mealTypeSnapshot in dataSnapshot.children) {
+                        val mealType = mealTypeSnapshot.key.toString()
+
+                        // Retrieve the total calories consumption for the current meal type
+                        val totalCaloriesConsumption =
+                            mealTypeSnapshot.child("totalCaloriesConsumption")
+                                .getValue(Double::class.java) ?: 0.0
+
+                        // Update the calories consumption map
+                        caloriesConsumptionMap[mealType] = totalCaloriesConsumption
+                    }
+
+                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0.0)
+                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0.0)
+                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0.0)
+
+                    val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
+
+                    tvBreakfastKcal.text =
+                        breakfastKcal.toString()
+                    tvLunchKcal.text = lunchKcal.toString()
+                    tvDinnerKcal.text = dinnerKcal.toString()
+                    tvTotalConsumptionCalories.text = String.format("%.2f", totalConsumption)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Toast.makeText(requireContext(), "Error: $databaseError", Toast.LENGTH_LONG)
+                        .show()
+                }
+            })
     }
 }

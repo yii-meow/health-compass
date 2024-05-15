@@ -63,7 +63,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardAddFood"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="wrap_content"
             app:cardBackgroundColor="#04364A"
             app:layout_constraintTop_toBottomOf="@id/cardMealLabeling">
 
@@ -73,92 +73,68 @@
 
                 <TextView
                     android:id="@+id/lblSelectFood"
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="17dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Select Food"
+                    android:layout_marginTop="12dp"
+                    android:text="Food"
                     android:textColor="@color/white"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/tvSelectFood"
-                    android:layout_width="160dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="90dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:layout_width="40dp"
+                <!-- Food Row Container -->
+                <LinearLayout
+                    android:id="@+id/foodRowContainer"
+                    android:layout_width="285dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:backgroundTint="#176B87"
-                    android:gravity="center_horizontal"
-                    android:inputType="number"
-                    android:text="1"
-                    android:textColor="@color/white"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tvFoodNo"
-                    app:layout_constraintLeft_toRightOf="@id/tvSelectFood" />
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@id/lblSelectFood"
+                    app:layout_constraintTop_toTopOf="@id/lblSelectFood">
 
-                <TextView
-                    android:id="@+id/tvFoodNo"
+                    <include layout="@layout/food_row_layout" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="1."
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    app:layout_constraintRight_toLeftOf="@id/tvSelectFood"
-                    app:layout_constraintTop_toTopOf="@id/tvSelectFood" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintRight_toRightOf="@id/foodRowContainer"
+                    app:layout_constraintTop_toBottomOf="@id/foodRowContainer"
+                    >
 
-                <ImageView
-                    android:id="@+id/imgDeleteFood"
-                    android:layout_width="31dp"
-                    android:layout_height="31dp"
-                    android:layout_marginLeft="55dp"
-                    android:src="@drawable/delete"
-                    app:layout_constraintBottom_toBottomOf="@id/tvSelectFood"
-                    app:layout_constraintLeft_toRightOf="@id/tvSelectFood"
-                    app:layout_constraintTop_toTopOf="@id/tvSelectFood" />
+                    <ImageView
+                        android:id="@+id/imgAddFood"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+
+                        android:src="@drawable/green_add" />
+
+                    <TextView
+                        android:id="@+id/lblAddFood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:text="Add Food"
+                        android:textColor="@color/white"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/lblTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="120dp"
                     android:text="Time"
                     android:textColor="@color/white"
                     android:textSize="17dp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="@+id/lblSelectFood"
-                    app:layout_constraintTop_toBottomOf="@+id/lblSelectFood" />
-
-                <ImageView
-                    android:id="@+id/imgAddFood"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/green_add"
-                    app:layout_constraintLeft_toLeftOf="@id/tvSelectFood"
-                    app:layout_constraintTop_toBottomOf="@id/tvSelectFood" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:text="Add Food"
-                    android:textColor="@color/white"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/imgAddFood"
-                    app:layout_constraintLeft_toRightOf="@id/imgAddFood"
-                    app:layout_constraintTop_toTopOf="@id/imgAddFood" />
+                    app:layout_constraintTop_toBottomOf="@+id/foodRowContainer" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnTimePicker"
@@ -169,7 +145,7 @@
                     android:textColor="@color/black"
                     app:cornerRadius="5dp"
                     app:layout_constraintBottom_toBottomOf="@id/lblTime"
-                    app:layout_constraintLeft_toLeftOf="@id/tvSelectFood"
+                    app:layout_constraintLeft_toLeftOf="@id/foodRowContainer"
                     app:layout_constraintTop_toTopOf="@id/lblTime" />
 
                 <TextView
@@ -234,14 +210,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Automatically generated by system for your food(s)."
+                    android:text="Automatically generated by system for your meal(s)."
                     android:textColor="#F2E6E6"
                     android:textSize="12dp"
                     app:layout_constraintLeft_toLeftOf="@id/imgNutritionFact"
                     app:layout_constraintTop_toBottomOf="@id/imgNutritionFact" />
 
                 <TextView
-                    android:id="@+id/tvFoodNo"
+                    android:id="@+id/tvNutritionFoodNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
@@ -259,8 +235,8 @@
                     android:text="Fish &amp; Chip"
                     android:textColor="@color/white"
                     android:textSize="24dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tvFoodNo"
-                    app:layout_constraintLeft_toRightOf="@id/tvFoodNo" />
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvNutritionFoodNo"
+                    app:layout_constraintLeft_toRightOf="@id/tvNutritionFoodNo" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -290,8 +266,8 @@
                     android:layout_marginTop="30dp"
                     android:text="Total Fat (g)"
                     android:textColor="@color/white"
-                    app:layout_constraintLeft_toLeftOf="@id/tvFoodNo"
-                    app:layout_constraintTop_toBottomOf="@id/tvFoodNo" />
+                    app:layout_constraintLeft_toLeftOf="@id/tvNutritionFoodNo"
+                    app:layout_constraintTop_toBottomOf="@id/tvNutritionFoodNo" />
 
                 <TextView
                     android:id="@+id/lblCarbohydrates"
@@ -300,8 +276,8 @@
                     android:layout_marginTop="85dp"
                     android:text="Total Carbohydrates (g)"
                     android:textColor="@color/white"
-                    app:layout_constraintLeft_toLeftOf="@id/tvFoodNo"
-                    app:layout_constraintTop_toBottomOf="@id/tvFoodNo" />
+                    app:layout_constraintLeft_toLeftOf="@id/tvNutritionFoodNo"
+                    app:layout_constraintTop_toBottomOf="@id/tvNutritionFoodNo" />
 
                 <TextView
                     android:id="@+id/lblProtein"
@@ -310,8 +286,8 @@
                     android:layout_marginTop="140dp"
                     android:text="Protein (g)"
                     android:textColor="@color/white"
-                    app:layout_constraintLeft_toLeftOf="@id/tvFoodNo"
-                    app:layout_constraintTop_toBottomOf="@id/tvFoodNo" />
+                    app:layout_constraintLeft_toLeftOf="@id/tvNutritionFoodNo"
+                    app:layout_constraintTop_toBottomOf="@id/tvNutritionFoodNo" />
 
                 <TextView
                     android:id="@+id/lblCalories"
@@ -320,8 +296,8 @@
                     android:layout_marginTop="195dp"
                     android:text="Calories  (kcal)"
                     android:textColor="@color/white"
-                    app:layout_constraintLeft_toLeftOf="@id/tvFoodNo"
-                    app:layout_constraintTop_toBottomOf="@id/tvFoodNo" />
+                    app:layout_constraintLeft_toLeftOf="@id/tvNutritionFoodNo"
+                    app:layout_constraintTop_toBottomOf="@id/tvNutritionFoodNo" />
 
                 <TextView
                     android:id="@+id/tvFood1Fat"

@@ -6,19 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Spinner
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.data.NutritionFact.FoodItem
 import com.example.healthcompass.data.NutritionFact.NutritionFactViewModel
 import com.example.healthcompass.data.NutritionFact.OnRequestCompleteCallBack
-import org.w3c.dom.Text
 import java.util.Calendar
 
 class add_meal : Fragment() {
@@ -46,31 +44,47 @@ class add_meal : Fragment() {
 
 //        foodSpinner.adapter = foodAdapter
 
-
-        // TODO: Retrieve Nutrition Fact of the food
         nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
+
         val imgAddFood: ImageView = view.findViewById(R.id.imgAddFood)
+        var foodCounter = 1
 
+        // Add new food row
         imgAddFood.setOnClickListener {
-            nutritionFactViewModel.getNutritionFact(object : OnRequestCompleteCallBack {
-                override fun onSuccess(list: ArrayList<FoodItem>) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Retrieved nutrition fact $list",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }, "apple")
-        }
+            val tvSelectedFood: EditText = view.findViewById(R.id.tvSelectFood)
+            val tvFoodQuantity: EditText = view.findViewById(R.id.tvFoodQuantity)
 
-        val btnMakeMealChanges: Button = view.findViewById(R.id.btnMakeMealChanges)
-        btnMakeMealChanges.setOnClickListener {
-            findNavController().navigate(R.id.action_add_meal_to_nutrition)
+            // Validate if food name and quantity are not empty
+            val foodName = tvSelectedFood.text.toString()
+            val foodQuantity = tvFoodQuantity.text.toString().toIntOrNull()
+
+            if (foodName.isNotEmpty() && foodQuantity != null) {
+                foodCounter++
+                val foodRowContainer = view.findViewById<LinearLayout>(R.id.foodRowContainer)
+                val newFoodRow = layoutInflater.inflate(R.layout.food_row_layout, null)
+
+                val newTvFoodNo = newFoodRow.findViewById<TextView>(R.id.tvFoodNo)
+                newTvFoodNo.text = (foodCounter).toString() + ")"
+
+                foodRowContainer.addView(newFoodRow)
+
+                val newImgDeleteFood = newFoodRow.findViewById<ImageView>(R.id.imgDeleteFood)
+
+                newImgDeleteFood.setOnClickListener {
+                    foodRowContainer.removeView(newFoodRow)
+                    foodCounter--
+                }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Please enter valid food name and quantity",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         // Pick Time
         val btnPickTime: Button = view.findViewById(R.id.btnTimePicker)
-        val tvMealTime: TextView = view.findViewById(R.id.tvMealTime)
 
         btnPickTime.setOnClickListener {
             val c = Calendar.getInstance()
@@ -87,10 +101,62 @@ class add_meal : Fragment() {
                 minute,
                 false
             )
-
             timePickerDialog.show()
+        }
+
+        val btnMakeMealChanges: Button = view.findViewById(R.id.btnMakeMealChanges)
+        val mealMap = mutableMapOf<String, Int>()
+
+        btnMakeMealChanges.setOnClickListener {
+            val foodRowContainer = view.findViewById<LinearLayout>(R.id.foodRowContainer)
+
+            var filledDetails = true
+
+            // Get all meals
+            for (i in 0 until foodRowContainer.childCount) {
+                val foodRow = foodRowContainer.getChildAt(i)
+                val tvSelectedFood = foodRow.findViewById<EditText>(R.id.tvSelectFood)
+                val tvFoodQuantity = foodRow.findViewById<EditText>(R.id.tvFoodQuantity)
+
+                val foodName = tvSelectedFood.text.toString()
+                val foodQuantity = tvFoodQuantity.text.toString().toIntOrNull()
+
+                // Ensure both food name and quantity are not empty
+                if (foodName.isNotEmpty() && foodQuantity != null) {
+                    mealMap[foodName] = foodQuantity
+                } else {
+                    filledDetails = false
+                    Toast.makeText(
+                        requireContext(),
+                        "Please ensure food is not empty!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    break
+                }
+            }
+
+            if (filledDetails && btnPickTime.text != "Pick Time") {
+                getNutrionFact(mealMap)
+            }
         }
 
         return view
     }
+
+    private fun getNutrionFact(foodMap: MutableMap<String, Int>) {
+        // Iterate over each food item in the map
+        for ((foodName, quantity) in foodMap) {
+            // Retrieve Nutrition Fact of the food
+            nutritionFactViewModel.getNutritionFact(object : OnRequestCompleteCallBack {
+                override fun onSuccess(list: ArrayList<FoodItem>) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Retrieved nutrition fact for $foodName: $list",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }, foodName)
+        }
+    }
+
 }

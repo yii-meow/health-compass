@@ -27,8 +27,8 @@
             android:id="@+id/cardMealLabeling"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            app:cardBackgroundColor="@color/black"
             android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/lblAddMeal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,7 +63,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardAddFood"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="210dp"
             app:cardBackgroundColor="#04364A"
             app:layout_constraintTop_toBottomOf="@id/cardMealLabeling">
 
@@ -84,13 +84,14 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Spinner
-                    android:id="@+id/spinnerSelectFood"
+                <EditText
+                    android:id="@+id/tvSelectFood"
                     android:layout_width="160dp"
                     android:layout_height="30dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="90dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/lblSelectFood"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:layout_width="40dp"
@@ -101,10 +102,11 @@
                     android:inputType="number"
                     android:text="1"
                     android:textColor="@color/white"
-                    app:layout_constraintBaseline_toBaselineOf="@id/spinnerSelectFood"
-                    app:layout_constraintLeft_toRightOf="@id/spinnerSelectFood" />
+                    app:layout_constraintBaseline_toBaselineOf="@id/tvFoodNo"
+                    app:layout_constraintLeft_toRightOf="@id/tvSelectFood" />
 
                 <TextView
+                    android:id="@+id/tvFoodNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -112,8 +114,8 @@
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
-                    app:layout_constraintBaseline_toBaselineOf="@id/spinnerSelectFood"
-                    app:layout_constraintRight_toLeftOf="@id/spinnerSelectFood" />
+                    app:layout_constraintRight_toLeftOf="@id/tvSelectFood"
+                    app:layout_constraintTop_toTopOf="@id/tvSelectFood" />
 
                 <ImageView
                     android:id="@+id/imgDeleteFood"
@@ -121,9 +123,9 @@
                     android:layout_height="31dp"
                     android:layout_marginLeft="55dp"
                     android:src="@drawable/delete"
-                    app:layout_constraintBottom_toBottomOf="@id/spinnerSelectFood"
-                    app:layout_constraintLeft_toRightOf="@id/spinnerSelectFood"
-                    app:layout_constraintTop_toTopOf="@id/spinnerSelectFood" />
+                    app:layout_constraintBottom_toBottomOf="@id/tvSelectFood"
+                    app:layout_constraintLeft_toRightOf="@id/tvSelectFood"
+                    app:layout_constraintTop_toTopOf="@id/tvSelectFood" />
 
                 <TextView
                     android:id="@+id/lblTime"
@@ -137,22 +139,14 @@
                     app:layout_constraintLeft_toLeftOf="@+id/lblSelectFood"
                     app:layout_constraintTop_toBottomOf="@+id/lblSelectFood" />
 
-                <Spinner
-                    android:id="@+id/datePicker"
-                    android:layout_width="160dp"
-                    android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@id/lblTime"
-                    app:layout_constraintLeft_toLeftOf="@id/spinnerSelectFood"
-                    app:layout_constraintTop_toTopOf="@id/lblTime" />
-
                 <ImageView
                     android:id="@+id/imgAddFood"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="15dp"
                     android:src="@drawable/green_add"
-                    app:layout_constraintLeft_toLeftOf="@id/spinnerSelectFood"
-                    app:layout_constraintTop_toBottomOf="@id/spinnerSelectFood" />
+                    app:layout_constraintLeft_toLeftOf="@id/tvSelectFood"
+                    app:layout_constraintTop_toBottomOf="@id/tvSelectFood" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,6 +159,28 @@
                     app:layout_constraintBottom_toBottomOf="@id/imgAddFood"
                     app:layout_constraintLeft_toRightOf="@id/imgAddFood"
                     app:layout_constraintTop_toTopOf="@id/imgAddFood" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTimePicker"
+                    android:layout_width="180dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#DAFFFB"
+                    android:text="Pick Time"
+                    android:textColor="@color/black"
+                    app:cornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/lblTime"
+                    app:layout_constraintLeft_toLeftOf="@id/tvSelectFood"
+                    app:layout_constraintTop_toTopOf="@id/lblTime" />
+
+                <TextView
+                    android:id="@+id/tvMealTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    app:layout_constraintLeft_toLeftOf="@id/btnTimePicker"
+                    app:layout_constraintTop_toBottomOf="@id/btnTimePicker" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -179,8 +195,7 @@
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardAddFood"
-            />
+            app:layout_constraintTop_toBottomOf="@id/cardAddFood" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

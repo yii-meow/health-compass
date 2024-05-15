@@ -135,28 +135,58 @@ class add_meal : Fragment() {
                 }
             }
 
-            if (filledDetails && btnPickTime.text != "Pick Time") {
-                getNutrionFact(mealMap)
+            if (btnPickTime.text == "Pick Time") {
+                Toast.makeText(
+                    requireContext(),
+                    "Please ensure time is not empty!",
+                    Toast.LENGTH_LONG
+                ).show()
+                filledDetails = false
+            }
+
+            if (filledDetails) {
+                setNutrionFact(mealMap)
             }
         }
-
         return view
     }
 
-    private fun getNutrionFact(foodMap: MutableMap<String, Int>) {
+    private fun setNutrionFact(foodMap: MutableMap<String, Int>) {
+        val nutritionRowContainer = view?.findViewById<LinearLayout>(R.id.nutritionFactContainer)
         // Iterate over each food item in the map
-        for ((foodName, quantity) in foodMap) {
+        for ((index, entry) in foodMap.entries.withIndex()) {
+            val foodName = entry.key
+            val quantity = entry.value
+
+            val newNutritionRow = layoutInflater.inflate(R.layout.nutrition_row_layout, null)
+            val newTvFoodNutritionNo =
+                newNutritionRow.findViewById<TextView>(R.id.tvNutritionFoodNo)
+            val newTvFoodNutritionNameNo = newNutritionRow.findViewById<TextView>(R.id.tvFood)
+            val newTvFoodNutritionQuantity =
+                newNutritionRow.findViewById<TextView>(R.id.tvFoodQuantity)
+            val newTvFoodNutritionFat = newNutritionRow.findViewById<TextView>(R.id.tvFoodFat)
+            val newTvFoodNutritionCarbohydrates =
+                newNutritionRow.findViewById<TextView>(R.id.tvFoodCarbohydrates)
+            val newTvFoodNutritionProtein =
+                newNutritionRow.findViewById<TextView>(R.id.tvFoodProtein)
+            val newTvFoodNutritionCalories =
+                newNutritionRow.findViewById<TextView>(R.id.tvFoodCalories)
+
             // Retrieve Nutrition Fact of the food
             nutritionFactViewModel.getNutritionFact(object : OnRequestCompleteCallBack {
                 override fun onSuccess(list: ArrayList<FoodItem>) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Retrieved nutrition fact for $foodName: $list",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    val rs = list[0]
+                    newTvFoodNutritionNo.text = (index + 1).toString()
+                    newTvFoodNutritionNameNo.text = rs.name.capitalize()
+                    newTvFoodNutritionQuantity.text = quantity.toString()
+                    newTvFoodNutritionFat.text = (rs.fat_total_g * quantity).toString()
+                    newTvFoodNutritionCarbohydrates.text =
+                        (rs.carbohydrates_total_g * quantity).toString()
+                    newTvFoodNutritionProtein.text = (rs.protein_g * quantity).toString()
+                    newTvFoodNutritionCalories.text = (rs.calories * quantity).toString()
                 }
             }, foodName)
+            nutritionRowContainer?.addView(newNutritionRow)
         }
     }
-
 }

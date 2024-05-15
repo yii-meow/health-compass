@@ -162,6 +162,7 @@ class nutrition : Fragment() {
         tvTotalConsumptionCalories = view.findViewById(R.id.tvTotalConsumptionCalories)
 
         fetchCaloriesConsumption()
+        fetchHydrationIntake()
 
         return view
     }
@@ -210,4 +211,37 @@ class nutrition : Fragment() {
                 }
             })
     }
+
+    private fun fetchHydrationIntake() {
+        val name = "yiyi"
+        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal").child(name).child(date)
+            .child("Hydration")
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val hydrationIntake = snapshot.getValue(Int::class.java)
+                displayHydrationIntake(
+                    hydrationIntake ?: 0
+                ) // Call function to display hydration intake
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    requireContext(),
+                    "Error fetching hydration : $error",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
+    private fun displayHydrationIntake(hydrationIntake: Int) {
+        // Find the TextView in your nutrition.xml layout
+        val hydrationTextView = requireActivity().findViewById<TextView>(R.id.tvTodayHydration)
+
+        // Update the TextView with the hydration intake value
+        hydrationTextView.text = (hydrationIntake.toDouble() / 1000).toString()
+    }
+
 }

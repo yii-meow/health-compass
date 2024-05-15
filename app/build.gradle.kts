@@ -1,11 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-<<<<<<< Updated upstream
     id("androidx.navigation.safeargs")
-=======
     id("com.google.gms.google-services")
->>>>>>> Stashed changes
 }
 
 android {

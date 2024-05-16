@@ -12,13 +12,18 @@ import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.data.FitnessActivity.FitnessActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.Calendar
 
 
 class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var tvDatePicker: TextView
+    private lateinit var dbRef: DatabaseReference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +44,7 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         fitnessActivitiesSpinner.adapter = adapter
 
         val tvDurationPicker: TextView = view.findViewById(R.id.durationPicker)
-        val tvDistancePicker: TextView = view.findViewById(R.id.distancePicker)
+        val tvDistance: TextView = view.findViewById(R.id.tvDistance)
         tvDatePicker = view.findViewById(R.id.datePicker)
         val tvStartTimePicker: TextView = view.findViewById(R.id.startTimePicker)
 
@@ -57,8 +62,9 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         // Distance
-
-
+//        tvDistance.setOnClickListener{
+//
+//
         // Date
         tvDatePicker.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
@@ -89,6 +95,14 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
             timePickerDialog.show()
         }
 
+        // If everything is fine and pass the validations
+        val btnLogRecord : Button = view.findViewById(R.id.btnLogRecord)
+
+        btnLogRecord.setOnClickListener{
+            val fitnessActivity = FitnessActivity("Running","16 May 2024",100.0,"17:00","17:10","10:00",1.5)
+            logWorkoutRecord(fitnessActivity)
+        }
+
         view.findViewById<Button>(R.id.btnBack).setOnClickListener {
             findNavController().popBackStack()
         }
@@ -97,6 +111,19 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        tvDatePicker.text = "$dayOfMonth/${month+1}/$year"
+        tvDatePicker.text = "$dayOfMonth/${month + 1}/$year"
+    }
+
+    private fun logWorkoutRecord(fitnessActivity: FitnessActivity) {
+        dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
+        val name = "yiyi"
+        dbRef.child(name).child(fitnessActivity.activityDate).child(fitnessActivity.startTime).setValue(fitnessActivity)
+            .addOnCompleteListener {
+                Toast.makeText(requireContext(), "Added fitness record successfully!", Toast.LENGTH_LONG)
+                    .show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG).show()
+            }
     }
 }

@@ -137,11 +137,13 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lblDuration" />
 
-            <TextView
-                android:id="@+id/distancePicker"
+            <EditText
+                android:inputType="numberDecimal"
+                android:id="@+id/tvDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose distance..."
+                android:hint="Choose distance..."
+                android:textColorHint="#9F9F9F"
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblDistance"
@@ -211,6 +213,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLogRecord"
         android:layout_width="380dp"
         android:layout_height="70dp"
         android:layout_marginTop="30dp"

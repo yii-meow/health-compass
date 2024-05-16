@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import org.w3c.dom.Text
 import java.util.Calendar
 
 
@@ -96,10 +97,25 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         // If everything is fine and pass the validations
-        val btnLogRecord : Button = view.findViewById(R.id.btnLogRecord)
+        val btnLogRecord: Button = view.findViewById(R.id.btnLogRecord)
 
-        btnLogRecord.setOnClickListener{
-            val fitnessActivity = FitnessActivity("Running","16 May 2024",100.0,"17:00","17:10","10:00",1.5)
+        btnLogRecord.setOnClickListener {
+            val activityName: String =
+                fitnessActivitiesSpinner.selectedItem.toString()
+            val activityDate: String = tvDatePicker.text.toString()
+            val tvStartTime: String = tvStartTimePicker.text.toString()
+            val duration: String = tvDurationPicker.text.toString()
+            val distance: Double = tvDistance.text.toString().toDouble()
+
+            val fitnessActivity = FitnessActivity(
+                activityName,
+                activityDate,
+                100.0,
+                tvStartTime,
+                "17:10",
+                "10:00",
+                distance
+            )
             logWorkoutRecord(fitnessActivity)
         }
 
@@ -117,13 +133,19 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun logWorkoutRecord(fitnessActivity: FitnessActivity) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
         val name = "yiyi"
-        dbRef.child(name).child(fitnessActivity.activityDate).child(fitnessActivity.startTime).setValue(fitnessActivity)
+        dbRef.child(name).child(fitnessActivity.activityDate).child(fitnessActivity.startTime)
+            .setValue(fitnessActivity)
             .addOnCompleteListener {
-                Toast.makeText(requireContext(), "Added fitness record successfully!", Toast.LENGTH_LONG)
+                Toast.makeText(
+                    requireContext(),
+                    "Added fitness record successfully!",
+                    Toast.LENGTH_LONG
+                )
                     .show()
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG)
+                    .show()
             }
     }
 }

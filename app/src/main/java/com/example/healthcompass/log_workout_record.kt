@@ -44,7 +44,6 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         )
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-
         fitnessActivitiesSpinner.adapter = adapter
 
         val tvDurationPicker: TextView = view.findViewById(R.id.durationPicker)
@@ -100,27 +99,60 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
             timePickerDialog.show()
         }
 
-        // If everything is fine and pass the validations
         val btnLogRecord: Button = view.findViewById(R.id.btnLogRecord)
 
         btnLogRecord.setOnClickListener {
+            // Default is Running
             val activityName: String =
                 fitnessActivitiesSpinner.selectedItem.toString()
+
+            val duration: String = tvDurationPicker.text.toString()
             val activityDate: String = tvDatePicker.text.toString()
             val tvStartTime: String = tvStartTimePicker.text.toString()
-            val duration: String = tvDurationPicker.text.toString()
 
-            val endTime = calculateEndTime(tvStartTime, duration)
+            var validation = true
 
-            val fitnessActivity = FitnessActivity(
-                activityName,
-                activityDate,
-                calculateWorkoutCalories(duration),
-                tvStartTime,
-                endTime,
-                duration,
-            )
-            logWorkoutRecord(fitnessActivity)
+            if (duration == "Pick duration...") {
+                Toast.makeText(
+                    requireContext(),
+                    "Please fill out the activity duration!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                validation = false
+            }
+
+            // Validate all details are filled
+            if (activityDate == "Choose date...") {
+                Toast.makeText(
+                    requireContext(),
+                    "Please fill out the activity date!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                validation = false
+            }
+
+            if (tvStartTime == "Choose time...") {
+                Toast.makeText(
+                    requireContext(),
+                    "Please fill out the activity start time!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                validation = false
+            }
+
+            if (validation) {
+                val endTime = calculateEndTime(tvStartTime, duration)
+
+                val fitnessActivity = FitnessActivity(
+                    activityName,
+                    activityDate,
+                    calculateWorkoutCalories(duration),
+                    tvStartTime,
+                    endTime,
+                    duration,
+                )
+                logWorkoutRecord(fitnessActivity)
+            }
         }
 
         view.findViewById<Button>(R.id.btnBack).setOnClickListener {
@@ -172,6 +204,9 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
                     Toast.LENGTH_LONG
                 )
                     .show()
+                val action =
+                    log_workout_recordDirections.actionLogWorkoutRecordToFitnessRoutinesDetails()
+
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG)
@@ -179,9 +214,7 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
             }
     }
 
-    private fun calculateWorkoutCalories(duration: String): Double {
-        Toast.makeText(requireContext(), "$duration", Toast.LENGTH_LONG).show()
-
+    private fun calculateWorkoutCalories(duration: String): Int {
         val parts = duration.split(":")
         val hours = parts[0].toDouble() + parts[1].toDouble() / 60.0
 
@@ -190,6 +223,6 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         val MET = 7.0
 
         val caloriesPerKgHour = weight * MET
-        return String.format("%.2f", caloriesPerKgHour * hours).toDouble()
+        return (caloriesPerKgHour * hours).toInt()
     }
 }

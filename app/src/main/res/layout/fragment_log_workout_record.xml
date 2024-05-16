@@ -110,7 +110,7 @@
                 android:id="@+id/durationPicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Pick duration..."
+                android:text="Pick duration..."
                 android:textColor="#9F9F9F"
                 android:textColorHint="#9F9F9F"
                 android:textSize="16dp"

@@ -103,7 +103,11 @@
         android:id="@+id/log_workout_record"
         android:name="com.example.healthcompass.log_workout_record"
         android:label="fragment_log_workout_record"
-        tools:layout="@layout/fragment_log_workout_record" />
+        tools:layout="@layout/fragment_log_workout_record" >
+        <action
+            android:id="@+id/action_log_workout_record_to_fitness_routines_details"
+            app:destination="@id/fitness_routines_details" />
+    </fragment>
     <fragment
         android:id="@+id/done_quick_workout"
         android:name="com.example.healthcompass.done_quick_workout"

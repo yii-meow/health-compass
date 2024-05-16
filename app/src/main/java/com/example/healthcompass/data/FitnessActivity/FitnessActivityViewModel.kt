@@ -42,7 +42,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                         val activityValues = activitySnapshot.value as Map<String, Any>
                         val activityName = activityValues["activityName"] as String
                         val activityDate = activityValues["activityDate"] as String
-                        val caloriesBurnt = (activityValues["caloriesBurnt"] as Long).toDouble()
+                        val caloriesBurnt = (activityValues["caloriesBurnt"] as Long).toInt()
                         val startTime = activityValues["startTime"] as String
                         val endTime = activityValues["endTime"] as String
                         val duration = activityValues["duration"] as String
@@ -59,7 +59,6 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                         fitnessActivities.add(fitnessActivity)
                     }
                 }
-                Log.d("fitness", fitnessActivities.toString())
                 callback?.onSuccess(fitnessActivities)
             }
 

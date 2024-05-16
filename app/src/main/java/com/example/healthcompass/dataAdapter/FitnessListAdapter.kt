@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthcompass.R
@@ -19,6 +20,7 @@ class FitnessListAdapter(private val listener: OnItemClickListener) :
         val tvActivityTime: TextView = itemView.findViewById(R.id.tvActivityTime)
         val tvActivityDuration: TextView = itemView.findViewById(R.id.tvActivityDuration)
         val tvActivityCalories: TextView = itemView.findViewById(R.id.tvActivityCalories)
+        val imgActivity : ImageView = itemView.findViewById(R.id.imgActivity)
 
         init {
             itemView.setOnClickListener(this)
@@ -47,6 +49,14 @@ class FitnessListAdapter(private val listener: OnItemClickListener) :
         holder.tvActivityTime.text = currentItem.activityDate
         holder.tvActivityDuration.text = currentItem.duration
         holder.tvActivityCalories.text = currentItem.caloriesBurnt.toString()
+
+        // TODO: Add Activity Image
+        when(holder.tvActivity.text){
+            "Running","Jogging","Treadmill" -> holder.imgActivity.setBackgroundResource(R.drawable.running)
+            "Walking" -> holder.imgActivity.setBackgroundResource(R.drawable.walking)
+            "Badminton" -> holder.imgActivity.setBackgroundResource(R.drawable.badminton)
+            "Cycling" -> holder.imgActivity.setBackgroundResource(R.drawable.cycling)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -163,11 +163,10 @@
                 app:layout_constraintTop_toBottomOf="@id/tvActivityPace" />
 
             <EditText
-                android:id="@+id/editTextNote"
+                android:id="@+id/tvNote"
                 android:layout_width="390dp"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_marginTop="50dp"
-                android:ems="10"
                 android:inputType="text"
                 android:text="How do you feel about this ?"
                 android:textColor="#C7C2C2"
@@ -176,12 +175,15 @@
 
             <Button
                 android:layout_width="111dp"
-                android:layout_height="29dp"
+                android:layout_height="42dp"
                 android:background="@color/black"
                 android:text="Add Note"
                 android:textColor="#73CCFF"
-                app:layout_constraintRight_toRightOf="@id/editTextNote"
-                app:layout_constraintTop_toTopOf="@id/editTextNote" />
+                android:layout_marginBottom="20dp"
+                app:layout_constraintRight_toRightOf="@id/tvNote"
+                app:layout_constraintTop_toTopOf="@id/tvNote"
+                app:layout_constraintBottom_toBottomOf="@id/tvNote"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

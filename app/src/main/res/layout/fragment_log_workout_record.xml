@@ -7,11 +7,25 @@
     android:background="#DAFFFB"
     tools:context=".log_workout_record">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#DAFFFB"
+        android:gravity="center_horizontal"
+        app:icon="@drawable/baseline_arrow_back_24"
+        app:iconSize="33dp"
+        app:iconTint="@color/black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/lblLogWorkoutRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
         android:text="Log Workout Record"
         android:textColor="@color/black"
         android:textSize="32dp"
@@ -62,13 +76,11 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvActivity"
+            <Spinner
+                android:id="@+id/spinnerFitnessActivities"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
-                android:text="Running"
-                android:textColor="#9F9F9F"
+                android:text="Choose activity..."
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblChooseActivity"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -97,12 +109,11 @@
                 android:id="@+id/tvDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
                 android:text="00:45:00"
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblDuration"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintLeft_toLeftOf="@id/spinnerFitnessActivities" />
 
             <View
                 android:id="@+id/hr2"
@@ -128,12 +139,11 @@
                 android:id="@+id/tvDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
                 android:text="3.30 km"
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblDistance"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintLeft_toLeftOf="@id/spinnerFitnessActivities" />
 
             <View
                 android:id="@+id/hr3"
@@ -159,12 +169,11 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
                 android:text="2024/03/20"
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblDate"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintLeft_toLeftOf="@id/spinnerFitnessActivities"/>
 
             <View
                 android:id="@+id/hr4"
@@ -190,21 +199,20 @@
                 android:id="@+id/tvStartTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
                 android:text="17:25"
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblStartTime"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintLeft_toLeftOf="@id/spinnerFitnessActivities" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="380dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:text="DONE"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:text="Save Workout Record"
         android:textSize="24dp"
         app:cornerRadius="17dp"
         app:layout_constraintLeft_toLeftOf="parent"

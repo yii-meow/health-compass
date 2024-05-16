@@ -1,80 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="380dp"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="15dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
-            android:id="@+id/imgActivity"
-            android:layout_width="43dp"
-            android:layout_height="55dp"
-            android:src="@drawable/running"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imgActivity"
+        android:layout_width="43dp"
+        android:layout_height="55dp"
+        android:src="@drawable/running"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Running"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/imgActivity"
-            app:layout_constraintTop_toTopOf="@id/imgActivity" />
+    <TextView
+        android:id="@+id/tvActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="Running"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/imgActivity"
+        app:layout_constraintTop_toTopOf="@id/imgActivity" />
 
-        <TextView
-            android:id="@+id/tvActivityTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="24 Mar, 07:00"
-            android:textColor="#D4C0C0"
-            android:textSize="10dp"
-            app:layout_constraintLeft_toLeftOf="@id/tvActivity"
-            app:layout_constraintTop_toBottomOf="@id/tvActivity" />
+    <TextView
+        android:id="@+id/tvActivityTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="24 Mar, 07:00"
+        android:textColor="#D4C0C0"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toLeftOf="@id/tvActivity"
+        app:layout_constraintTop_toBottomOf="@id/tvActivity" />
 
-        <TextView
-            android:id="@+id/tvActivityDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="01:00:00"
-            android:textColor="#D4C0C0"
-            android:textSize="10dp"
-            app:layout_constraintLeft_toLeftOf="@id/tvActivityTime"
-            app:layout_constraintTop_toBottomOf="@id/tvActivityTime" />
+    <TextView
+        android:id="@+id/tvActivityDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="01:00:00"
+        android:textColor="#D4C0C0"
+        android:textSize="10dp"
+        app:layout_constraintLeft_toLeftOf="@id/tvActivityTime"
+        app:layout_constraintTop_toBottomOf="@id/tvActivityTime" />
 
-        <TextView
-            android:id="@+id/tvActivityCalories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="200"
-            android:textColor="#D4C0C0"
-            android:textSize="10dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDuration"
-            app:layout_constraintLeft_toRightOf="@id/tvActivityDuration" />
+    <TextView
+        android:id="@+id/tvActivityCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="200"
+        android:textColor="#D4C0C0"
+        android:textSize="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDuration"
+        app:layout_constraintLeft_toRightOf="@id/tvActivityDuration" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Kcal"
-            android:textColor="#D4C0C0"
-            android:textSize="10dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/tvActivityCalories"
-            app:layout_constraintLeft_toRightOf="@id/tvActivityCalories" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="Kcal"
+        android:textColor="#D4C0C0"
+        android:textSize="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvActivityCalories"
+        app:layout_constraintLeft_toRightOf="@id/tvActivityCalories" />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/grey_right_arrow"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/grey_right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

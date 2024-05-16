@@ -33,12 +33,13 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
             override fun onDataChange(snapshot: DataSnapshot) {
                 val fitnessActivities = arrayListOf<FitnessActivity>()
                 for (childSnapshot in snapshot.children) {
-                    val hydration = childSnapshot.getValue(Int::class.java)
-                    Toast.makeText(getApplication(), "$hydration", Toast.LENGTH_LONG).show()
-//                    val fitnessActivity = FitnessActivity("Hydration", hydration ?: 0)
+//                    val fitnessActivity = FitnessActivity(null)
 //                    fitnessActivities.add(fitnessActivity)
                 }
                 fitnessActivities.add(FitnessActivity("1", "1", 1.0, "1", "1", "1", 1.0))
+
+
+
                 callback?.onSuccess(fitnessActivities)
             }
 

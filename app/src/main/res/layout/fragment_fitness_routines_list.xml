@@ -7,6 +7,19 @@
     android:background="#DAFFFB"
     tools:context=".fitness_routines_list">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:iconSize="40dp"
+        android:gravity="center_horizontal"
+        android:backgroundTint="#DAFFFB"
+        app:iconTint="@color/black"
+        android:layout_marginTop="8dp"
+        app:icon="@drawable/baseline_arrow_back_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/lblAllActivities"
         android:layout_width="wrap_content"
@@ -30,6 +43,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fitness_recyclerView"
                 android:layout_width="0dp"
@@ -39,6 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_gravity="center" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

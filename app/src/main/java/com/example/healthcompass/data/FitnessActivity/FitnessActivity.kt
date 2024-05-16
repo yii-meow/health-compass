@@ -7,5 +7,4 @@ data class FitnessActivity(
     val startTime: String,
     val endTime: String,
     val duration: String,
-    val distance: Double
 )

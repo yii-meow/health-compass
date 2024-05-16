@@ -1,5 +1,6 @@
 package com.example.healthcompass
 
+import DurationPickerDialogFragment
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -19,7 +20,9 @@ import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import org.w3c.dom.Text
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 
 
 class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
@@ -45,27 +48,26 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         fitnessActivitiesSpinner.adapter = adapter
 
         val tvDurationPicker: TextView = view.findViewById(R.id.durationPicker)
-        val tvDistance: TextView = view.findViewById(R.id.tvDistance)
         tvDatePicker = view.findViewById(R.id.datePicker)
         val tvStartTimePicker: TextView = view.findViewById(R.id.startTimePicker)
 
-        // Duration
-        tvDurationPicker.setOnClickListener {
-//            val calendar = Calendar.getInstance()
-//            val hourOfDay = calendar.get(Calendar.HOUR_OF_DAY)
-//            val minute = calendar.get(Calendar.MINUTE)
-//
-//            val timePickerDialog = TimePickerDialog(
-//
-//            )
-//
-//            timePickerDialog.show()
+        // Create an instance of OnDurationSetListener
+        val onDurationSetListener = object : DurationPickerDialogFragment.OnDurationSetListener {
+            override fun onDurationSet(hours: Int, minutes: Int, seconds: Int) {
+                // Handle the duration set event here
+                val durationString = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                tvDurationPicker.text = durationString
+            }
         }
 
-        // Distance
-//        tvDistance.setOnClickListener{
-//
-//
+        // Duration
+        tvDurationPicker.setOnClickListener {
+            // Create and show the duration picker dialog
+            val dialog = DurationPickerDialogFragment.newInstance()
+            dialog.setOnDurationSetListener(onDurationSetListener)
+            dialog.show(parentFragmentManager, "DurationPickerDialog")
+        }
+
         // Date
         tvDatePicker.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
@@ -86,7 +88,9 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
             val timePickerDialog = TimePickerDialog(
                 requireContext(),
                 { view, hourOfDay, minute ->
-                    tvStartTimePicker.setText("$hourOfDay:$minute")
+                    val formattedHour = String.format("%02d", hourOfDay)
+                    val formattedMinute = String.format("%02d", minute)
+                    tvStartTimePicker.setText("$formattedHour:$formattedMinute")
                 },
                 hour,
                 minute,
@@ -105,16 +109,16 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
             val activityDate: String = tvDatePicker.text.toString()
             val tvStartTime: String = tvStartTimePicker.text.toString()
             val duration: String = tvDurationPicker.text.toString()
-            val distance: Double = tvDistance.text.toString().toDouble()
+
+            val endTime = calculateEndTime(tvStartTime, duration)
 
             val fitnessActivity = FitnessActivity(
                 activityName,
                 activityDate,
-                100.0,
+                calculateWorkoutCalories(duration),
                 tvStartTime,
-                "17:10",
-                "10:00",
-                distance
+                endTime,
+                duration,
             )
             logWorkoutRecord(fitnessActivity)
         }
@@ -126,8 +130,34 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         return view
     }
 
+    private fun calculateEndTime(tvStartTime: String, duration: String): String {
+        val startTimeParts = tvStartTime.split(":")
+        val durationParts = duration.split(":")
+        val startHour = startTimeParts[0].toInt()
+        val startMinute = startTimeParts[1].toInt()
+        val startSecond = if (startTimeParts.size > 2) startTimeParts[2].toInt() else 0
+
+        val durationHour = durationParts[0].toInt()
+        val durationMinute = durationParts[1].toInt()
+        val durationSecond = if (durationParts.size > 2) durationParts[2].toInt() else 0
+
+        val endSecond = (startSecond + durationSecond) % 60
+        val carrySecond = (startSecond + durationSecond) / 60
+
+        val endMinute = (startMinute + durationMinute + carrySecond) % 60
+        val carryMinute = (startMinute + durationMinute + carrySecond) / 60
+
+        val endHour = (startHour + durationHour + carryMinute) % 24
+
+        val endTime = String.format("%02d:%02d:%02d", endHour, endMinute, endSecond)
+
+        return endTime
+    }
+
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        tvDatePicker.text = "$dayOfMonth/${month + 1}/$year"
+        val formattedMonth = String.format("%02d", month + 1)
+        val formattedDayOfMonth = String.format("%02d", dayOfMonth)
+        tvDatePicker.text = "$year-$formattedMonth-$formattedDayOfMonth"
     }
 
     private fun logWorkoutRecord(fitnessActivity: FitnessActivity) {
@@ -147,5 +177,19 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
                 Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG)
                     .show()
             }
+    }
+
+    private fun calculateWorkoutCalories(duration: String): Double {
+        Toast.makeText(requireContext(), "$duration", Toast.LENGTH_LONG).show()
+
+        val parts = duration.split(":")
+        val hours = parts[0].toDouble() + parts[1].toDouble() / 60.0
+
+        // default weight
+        val weight = 50
+        val MET = 7.0
+
+        val caloriesPerKgHour = weight * MET
+        return String.format("%.2f", caloriesPerKgHour * hours).toDouble()
     }
 }

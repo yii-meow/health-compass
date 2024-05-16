@@ -1,6 +1,7 @@
 package com.example.healthcompass.data.FitnessActivity
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -23,28 +24,47 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun getFitnessActivity(callback: OnRequestCompleteCallBack) {
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+        dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
         val name = "yiyi"
-        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
-        val query = dbRef.child(name).child(date).child("Hydration")
+        val query = dbRef.child(name)
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val fitnessActivities = arrayListOf<FitnessActivity>()
-                for (childSnapshot in snapshot.children) {
-//                    val fitnessActivity = FitnessActivity(null)
-//                    fitnessActivities.add(fitnessActivity)
+
+                // Reverse the order of the children to get the latest day first
+                val reversedChildren = snapshot.children.reversed()
+
+                for (dateSnapshot in reversedChildren) {
+                    val date = dateSnapshot.key // Get the date
+                    for (activitySnapshot in dateSnapshot.children) {
+                        val activityValues = activitySnapshot.value as Map<String, Any>
+                        val activityName = activityValues["activityName"] as String
+                        val activityDate = activityValues["activityDate"] as String
+                        val caloriesBurnt = (activityValues["caloriesBurnt"] as Long).toDouble()
+                        val startTime = activityValues["startTime"] as String
+                        val endTime = activityValues["endTime"] as String
+                        val duration = activityValues["duration"] as String
+
+                        // Create a FitnessActivity object and add it to the list
+                        val fitnessActivity = FitnessActivity(
+                            activityName,
+                            activityDate,
+                            caloriesBurnt,
+                            startTime,
+                            endTime,
+                            duration
+                        )
+                        fitnessActivities.add(fitnessActivity)
+                    }
                 }
-                fitnessActivities.add(FitnessActivity("1", "1", 1.0, "1", "1", "1", 1.0))
-
-
-
+                Log.d("fitness", fitnessActivities.toString())
                 callback?.onSuccess(fitnessActivities)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(getApplication(), "$error", Toast.LENGTH_LONG).show()
+                Toast.makeText(getApplication(), "Error: $error", Toast.LENGTH_LONG).show()
             }
         })
     }

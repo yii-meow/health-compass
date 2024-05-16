@@ -83,7 +83,8 @@
                 android:text="Choose activity..."
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblChooseActivity"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="20dp"/>
 
             <View
                 android:id="@+id/hr1"
@@ -137,10 +138,10 @@
                 app:layout_constraintTop_toBottomOf="@id/lblDuration" />
 
             <TextView
-                android:id="@+id/tvDistance"
+                android:id="@+id/distancePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3.30 km"
+                android:text="Choose distance..."
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblDistance"
@@ -167,10 +168,10 @@
                 app:layout_constraintTop_toBottomOf="@id/lblDistance" />
 
             <TextView
-                android:id="@+id/tvDate"
+                android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2024/03/20"
+                android:text="Choose date..."
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblDate"
@@ -197,10 +198,10 @@
                 app:layout_constraintTop_toBottomOf="@id/lblDate" />
 
             <TextView
-                android:id="@+id/tvStartTime"
+                android:id="@+id/startTimePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="17:25"
+                android:text="Choose time..."
                 android:textColor="#9F9F9F"
                 android:textSize="16dp"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblStartTime"

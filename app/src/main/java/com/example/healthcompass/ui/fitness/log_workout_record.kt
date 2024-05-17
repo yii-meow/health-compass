@@ -147,7 +147,7 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
                     activityName,
                     activityDate,
                     calculateWorkoutCalories(duration),
-                    tvStartTime,
+                    tvStartTime + ":00", //add seconds to behind
                     endTime,
                     duration,
                     "" // default note is null

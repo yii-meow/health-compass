@@ -469,20 +469,18 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/imgRunning"
-                    android:src="@drawable/running"
+                    android:id="@+id/imgSport1"
                     app:layout_constraintTop_toBottomOf="@id/lblFitnessRoutinesRecords"
                     android:layout_marginTop="12dp"
                     app:layout_constraintLeft_toLeftOf="@id/lblFitnessRoutinesRecords"/>
 
                 <TextView
-                    android:id="@+id/tvSportType1"
+                    android:id="@+id/tvSport1Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Running"
                     android:textColor="#FFFFFF"
-                    app:layout_constraintTop_toTopOf="@id/imgRunning"
-                    app:layout_constraintLeft_toRightOf="@id/imgRunning"
+                    app:layout_constraintTop_toTopOf="@id/imgSport1"
+                    app:layout_constraintLeft_toRightOf="@id/imgSport1"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:textSize="13dp"/>
@@ -491,11 +489,10 @@
                     android:id="@+id/tvSport1Date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24 Mar"
                     android:textColor="#D4C0C0"
-                    app:layout_constraintTop_toBottomOf="@id/tvSportType1"
+                    app:layout_constraintTop_toBottomOf="@id/tvSport1Type"
                     android:layout_marginTop="5dp"
-                    app:layout_constraintLeft_toRightOf="@id/imgRunning"
+                    app:layout_constraintLeft_toRightOf="@id/imgSport1"
                     android:layout_marginLeft="10dp"
                     android:textSize="10dp"/>
 
@@ -503,18 +500,16 @@
                     android:id="@+id/tvSport1Duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="07:00 - 08:00"
                     android:textColor="#D4C0C0"
                     app:layout_constraintTop_toBottomOf="@id/tvSport1Date"
                     android:layout_marginTop="5dp"
-                    app:layout_constraintLeft_toRightOf="@id/imgRunning"
+                    app:layout_constraintLeft_toRightOf="@id/imgSport1"
                     android:layout_marginLeft="10dp"
                     android:textSize="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="200"
                     android:id="@+id/tvSport1Calories"
                     android:textColor="#FFFFFF"
                     app:layout_constraintRight_toRightOf="parent"
@@ -538,26 +533,24 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
                     android:background="@android:color/white"
-                    app:layout_constraintLeft_toLeftOf="@id/imgRunning"
-                    app:layout_constraintTop_toBottomOf="@id/imgRunning" />
+                    app:layout_constraintLeft_toLeftOf="@id/imgSport1"
+                    app:layout_constraintTop_toBottomOf="@id/imgSport1" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/imgBadminton"
-                    android:src="@drawable/badminton"
+                    android:id="@+id/imgSport2"
                     app:layout_constraintTop_toBottomOf="@id/hr4"
                     android:layout_marginTop="15dp"
                     app:layout_constraintLeft_toLeftOf="@id/lblFitnessRoutinesRecords"/>
 
                 <TextView
-                    android:id="@+id/tvSportType2"
+                    android:id="@+id/tvSport2Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Badminton"
                     android:textColor="#FFFFFF"
-                    app:layout_constraintTop_toTopOf="@id/imgBadminton"
-                    app:layout_constraintLeft_toRightOf="@id/imgBadminton"
+                    app:layout_constraintTop_toTopOf="@id/imgSport2"
+                    app:layout_constraintLeft_toRightOf="@id/imgSport2"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:textSize="13dp"/>
@@ -566,11 +559,10 @@
                     android:id="@+id/tvSport2Date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23 Mar"
                     android:textColor="#D4C0C0"
-                    app:layout_constraintTop_toBottomOf="@id/tvSportType2"
+                    app:layout_constraintTop_toBottomOf="@id/tvSport2Type"
                     android:layout_marginTop="5dp"
-                    app:layout_constraintLeft_toRightOf="@id/imgBadminton"
+                    app:layout_constraintLeft_toRightOf="@id/imgSport2"
                     android:layout_marginLeft="10dp"
                     android:textSize="10dp"/>
 
@@ -578,18 +570,16 @@
                     android:id="@+id/tvSport2Duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="13:00 - 15:00"
                     android:textColor="#D4C0C0"
                     app:layout_constraintTop_toBottomOf="@id/tvSport2Date"
                     android:layout_marginTop="5dp"
-                    app:layout_constraintLeft_toRightOf="@id/imgBadminton"
+                    app:layout_constraintLeft_toRightOf="@id/imgSport2"
                     android:layout_marginLeft="10dp"
                     android:textSize="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="400"
                     android:id="@+id/tvSport2Calories"
                     android:textColor="#FFFFFF"
                     app:layout_constraintRight_toRightOf="parent"
@@ -613,8 +603,8 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="16dp"
                     android:background="@android:color/white"
-                    app:layout_constraintLeft_toLeftOf="@id/imgBadminton"
-                    app:layout_constraintTop_toBottomOf="@id/imgBadminton" />
+                    app:layout_constraintLeft_toLeftOf="@id/imgSport2"
+                    app:layout_constraintTop_toBottomOf="@id/imgSport2" />
 
                 <Button
                     android:id="@+id/btnShowMoreFitness"

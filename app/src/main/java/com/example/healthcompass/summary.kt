@@ -2,7 +2,6 @@ package com.example.healthcompass
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +13,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.data.FitnessActivity.FitnessActivity
+import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
+import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
 import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -36,6 +39,7 @@ class SummaryFragment : Fragment() {
     private lateinit var imgBMI: ImageView
     private lateinit var tvBMIStatus: TextView
     private lateinit var tvBMRKcal: TextView
+    private lateinit var fitnessActivityViewModel: FitnessActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +72,36 @@ class SummaryFragment : Fragment() {
         tvBMIStatus = view.findViewById(R.id.tvBMIStatus)
 
         tvBMRKcal = view.findViewById(R.id.tvBMRKcal)
+
+        // Latest two records
+        fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
+
+        fitnessActivityViewModel.fetchLatestFitnessActivity(object : OnRequestCompleteCallBack {
+            override fun onSuccess(list: List<FitnessActivity>) {
+                // Set text view data
+                view.findViewById<TextView>(R.id.tvSport1Type).text = list[0].activityName
+                view.findViewById<TextView>(R.id.tvSport1Date).text = list[0].activityDate
+                view.findViewById<TextView>(R.id.tvSport1Calories).text =
+                    list[0].caloriesBurnt.toString()
+                view.findViewById<TextView>(R.id.tvSport1Duration).text =
+                    list[0].startTime.substring(0, 5) + " - " + list[0].endTime.substring(0, 5)
+                view.findViewById<ImageView>(R.id.imgSport1)
+                    .setBackgroundResource(getImgFitness(list[0].activityName))
+
+                view.findViewById<TextView>(R.id.tvSport2Type).text = list[1].activityName
+                view.findViewById<TextView>(R.id.tvSport2Date).text = list[1].activityDate
+                view.findViewById<TextView>(R.id.tvSport2Calories).text =
+                    list[1].caloriesBurnt.toString()
+                view.findViewById<TextView>(R.id.tvSport2Duration).text =
+                    list[1].startTime.substring(0, 5) + " - " + list[1].endTime.substring(0, 5)
+                view.findViewById<ImageView>(R.id.imgSport2)
+                    .setBackgroundResource(getImgFitness(list[1].activityName))
+            }
+
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
 
         nutritionView.setOnClickListener {
             findNavController().navigate(R.id.action_summary_to_nutrition)
@@ -116,7 +150,9 @@ class SummaryFragment : Fragment() {
 
     private fun calculateBMR(weight: Float, height: Float, gender: String, age: Int) {
         tvBMRKcal.text = when (gender) {
-            "male" -> (66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age)).toInt().toString()
+            "male" -> (66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age)).toInt()
+                .toString()
+
             else -> (655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age)).toInt().toString()
         }
     }
@@ -192,5 +228,14 @@ class SummaryFragment : Fragment() {
         val sharedPref: SharedPreferences =
             requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         return sharedPref.getString("username", null)
+    }
+
+    private fun getImgFitness(acitivtyName: String): Int {
+        return when (acitivtyName) {
+            "Running", "Jogging", "Treadmill" -> R.drawable.running
+            "Walking" -> R.drawable.walking
+            "Badminton" -> R.drawable.badminton
+            else -> R.drawable.cycling
+        }
     }
 }

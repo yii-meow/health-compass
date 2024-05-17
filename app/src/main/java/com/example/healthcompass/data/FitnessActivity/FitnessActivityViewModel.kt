@@ -28,9 +28,9 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
 
     fun getAllFitnessActivity(callback: OnRequestCompleteCallBack) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
-        val name = "yiyi"
+        val username = getUsername() ?: return
 
-        val query = dbRef.child(name)
+        val query = dbRef.child(username)
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -79,9 +79,9 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         startTime: String
     ) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
-        val name = "yiyi"
+        val username = getUsername() ?: return
 
-        dbRef.child(name).child(activityDate).child(startTime)
+        dbRef.child(username).child(activityDate).child(startTime)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Check if the data exists
@@ -136,6 +136,32 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                 Toast.makeText(getApplication(), "Failed to add fitness record!", Toast.LENGTH_LONG)
                     .show()
             }
+    }
+
+    fun fetchLatestFitnessActivity(callback: OnRequestCompleteCallBack) {
+        val username = getUsername() ?: return
+        val dbRef = FirebaseDatabase.getInstance().getReference("Fitness").child(username)
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val fitnessActivities = arrayListOf<FitnessActivity>()
+                for (dateSnapshot in snapshot.children) {
+                    for (timeSnapshot in dateSnapshot.children) {
+                        val activity = timeSnapshot.getValue(FitnessActivity::class.java)
+                        fitnessActivities.add(activity!!)
+                    }
+                }
+                // Sort the activities by date and time
+                fitnessActivities.sortWith(compareBy<FitnessActivity> { it.activityDate }.thenBy { it.startTime })
+
+                // Get the latest two activities
+                val latestTwoActivities = fitnessActivities.takeLast(2).reversed()
+                callback.onSuccess(latestTwoActivities)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(getApplication(),"$error",Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun getUsername(): String? {

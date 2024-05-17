@@ -20,7 +20,7 @@ class FitnessListAdapter(private val listener: OnItemClickListener) :
         val tvActivityTime: TextView = itemView.findViewById(R.id.tvActivityTime)
         val tvActivityDuration: TextView = itemView.findViewById(R.id.tvActivityDuration)
         val tvActivityCalories: TextView = itemView.findViewById(R.id.tvActivityCalories)
-        val imgActivity : ImageView = itemView.findViewById(R.id.imgActivity)
+        val imgActivity: ImageView = itemView.findViewById(R.id.imgActivity)
 
         init {
             itemView.setOnClickListener(this)
@@ -51,8 +51,8 @@ class FitnessListAdapter(private val listener: OnItemClickListener) :
         holder.tvActivityCalories.text = currentItem.caloriesBurnt.toString()
 
         // TODO: Add Activity Image
-        when(holder.tvActivity.text){
-            "Running","Jogging","Treadmill" -> holder.imgActivity.setBackgroundResource(R.drawable.running)
+        when (holder.tvActivity.text) {
+            "Running", "Jogging", "Treadmill" -> holder.imgActivity.setBackgroundResource(R.drawable.running)
             "Walking" -> holder.imgActivity.setBackgroundResource(R.drawable.walking)
             "Badminton" -> holder.imgActivity.setBackgroundResource(R.drawable.badminton)
             "Cycling" -> holder.imgActivity.setBackgroundResource(R.drawable.cycling)

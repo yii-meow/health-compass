@@ -13,6 +13,8 @@ class done_quick_workout : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_done_quick_workout, container, false)
+        val view = inflater.inflate(R.layout.fragment_done_quick_workout, container, false)
+
+        return view
     }
 }

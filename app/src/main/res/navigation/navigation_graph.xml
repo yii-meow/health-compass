@@ -8,7 +8,11 @@
         android:id="@+id/edit_goal"
         android:name="com.example.healthcompass.ui.nutrition.edit_goal"
         android:label="fragment_edit_goal"
-        tools:layout="@layout/fragment_edit_goal"></fragment>
+        tools:layout="@layout/fragment_edit_goal">
+        <action
+            android:id="@+id/action_edit_goal_to_nutrition"
+            app:destination="@id/nutrition" />
+    </fragment>
     <fragment
         android:id="@+id/summary"
         android:name="com.example.healthcompass.SummaryFragment"

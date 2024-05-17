@@ -1,5 +1,7 @@
 package com.example.healthcompass.ui.nutrition
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +30,7 @@ class nutrition : Fragment() {
     private lateinit var tvLunchKcal: TextView
     private lateinit var tvDinnerKcal: TextView
     private lateinit var tvTotalConsumptionCalories: TextView
+    private lateinit var tvWeightGoal: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -162,20 +165,47 @@ class nutrition : Fragment() {
         tvLunchKcal = view.findViewById(R.id.tvLunchKcal)
         tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
         tvTotalConsumptionCalories = view.findViewById(R.id.tvTotalConsumptionCalories)
+        tvWeightGoal = view.findViewById(R.id.tvWeightGoal)
 
         fetchCaloriesConsumption()
+        fetchGoal()
         fetchHydrationIntake()
 
         return view
     }
 
+    private fun fetchGoal() {
+        val username = getUsername() ?: return
+        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
+
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                tvWeightGoal.text = if (snapshot.hasChild("goal")) {
+                    snapshot.child("goal").getValue(String::class.java) ?: ""
+                } else {
+                    ""
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    requireContext(),
+                    "Error fetching goal : $error",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
     private fun fetchCaloriesConsumption() {
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+        val username = getUsername() ?: return
 
         // Retrieve the data for today from Firebase
-        // TODO: Replace with the username or user id
-        dbRef.child("yiyi").child(currentDate)
+        dbRef.child(username).child(currentDate)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Create a map to store the total calories consumption for each meal type
@@ -215,10 +245,10 @@ class nutrition : Fragment() {
     }
 
     private fun fetchHydrationIntake() {
-        val name = "yiyi"
+        val username = getUsername() ?: return
         val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal").child(name).child(date)
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal").child(username).child(date)
             .child("Hydration")
         dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -246,4 +276,9 @@ class nutrition : Fragment() {
         hydrationTextView.text = (hydrationIntake.toDouble() / 1000).toString()
     }
 
+    private fun getUsername(): String? {
+        val sharedPref: SharedPreferences =
+            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+        return sharedPref.getString("username", null)
+    }
 }

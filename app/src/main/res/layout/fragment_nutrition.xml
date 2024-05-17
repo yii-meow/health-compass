@@ -184,7 +184,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
-            android:text="May 15, 2023"
             android:textColor="@color/black"
             android:textSize="22dp"
             app:layout_constraintRight_toRightOf="@id/cardNutrionWeekCircles"
@@ -341,7 +340,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
-                        android:text="1100"
                         android:textColor="@color/white"
                         android:textSize="18dp"
                         android:textStyle="bold"
@@ -367,7 +365,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardWeightGoal"
             android:layout_width="378dp"
-            android:layout_height="111dp"
+            android:layout_height="120dp"
             android:layout_marginTop="12dp"
             app:layout_constraintLeft_toLeftOf="@id/cardTotalConsumption"
             app:layout_constraintTop_toBottomOf="@id/cardTotalConsumption">
@@ -394,7 +392,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:text="Gain Weight"
                     android:textColor="@color/white"
                     android:textSize="18dp"
                     app:layout_constraintLeft_toLeftOf="@id/lblMyGoal"
@@ -404,12 +401,12 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEditGoal"
                     android:layout_width="wrap_content"
-                    android:layout_height="33dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="12dp"
                     android:paddingHorizontal="30dp"
                     android:text="Edit Your Goal"
                     android:textAllCaps="false"
-                    android:textSize="10dp"
+                    android:textSize="13dp"
                     app:layout_constraintLeft_toLeftOf="@id/tvWeightGoal"
                     app:layout_constraintRight_toRightOf="@id/tvWeightGoal"
                     app:layout_constraintTop_toBottomOf="@id/tvWeightGoal" />
@@ -467,25 +464,15 @@
                     app:layout_constraintTop_toTopOf="@+id/imgDay" />
 
                 <TextView
-                    android:id="@+id/tvBreakfastList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Oatmilk, Egg"
-                    android:textSize="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imgDay"
-                    app:layout_constraintLeft_toLeftOf="@+id/lblBreakfast" />
-
-                <TextView
                     android:id="@+id/tvBreakfastKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="90dp"
-                    android:text="300"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvBreakfastList" />
+                    app:layout_constraintTop_toBottomOf="@id/imgBreakfastArrow" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -537,24 +524,14 @@
                     app:layout_constraintTop_toTopOf="@+id/imgNoon" />
 
                 <TextView
-                    android:id="@+id/tvLunchList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fish and Chip, Iced Milo, Dumpling"
-                    android:textSize="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imgNoon"
-                    app:layout_constraintLeft_toLeftOf="@+id/lblLunch" />
-
-                <TextView
                     android:id="@+id/tvLunchKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
-                    app:layout_constraintTop_toTopOf="@+id/tvLunchList" />
+                    app:layout_constraintTop_toBottomOf="@id/imgLunchArrow" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -605,25 +582,14 @@
                     app:layout_constraintTop_toTopOf="@+id/imgNight" />
 
                 <TextView
-                    android:id="@+id/tvDinnerList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ADD FOOD"
-                    android:textColor="#4161B3"
-                    android:textSize="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imgNight"
-                    app:layout_constraintLeft_toLeftOf="@+id/lblDinner" />
-
-                <TextView
                     android:id="@+id/tvDinnerKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintRight_toRightOf="@id/tvBreakfastKcal"
-                    app:layout_constraintTop_toTopOf="@+id/tvDinnerList" />
+                    app:layout_constraintTop_toBottomOf="@id/imgDinnerArrow" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -685,7 +651,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="0"
                     android:textColor="@color/black"
                     app:layout_constraintLeft_toRightOf="@id/imgHydration"
                     app:layout_constraintTop_toTopOf="@id/imgHydration" />

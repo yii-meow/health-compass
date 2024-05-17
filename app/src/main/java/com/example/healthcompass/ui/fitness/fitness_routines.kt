@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
@@ -21,8 +22,14 @@ class fitness_routines : Fragment() {
         val lblViewMore: TextView = view.findViewById(R.id.lblViewMore)
         val btnLogActivity: Button = view.findViewById(R.id.btnLogActivity)
 
+        val flRunning: FrameLayout = view.findViewById(R.id.flRunning)
+
         lblViewMore.setOnClickListener {
             findNavController().navigate(R.id.action_fitness_routines_to_fitness_routines_list)
+        }
+
+        flRunning.setOnClickListener {
+            findNavController().navigate(R.id.action_fitness_routines_to_start_quick_workout)
         }
 
         btnLogActivity.setOnClickListener {

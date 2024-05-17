@@ -12,14 +12,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setContentView(R.layout.fragment_achievements_milestones_details)
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val user = getUsername()
-        checkHasUsername(user)
-
-        Toast.makeText(this,"Welcome $user",Toast.LENGTH_LONG).show()
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        val user = getUsername()
+//        checkHasUsername(user)
+//
+//        Toast.makeText(this,"Welcome $user",Toast.LENGTH_LONG).show()
 //        binding.btnNavToProfile.setOnClickListener {
 //            val intent = Intent(this, ProfileActivity::class.java)
 //            startActivity(intent)

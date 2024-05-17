@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DAFFFB"
-    tools:context=".fitness_routines">
+    tools:context=".ui.fitness.fitness_routines">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

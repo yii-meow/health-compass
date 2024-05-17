@@ -1,6 +1,7 @@
 package com.example.healthcompass
 
-import android.content.Intent
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,12 +21,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class summary : Fragment() {
+class SummaryFragment : Fragment() {
+
     private lateinit var dbRef: DatabaseReference
+    private lateinit var tvBMI: TextView
     private lateinit var tvBreakfastKcal: TextView
     private lateinit var tvLunchKcal: TextView
     private lateinit var tvDinnerKcal: TextView
     private lateinit var tvIntakeKcal: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,27 +41,20 @@ class summary : Fragment() {
         val fitnessRoutinesView = view.findViewById<CardView>(R.id.cardFitnessRoutines)
         val fitnessListView = view.findViewById<Button>(R.id.btnShowMoreFitness)
 
-        var tvDate: TextView = view.findViewById(R.id.tvDate)
+        val tvDate: TextView = view.findViewById(R.id.tvDate)
+        tvBMI = view.findViewById(R.id.tvBMI)
+        calculateBMI()
 
         tvBreakfastKcal = view.findViewById(R.id.tvBreakfastKcal)
         tvLunchKcal = view.findViewById(R.id.tvLunchKcal)
         tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
         tvIntakeKcal = view.findViewById(R.id.tvIntakeKcal)
-
         fetchCaloriesConsumption()
 
-        // Set Time
-
-        // Get the current date
+        // Set current date
         val currentDate = Date()
-
-        // Define a date format
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
-        // Format the current date
         val formattedDate = dateFormat.format(currentDate)
-
-        // Set the formatted date to the TextView
         tvDate.text = formattedDate
 
         nutritionView.setOnClickListener {
@@ -75,17 +72,32 @@ class summary : Fragment() {
         return view
     }
 
+    private fun calculateBMI() {
+        val sharedPref: SharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+        val weight: Float = sharedPref.getFloat("weight", 0.0F)
+        val height: Float = sharedPref.getFloat("height", 0.0F)
+        
+        if (weight > 0.0F && height > 0.0F) {
+            val heightInMeters = height / 100 // convert height from cm to meters
+            val bmi = weight / (heightInMeters * heightInMeters)
+
+            tvBMI.text = String.format("%.1f", bmi)
+        } else {
+            tvBMI.text = "0.0"
+        }
+    }
+
     private fun fetchCaloriesConsumption() {
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
 
         // Retrieve the data for today from Firebase
-        // TODO: Replace with the username or user id
-        dbRef.child("yiyi").child(currentDate)
+        val username = getUsername() ?: return
+        dbRef.child(username).child(currentDate)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Create a map to store the total calories consumption for each meal type
-                    val caloriesConsumptionMap = mutableMapOf<String, Double>()
+                    val caloriesConsumptionMap = mutableMapOf<String, Int>()
 
                     // Iterate through the dataSnapshot to calculate the total calories consumption for each meal type
                     for (mealTypeSnapshot in dataSnapshot.children) {
@@ -97,13 +109,12 @@ class summary : Fragment() {
                                 .getValue(Double::class.java) ?: 0.0
 
                         // Update the calories consumption map
-                        caloriesConsumptionMap[mealType] = totalCaloriesConsumption
+                        caloriesConsumptionMap[mealType] = totalCaloriesConsumption.toInt()
                     }
 
-                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0.0)
-                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0.0)
-                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0.0)
-
+                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0)
+                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0)
+                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0)
                     val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
 
                     tvBreakfastKcal.text = breakfastKcal.toString()
@@ -117,5 +128,11 @@ class summary : Fragment() {
                         .show()
                 }
             })
+    }
+
+    private fun getUsername(): String? {
+        val sharedPref: SharedPreferences =
+            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+        return sharedPref.getString("username", null)
     }
 }

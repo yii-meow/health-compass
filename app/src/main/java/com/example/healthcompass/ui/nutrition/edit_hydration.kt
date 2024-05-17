@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.nutrition
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat

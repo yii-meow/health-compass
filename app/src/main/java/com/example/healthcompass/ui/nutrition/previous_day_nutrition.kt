@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.nutrition
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.healthcompass.R
 
 class previous_day_nutrition : Fragment() {
     private val args by navArgs<previous_day_nutritionArgs>()
@@ -36,7 +37,8 @@ class previous_day_nutrition : Fragment() {
             7 -> flSunday.setBackgroundResource(R.drawable.today_nutrition_circle)
         }
 
-        val action = previous_day_nutritionDirections.actionPreviousDayNutritionSelf()
+        val action =
+            previous_day_nutritionDirections.actionPreviousDayNutritionSelf()
 
         // View another previous day nutrition
         flMonday.setOnClickListener{

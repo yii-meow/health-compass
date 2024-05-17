@@ -17,9 +17,11 @@
         <item>Badminton</item>
         <item>Swimming</item>
         <item>Cycling</item>
-        <item>Basketball</item>
-        <item>Tennis</item>
-        <item>Yoga</item>
-        <item>Free Training</item>
+    </string-array>
+
+    <string-array name="spnGender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 </resources>

@@ -6,12 +6,12 @@
     app:startDestination="@id/summary">
     <fragment
         android:id="@+id/edit_goal"
-        android:name="com.example.healthcompass.edit_goal"
+        android:name="com.example.healthcompass.ui.nutrition.edit_goal"
         android:label="fragment_edit_goal"
         tools:layout="@layout/fragment_edit_goal"></fragment>
     <fragment
         android:id="@+id/summary"
-        android:name="com.example.healthcompass.summary"
+        android:name="com.example.healthcompass.SummaryFragment"
         android:label="summary">
         <action
             android:id="@+id/action_summary_to_fitness_routines"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/nutrition"
-        android:name="com.example.healthcompass.nutrition"
+        android:name="com.example.healthcompass.ui.nutrition.nutrition"
         android:label="nutrition">
         <action
             android:id="@+id/action_nutrition_to_edit_goal"
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/fitness_routines"
-        android:name="com.example.healthcompass.fitness_routines"
+        android:name="com.example.healthcompass.ui.fitness.fitness_routines"
         android:label="fragment_fitness_routines"
         tools:layout="@layout/fragment_fitness_routines" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/add_meal"
-        android:name="com.example.healthcompass.add_meal"
+        android:name="com.example.healthcompass.ui.nutrition.add_meal"
         android:label="fragment_add_meal"
         tools:layout="@layout/fragment_add_meal">
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/edit_hydration"
-        android:name="com.example.healthcompass.edit_hydration"
+        android:name="com.example.healthcompass.ui.nutrition.edit_hydration"
         android:label="fragment_edit_hydration"
         tools:layout="@layout/fragment_edit_hydration">
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/previous_day_nutrition"
-        android:name="com.example.healthcompass.previous_day_nutrition"
+        android:name="com.example.healthcompass.ui.nutrition.previous_day_nutrition"
         android:label="fragment_previous_day_nutrition"
         tools:layout="@layout/fragment_previous_day_nutrition">
         <action
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/fitness_routines_list"
-        android:name="com.example.healthcompass.fitness_routines_list"
+        android:name="com.example.healthcompass.ui.fitness.fitness_routines_list"
         android:label="fragment_fitness_routines_list"
         tools:layout="@layout/fragment_fitness_routines_list" >
         <action
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/log_workout_record"
-        android:name="com.example.healthcompass.log_workout_record"
+        android:name="com.example.healthcompass.ui.fitness.log_workout_record"
         android:label="fragment_log_workout_record"
         tools:layout="@layout/fragment_log_workout_record" >
         <action
@@ -110,12 +110,12 @@
     </fragment>
     <fragment
         android:id="@+id/done_quick_workout"
-        android:name="com.example.healthcompass.done_quick_workout"
+        android:name="com.example.healthcompass.ui.fitness.done_quick_workout"
         android:label="fragment_done_quick_workout"
         tools:layout="@layout/fragment_done_quick_workout" />
     <fragment
         android:id="@+id/start_quick_workout"
-        android:name="com.example.healthcompass.start_quick_workout"
+        android:name="com.example.healthcompass.ui.fitness.start_quick_workout"
         android:label="fragment_start_quick_workout"
         tools:layout="@layout/fragment_start_quick_workout" >
         <action
@@ -124,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/quick_workout_timer"
-        android:name="com.example.healthcompass.quick_workout_timer"
+        android:name="com.example.healthcompass.ui.fitness.quick_workout_timer"
         android:label="fragment_quick_workout_timer"
         tools:layout="@layout/fragment_quick_workout_timer" >
         <action
@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/fitness_routines_details"
-        android:name="com.example.healthcompass.fitness_routines_details"
+        android:name="com.example.healthcompass.ui.fitness.fitness_routines_details"
         android:label="fragment_fitness_routines_details"
         tools:layout="@layout/fragment_fitness_routines_details" />
 </navigation>

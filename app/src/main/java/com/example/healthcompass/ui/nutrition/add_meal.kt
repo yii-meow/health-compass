@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.nutrition
 
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.healthcompass.R
 import com.example.healthcompass.data.NutritionFact.FoodItem
 import com.example.healthcompass.data.NutritionFact.Meal
 import com.example.healthcompass.data.NutritionFact.NutritionFactViewModel

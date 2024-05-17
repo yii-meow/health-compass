@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DAFFFB"
-    tools:context=".log_workout_record">
+    tools:context=".ui.fitness.log_workout_record">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBack"

@@ -21,6 +21,10 @@ android {
         buildConfigField("String","API_KEY","\"oVoTvHEaCQNZqWcLKooNsw==571TRwPspaNGCG49\"")
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false

@@ -1,6 +1,5 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.fitness
 
-import DurationPickerDialogFragment
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -12,17 +11,14 @@ import android.widget.Button
 import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.R
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import org.w3c.dom.Text
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 
 
 class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {

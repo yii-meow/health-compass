@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.nutrition
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -51,7 +52,8 @@ class nutrition : Fragment() {
         val flSunday: FrameLayout = view.findViewById(R.id.flSunday)
 
         val addMealAction = nutritionDirections.actionNutritionToAddMeal()
-        val previousNutritionAction = nutritionDirections.actionNutritionToPreviousDayNutrition()
+        val previousNutritionAction =
+            nutritionDirections.actionNutritionToPreviousDayNutrition()
 
         val dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK)
 

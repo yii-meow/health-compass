@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DAFFFB"
-    tools:context=".done_quick_workout">
+    tools:context=".ui.fitness.done_quick_workout">
 
     <TextView
         android:id="@+id/lblCompleteWorkout"

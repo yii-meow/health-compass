@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.fitness
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.R
 
 class fitness_routines : Fragment() {
     override fun onCreateView(

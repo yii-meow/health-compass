@@ -71,7 +71,6 @@
                     android:layout_marginBottom="9dp"
                     android:textColor="#FFFFFF"
                     android:textSize="24dp"
-                    android:text="17.0"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/lblBMIStatus"
@@ -83,7 +82,6 @@
                     android:layout_width="102dp"
                     android:layout_height="102dp"
                     android:layout_marginEnd="5dp"
-                    android:src="@drawable/underweight"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -93,8 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="Underweight"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="#00FF00"
                     android:textSize="22dp"
                     app:layout_constraintBaseline_toBaselineOf="@+id/lblBMIStatus"
                     app:layout_constraintStart_toEndOf="@+id/lblBMIStatus" />
@@ -152,7 +149,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="64dp"
                     android:layout_marginBottom="6dp"
-                    android:text="1500"
                     android:textColor="#FFFFFF"
                     android:textSize="24dp"
                     android:textStyle="bold"
@@ -221,7 +217,6 @@
                     android:id="@+id/tvBreakfastKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@id/imgBreakfast"
                     app:layout_constraintLeft_toLeftOf="@id/lblBreakfast" />
@@ -282,7 +277,6 @@
                     android:id="@+id/tvLunchKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@id/imgLunch"
                     app:layout_constraintLeft_toLeftOf="@id/lblLunch" />
@@ -341,7 +335,6 @@
                     android:id="@+id/tvDinnerKcal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:textColor="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="@id/imgDinner"
                     app:layout_constraintLeft_toLeftOf="@id/lblDinner" />
@@ -397,7 +390,6 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="64dp"
                     android:layout_marginBottom="6dp"
-                    android:text="1500"
                     android:textColor="#FFFFFF"
                     android:textSize="24dp"
                     android:textStyle="bold"

@@ -2,6 +2,8 @@ package com.example.healthcompass.ui.fitness
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +15,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
+import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.util.Calendar
@@ -23,7 +27,7 @@ import java.util.Calendar
 
 class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var tvDatePicker: TextView
-    private lateinit var dbRef: DatabaseReference
+    private lateinit var fitnessViewModel: FitnessActivityViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -190,27 +194,12 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun logWorkoutRecord(fitnessActivity: FitnessActivity) {
-        dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
-        val name = "yiyi"
-        dbRef.child(name).child(fitnessActivity.activityDate).child(fitnessActivity.startTime)
-            .setValue(fitnessActivity)
-            .addOnCompleteListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Added fitness record successfully!",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-                val action =
-                    log_workout_recordDirections.actionLogWorkoutRecordToFitnessRoutinesDetails()
-                action.fitnessDay = fitnessActivity.activityDate
-                action.fitnessTime = fitnessActivity.startTime
-                findNavController().navigate(action)
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG)
-                    .show()
-            }
+        fitnessViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
+        fitnessViewModel.postWorkoutRecord(fitnessActivity)
+        val action = log_workout_recordDirections.actionLogWorkoutRecordToFitnessRoutinesDetails()
+        action.fitnessDay = fitnessActivity.activityDate
+        action.fitnessTime = fitnessActivity.startTime
+        findNavController().navigate(action)
     }
 
     private fun calculateWorkoutCalories(duration: String): Int {
@@ -224,4 +213,6 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         val caloriesPerKgHour = weight * MET
         return (caloriesPerKgHour * hours).toInt()
     }
+
+
 }

@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
+import com.example.healthcompass.ui.fitness.log_workout_recordDirections
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -18,7 +20,6 @@ import java.util.Date
 
 class FitnessActivityViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dbRef: DatabaseReference
-
     private val fitnessActivitiesLiveData = MutableLiveData<List<FitnessActivity>>()
 
     fun getFitnessActivitiesLiveData(): LiveData<List<FitnessActivity>> {
@@ -72,7 +73,11 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         })
     }
 
-    fun getFitnessActivityDetails(callback: OnRequestCompleteCallBack, activityDate: String, startTime: String){
+    fun getFitnessActivityDetails(
+        callback: OnRequestCompleteCallBack,
+        activityDate: String,
+        startTime: String
+    ) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
         val name = "yiyi"
 
@@ -86,7 +91,8 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
 
                         val activityName = activityValues["activityName"] as? String ?: ""
                         val activityDate = activityValues["activityDate"] as? String ?: ""
-                        val caloriesBurnt = (activityValues["caloriesBurnt"] as? Number)?.toInt() ?: 0
+                        val caloriesBurnt =
+                            (activityValues["caloriesBurnt"] as? Number)?.toInt() ?: 0
                         val startTime = activityValues["startTime"] as? String ?: ""
                         val endTime = activityValues["endTime"] as? String ?: ""
                         val duration = activityValues["duration"] as? String ?: ""
@@ -111,6 +117,31 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                     callback.onFailure(databaseError)
                 }
             })
+    }
+
+    fun postWorkoutRecord(fitnessActivity: FitnessActivity) {
+        dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
+        val name = getUsername()
+        dbRef.child(name!!).child(fitnessActivity.activityDate).child(fitnessActivity.startTime)
+            .setValue(fitnessActivity)
+            .addOnCompleteListener {
+                Toast.makeText(
+                    getApplication(),
+                    "Added fitness record successfully!",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(getApplication(), "Failed to add fitness record!", Toast.LENGTH_LONG)
+                    .show()
+            }
+    }
+
+    private fun getUsername(): String? {
+        val sharedPref: SharedPreferences =
+            getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)
+        return sharedPref.getString("username", null)
     }
 }
 

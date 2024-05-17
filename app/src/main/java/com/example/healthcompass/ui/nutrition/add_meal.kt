@@ -1,6 +1,8 @@
 package com.example.healthcompass.ui.nutrition
 
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -232,9 +234,9 @@ class add_meal : Fragment() {
     private fun addMealsToDB(meal: Meal) {
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
 
-        val name = "yiyi"
+        val name = getUsername()
 
-        dbRef.child(name).child(meal.date).child(meal.mealType).setValue(meal)
+        dbRef.child(name!!).child(meal.date).child(meal.mealType).setValue(meal)
             .addOnCompleteListener {
                 Toast.makeText(requireContext(), "Added meal successfully!", Toast.LENGTH_LONG)
                     .show()
@@ -242,5 +244,11 @@ class add_meal : Fragment() {
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Failed to add meal!", Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun getUsername(): String? {
+        val sharedPref: SharedPreferences =
+            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+        return sharedPref.getString("username", null)
     }
 }

@@ -44,7 +44,7 @@ class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener
 ////                adapter.submitList(activities)
 //            })
 
-        viewModel.getFitnessActivity(object : OnRequestCompleteCallBack {
+        viewModel.getAllFitnessActivity(object : OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
                 fitnessActivityList = list
                 adapter.setData(fitnessActivityList)
@@ -66,6 +66,8 @@ class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener
         val fitnessActivity: FitnessActivity = fitnessActivityList[position]
         val action =
             fitness_routines_listDirections.actionFitnessRoutinesListToFitnessRoutinesDetails()
+        action.fitnessDay = fitnessActivity.activityDate
+        action.fitnessTime = fitnessActivity.startTime
         findNavController().navigate(action)
     }
 }

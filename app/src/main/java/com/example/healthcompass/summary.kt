@@ -76,7 +76,7 @@ class SummaryFragment : Fragment() {
         val sharedPref: SharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         val weight: Float = sharedPref.getFloat("weight", 0.0F)
         val height: Float = sharedPref.getFloat("height", 0.0F)
-        
+
         if (weight > 0.0F && height > 0.0F) {
             val heightInMeters = height / 100 // convert height from cm to meters
             val bmi = weight / (heightInMeters * heightInMeters)

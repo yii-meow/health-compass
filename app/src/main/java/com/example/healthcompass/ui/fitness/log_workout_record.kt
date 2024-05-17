@@ -146,6 +146,7 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
                     tvStartTime,
                     endTime,
                     duration,
+                    "" // default note is null
                 )
                 logWorkoutRecord(fitnessActivity)
             }
@@ -202,7 +203,9 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
                     .show()
                 val action =
                     log_workout_recordDirections.actionLogWorkoutRecordToFitnessRoutinesDetails()
-
+                action.fitnessDay = fitnessActivity.activityDate
+                action.fitnessTime = fitnessActivity.startTime
+                findNavController().navigate(action)
             }
             .addOnFailureListener {
                 Toast.makeText(requireContext(), "Failed to add fitness record!", Toast.LENGTH_LONG)

@@ -1,6 +1,8 @@
 package com.example.healthcompass.data.FitnessActivity
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
@@ -23,7 +25,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         return fitnessActivitiesLiveData
     }
 
-    fun getFitnessActivity(callback: OnRequestCompleteCallBack) {
+    fun getAllFitnessActivity(callback: OnRequestCompleteCallBack) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
         val name = "yiyi"
 
@@ -46,6 +48,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                         val startTime = activityValues["startTime"] as String
                         val endTime = activityValues["endTime"] as String
                         val duration = activityValues["duration"] as String
+                        val extraNote = activityValues["extraNote"] as? String ?: ""
 
                         // Create a FitnessActivity object and add it to the list
                         val fitnessActivity = FitnessActivity(
@@ -54,7 +57,8 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                             caloriesBurnt,
                             startTime,
                             endTime,
-                            duration
+                            duration,
+                            extraNote
                         )
                         fitnessActivities.add(fitnessActivity)
                     }
@@ -66,6 +70,47 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                 Toast.makeText(getApplication(), "Error: $error", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    fun getFitnessActivityDetails(callback: OnRequestCompleteCallBack, activityDate: String, startTime: String){
+        dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
+        val name = "yiyi"
+
+        dbRef.child(name).child(activityDate).child(startTime)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Check if the data exists
+                    if (dataSnapshot.exists()) {
+                        val fitnessActivities = arrayListOf<FitnessActivity>()
+                        val activityValues = dataSnapshot.value as Map<String, Any>
+
+                        val activityName = activityValues["activityName"] as? String ?: ""
+                        val activityDate = activityValues["activityDate"] as? String ?: ""
+                        val caloriesBurnt = (activityValues["caloriesBurnt"] as? Number)?.toInt() ?: 0
+                        val startTime = activityValues["startTime"] as? String ?: ""
+                        val endTime = activityValues["endTime"] as? String ?: ""
+                        val duration = activityValues["duration"] as? String ?: ""
+                        val extraNote = activityValues["extraNote"] as? String ?: ""
+
+                        val fitnessActivity = FitnessActivity(
+                            activityName,
+                            activityDate,
+                            caloriesBurnt,
+                            startTime,
+                            endTime,
+                            duration,
+                            extraNote
+                        )
+
+                        fitnessActivities.add(fitnessActivity)
+                        callback.onSuccess(fitnessActivities)
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    callback.onFailure(databaseError)
+                }
+            })
     }
 }
 

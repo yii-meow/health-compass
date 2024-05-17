@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Running"
         android:textColor="@color/black"
         android:textSize="32dp"
         android:textStyle="bold"
@@ -58,7 +57,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="24 Mar, 07:00"
                 android:textColor="#D4C0C0"
                 app:layout_constraintBaseline_toBaselineOf="@id/lblAt"
                 app:layout_constraintLeft_toRightOf="@id/lblAt" />
@@ -68,40 +66,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Running"
                 android:textColor="@color/white"
                 android:textSize="24dp"
                 app:layout_constraintLeft_toLeftOf="@id/imgActivity"
                 app:layout_constraintTop_toBottomOf="@id/imgActivity" />
 
             <TextView
-                android:id="@+id/tvActivityDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="45dp"
-                android:text="4.00"
-                android:textColor="@color/white"
-                android:textSize="32dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDesc"
-                app:layout_constraintRight_toRightOf="parent" />
-
-            <TextView
-                android:id="@+id/lblDistane"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="km"
-                android:textColor="#C7C2C2"
-                android:textSize="16dp"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvActivityDistance"
-                app:layout_constraintLeft_toRightOf="@id/tvActivityDistance" />
-
-            <TextView
                 android:id="@+id/tvActivityCalories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:text="200"
                 android:textColor="@color/white"
                 android:textSize="24dp"
                 app:layout_constraintLeft_toLeftOf="@id/tvActivityDesc"
@@ -122,8 +96,7 @@
                 android:id="@+id/tvActivityDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="01:00:00"
+                android:layout_marginTop="60dp"
                 android:textColor="@color/white"
                 android:textSize="24dp"
                 app:layout_constraintLeft_toLeftOf="@id/lblCalories"
@@ -140,40 +113,20 @@
                 app:layout_constraintLeft_toLeftOf="@id/tvActivityCalories"
                 app:layout_constraintTop_toBottomOf="@id/tvActivityDuration" />
 
-            <TextView
-                android:id="@+id/tvActivityPace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="4.00 / h"
-                android:textColor="@color/white"
-                android:textSize="24dp"
-                app:layout_constraintLeft_toLeftOf="@id/lblDuration"
-                app:layout_constraintTop_toBottomOf="@id/lblDuration" />
-
-            <TextView
-                android:id="@+id/lblPace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Pace"
-                android:textColor="#C7C2C2"
-                android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="@id/tvActivityCalories"
-                app:layout_constraintTop_toBottomOf="@id/tvActivityPace" />
-
             <EditText
                 android:id="@+id/tvNote"
                 android:layout_width="390dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="50dp"
                 android:inputType="text"
-                android:text="How do you feel about this ?"
-                android:textColor="#C7C2C2"
-                app:layout_constraintLeft_toLeftOf="@id/lblPace"
-                app:layout_constraintTop_toBottomOf="@id/lblPace" />
+                android:hint="How do you feel about this ?"
+                android:textColorHint="#C7C2C2"
+                android:textColor="@color/white"
+                app:layout_constraintLeft_toLeftOf="@id/lblDuration"
+                app:layout_constraintTop_toBottomOf="@id/lblDuration" />
 
             <Button
+                android:id="@+id/btnAddNote"
                 android:layout_width="111dp"
                 android:layout_height="42dp"
                 android:background="@color/black"

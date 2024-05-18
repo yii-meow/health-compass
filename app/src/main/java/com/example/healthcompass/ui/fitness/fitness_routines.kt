@@ -30,7 +30,11 @@ class fitness_routines : Fragment() {
 
         val lblViewMore: TextView = view.findViewById(R.id.lblViewMore)
         val btnLogActivity: Button = view.findViewById(R.id.btnLogActivity)
+
         val flRunning: FrameLayout = view.findViewById(R.id.flRunning)
+        val flWalking: FrameLayout = view.findViewById(R.id.flWalking)
+        val flTreadmill: FrameLayout = view.findViewById(R.id.flTreadmill)
+        val flCycling: FrameLayout = view.findViewById(R.id.flCycling)
 
         val tvCaloriesBurnt: TextView = view.findViewById(R.id.tvCaloriesBurnt)
         val tvTotalWorkoutsThisWeek: TextView = view.findViewById(R.id.tvTotalWorkoutsThisWeek)
@@ -90,12 +94,30 @@ class fitness_routines : Fragment() {
             }
         })
 
+        val action = fitness_routinesDirections.actionFitnessRoutinesToStartQuickWorkout()
+
         lblViewMore.setOnClickListener {
             findNavController().navigate(R.id.action_fitness_routines_to_fitness_routines_list)
         }
 
         flRunning.setOnClickListener {
-            findNavController().navigate(R.id.action_fitness_routines_to_start_quick_workout)
+            action.activity = "Running"
+            findNavController().navigate(action)
+        }
+
+        flWalking.setOnClickListener {
+            action.activity = "Walking"
+            findNavController().navigate(action)
+        }
+
+        flTreadmill.setOnClickListener {
+            action.activity = "Treadmill"
+            findNavController().navigate(action)
+        }
+
+        flCycling.setOnClickListener {
+            action.activity = "Cycling"
+            findNavController().navigate(action)
         }
 
         btnLogActivity.setOnClickListener {

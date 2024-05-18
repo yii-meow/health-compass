@@ -125,13 +125,13 @@
         android:name="com.example.healthcompass.ui.fitness.start_quick_workout"
         android:label="fragment_start_quick_workout"
         tools:layout="@layout/fragment_start_quick_workout">
-        <action
-            android:id="@+id/action_start_quick_workout_to_quick_workout_timer"
-            app:destination="@id/quick_workout_timer" />
         <argument
             android:name="activity"
             android:defaultValue=""
-            app:argType="integer" />
+            app:argType="string" />
+        <action
+            android:id="@+id/action_start_quick_workout_to_quick_workout_timer"
+            app:destination="@id/quick_workout_timer" />
     </fragment>
     <fragment
         android:id="@+id/quick_workout_timer"
@@ -139,8 +139,12 @@
         android:label="fragment_quick_workout_timer"
         tools:layout="@layout/fragment_quick_workout_timer">
         <action
-            android:id="@+id/action_quick_workout_timer_to_done_quick_workout"
-            app:destination="@id/done_quick_workout" />
+            android:id="@+id/action_quick_workout_timer_to_stop_quick_workout"
+            app:destination="@id/stop_quick_workout" />
+        <argument
+            android:name="duration"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/fitness_routines_details"
@@ -155,5 +159,39 @@
             android:name="fitnessTime"
             android:defaultValue=""
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/stop_quick_workout"
+        android:name="com.example.healthcompass.ui.fitness.stop_quick_workout"
+        android:label="fragment_stop_quick_workout"
+        tools:layout="@layout/fragment_stop_quick_workout">
+        <action
+            android:id="@+id/action_stop_quick_workout_to_done_quick_workout"
+            app:destination="@id/done_quick_workout" />
+        <action
+            android:id="@+id/action_stop_quick_workout_to_quick_workout_timer"
+            app:destination="@id/quick_workout_timer" />
+        <argument
+            android:name="duration"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/achievements_challenges_list"
+        android:name="com.example.healthcompass.ui.achivements.achievements_challenges_list"
+        android:label="fragment_achievements_challenges_list"
+        tools:layout="@layout/fragment_achievements_challenges_list" />
+    <fragment
+        android:id="@+id/achievements_milestones_details"
+        android:name="com.example.healthcompass.ui.achivements.achievements_milestones_details"
+        android:label="fragment_achievements_milestones_details"
+        tools:layout="@layout/fragment_achievements_milestones_details" />
+    <fragment
+        android:id="@+id/achievements_milestones_list"
+        android:name="com.example.healthcompass.ui.achivements.achievements_milestones_list"
+        android:label="fragment_achievements_milestones_list"
+        tools:layout="@layout/fragment_achievements_milestones_list">
+        <action
+            android:id="@+id/action_achievements_milestones_list_to_achievements_milestones_details"
+            app:destination="@id/achievements_milestones_details" />
     </fragment>
 </navigation>

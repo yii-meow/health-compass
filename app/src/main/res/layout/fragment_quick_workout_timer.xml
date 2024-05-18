@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fitness.quick_workout_timer"
-    android:background="#DAFFFB">
+    android:background="#DAFFFB"
+    tools:context=".ui.fitness.quick_workout_timer">
 
     <TextView
+        android:id="@+id/tvWorkoutTimerActivityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Running"
-        android:id="@+id/tvWorkoutTimerActivityName"
-        android:textSize="32dp"
+        android:textColor="@color/black"
+        android:textSize="42dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvTimerDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#04364A"
-        app:layout_constraintLeft_toLeftOf="@id/tvWorkoutTimerActivityName"
-        app:layout_constraintRight_toRightOf="@id/tvWorkoutTimerActivityName"
-        app:layout_constraintTop_toBottomOf="@id/tvWorkoutTimerActivityName"
         android:layout_marginTop="50dp"
         android:text="00:00:00"
+        android:textColor="#04364A"
         android:textSize="48dp"
-        android:id="@+id/tvDuration"
-        />
+        app:layout_constraintLeft_toLeftOf="@id/tvWorkoutTimerActivityName"
+        app:layout_constraintRight_toRightOf="@id/tvWorkoutTimerActivityName"
+        app:layout_constraintTop_toBottomOf="@id/tvWorkoutTimerActivityName" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStop"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        app:icon="@drawable/stop"
-        app:iconSize="80dp"
-        android:padding="20dp"
-        style="@style/Widget.MaterialComponents.Button"
-        app:layout_constraintLeft_toLeftOf="@id/tvDuration"
-        app:layout_constraintRight_toRightOf="@id/tvDuration"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="50dp"
         android:backgroundTint="#FD6D6D"
+        android:padding="20dp"
         app:cornerRadius="60dp"
-        />
+        app:icon="@drawable/stop"
+        app:iconSize="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/tvTimerDuration"
+        app:layout_constraintRight_toRightOf="@id/tvTimerDuration" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

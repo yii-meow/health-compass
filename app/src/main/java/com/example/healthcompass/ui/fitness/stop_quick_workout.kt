@@ -29,6 +29,9 @@ class stop_quick_workout : Fragment() {
         btnResume = view.findViewById(R.id.btnResume)
         btnDone = view.findViewById(R.id.btnDone)
 
+        val tvWorkoutTimerActivityName : TextView = view.findViewById(R.id.tvWorkoutTimerActivityName)
+        tvWorkoutTimerActivityName.text = args.activity
+
         val duration = args.duration
 
         tvDuration.text = getFormattedTime(duration)
@@ -41,6 +44,8 @@ class stop_quick_workout : Fragment() {
 
         btnDone.setOnClickListener {
             val action = stop_quick_workoutDirections.actionStopQuickWorkoutToDoneQuickWorkout()
+            action.duration = args.duration
+            action.activity = args.activity
             findNavController().navigate(action)
         }
 

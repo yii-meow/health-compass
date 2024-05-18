@@ -81,6 +81,7 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveQuickWorkout"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tvDuration"

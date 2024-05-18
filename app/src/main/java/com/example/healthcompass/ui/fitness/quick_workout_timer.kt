@@ -32,6 +32,7 @@ class quick_workout_timer : Fragment() {
             }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,11 +42,15 @@ class quick_workout_timer : Fragment() {
 
         tvTimerDuration = view.findViewById(R.id.tvTimerDuration)
 
+        val tvWorkoutTimerActivityName : TextView = view.findViewById(R.id.tvWorkoutTimerActivityName)
+        tvWorkoutTimerActivityName.text = args.activity
+
         btnStop = view.findViewById(R.id.btnStop)
 
         btnStop.setOnClickListener {
             running = false
             val action = quick_workout_timerDirections.actionQuickWorkoutTimerToStopQuickWorkout(seconds)
+            action.activity = args.activity
             findNavController().navigate(action)
         }
 

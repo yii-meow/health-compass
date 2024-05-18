@@ -206,11 +206,7 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
         val parts = duration.split(":")
         val hours = parts[0].toDouble() + parts[1].toDouble() / 60.0
 
-        // default weight
-        val weight = 50
-        val MET = 7.0
-
-        val caloriesPerKgHour = weight * MET
+        val caloriesPerKgHour = 35
         return (caloriesPerKgHour * hours).toInt()
     }
 

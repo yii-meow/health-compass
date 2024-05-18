@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
@@ -31,7 +32,9 @@ class start_quick_workout : Fragment() {
         imgQuickWorkout.setBackgroundResource(getQuickWorkoutImage())
 
         btnStart.setOnClickListener {
-            findNavController().navigate(R.id.action_start_quick_workout_to_quick_workout_timer)
+            val action = start_quick_workoutDirections.actionStartQuickWorkoutToQuickWorkoutTimer()
+            action.activity = args.activity
+            findNavController().navigate(action)
         }
 
         return view

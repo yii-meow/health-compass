@@ -74,7 +74,9 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
             val month = calendar.get(Calendar.MONTH)
             val year = calendar.get(Calendar.YEAR)
 
-            DatePickerDialog(requireContext(), this, year, month, day).show()
+            val datePickerDialog = DatePickerDialog(requireContext(), this, year, month, day)
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+            datePickerDialog.show()
         }
 
         // Start Time

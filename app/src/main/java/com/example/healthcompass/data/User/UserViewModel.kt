@@ -32,8 +32,59 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
                     callback.onSuccess(users)
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(getApplication(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    fun fetchWeightGoal(callback: OnRequestCompleteCallBack<String>) {
+        val username = getUsername() ?: return
+
+        var goals = arrayListOf<String>()
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.hasChild("goal")) {
+                    val goal = snapshot.child("goal").getValue(String::class.java) ?: ""
+                    goals.add(goal)
+                } else {
+                    ""
+                }
+                callback.onSuccess(goals)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    getApplication(),
+                    "Error fetching goal : $error",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
+    fun fetchHydrationIntake(callback: OnRequestCompleteCallBack<Int>) {
+        val username = getUsername() ?: return
+        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal").child(username).child(date)
+            .child("Hydration")
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            val hydrations = arrayListOf<Int>()
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val hydrationIntake = snapshot.getValue(Int::class.java)
+                hydrations.add(hydrationIntake ?: 0)
+                callback.onSuccess(hydrations)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    getApplication(),
+                    "Error fetching hydration : $error",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }

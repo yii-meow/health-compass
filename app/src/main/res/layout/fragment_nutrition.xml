@@ -256,19 +256,14 @@
                     android:layout_width="291dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/rectangle"
+                    android:background="@drawable/progress_rectangle"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/clCaloriesGoal">
 
-                    <View
-                        android:layout_width="200dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/progress_rectangle" />
-
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="24dp"
                         android:layout_gravity="center">
 
                         <TextView

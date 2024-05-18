@@ -2,6 +2,7 @@ package com.example.healthcompass.ui.nutrition
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +14,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.collection.arrayMapOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
+import com.example.healthcompass.data.Nutrition.NutritionViewModel
+import com.example.healthcompass.data.Nutrition.UserViewModel
+import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -33,6 +38,13 @@ class nutrition : Fragment() {
     private lateinit var tvTotalConsumptionCalories: TextView
     private lateinit var tvWeightGoal: TextView
     private lateinit var tvCaloriesGoal: TextView
+    private lateinit var tvRemainingCalories: TextView
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var nutritionViewModel: NutritionViewModel
+
+    private lateinit var user: UserClass
+    private lateinit var goal: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -67,6 +79,7 @@ class nutrition : Fragment() {
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
         tvNutrionDate.text = "$year-$month-$dayOfMonth"
+
 
         when (dayOfWeek) {
             1 -> {
@@ -169,112 +182,97 @@ class nutrition : Fragment() {
         tvTotalConsumptionCalories = view.findViewById(R.id.tvTotalConsumptionCalories)
         tvWeightGoal = view.findViewById(R.id.tvWeightGoal)
         tvCaloriesGoal = view.findViewById(R.id.tvCaloriesGoal)
+        tvRemainingCalories = view.findViewById(R.id.tvRemainingCalories)
+
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
 
         fetchCaloriesConsumption()
-        fetchGoal()
+        fetchWeightGoal()
         fetchHydrationIntake()
 
         return view
     }
 
-    private fun fetchGoal() {
-        val username = getUsername() ?: return
-        var goal = ""
+    private fun fetchWeightGoal() {
+        goal = ""
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
-
-        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.hasChild("goal")) {
-                    goal = snapshot.child("goal").getValue(String::class.java) ?: ""
-                } else {
-                    ""
-                }
+        userViewModel.fetchWeightGoal(object : UserViewModel.OnRequestCompleteCallBack<String> {
+            override fun onSuccess(list: List<String>) {
+                goal = list[0]
                 tvWeightGoal.text = goal
-
-                tvCaloriesGoal.text = when (goal) {
-                    "Maintain Weight" -> ""
-                    "Lose Weight" -> ""
-                    "Gain Weight" -> ""
-                    else -> (0).toString()
-                }
+                fetchCaloriesGoal()
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    requireContext(),
-                    "Error fetching goal : $error",
-                    Toast.LENGTH_LONG
-                ).show()
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
             }
         })
     }
 
+    private fun fetchCaloriesGoal() {
+        userViewModel.fetchUserDetails(object : UserViewModel.OnRequestCompleteCallBack<UserClass> {
+            override fun onSuccess(list: List<UserClass>) {
+                user = list[0]
+
+                val bmr = calculateBMR(user)
+                val TDEE = bmr * 1.2
+                var caloriesGoal = TDEE
+
+                when (goal) {
+                    "Lose Weight" -> caloriesGoal = TDEE - 500
+                    "Gain Weight" -> caloriesGoal = TDEE + 250
+                }
+                tvCaloriesGoal.text = caloriesGoal.toInt().toString()
+
+                tvRemainingCalories.text =
+                    (caloriesGoal - tvTotalConsumptionCalories.text.toString()
+                        .toDouble()).toInt().toString()
+            }
+
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun calculateBMR(user: UserClass): Int {
+        return when (user.gender) {
+            "male" -> (88.362 + (13.397 * user.weight) + (4.799 * user.height) - (5.677 * user.age)).toInt()
+            else -> (447.593 + (9.247 * user.weight) + (3.098 * user.height) - (4.330 * user.age)).toInt()
+        }
+    }
+
     private fun fetchCaloriesConsumption() {
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
-        val username = getUsername() ?: return
+        nutritionViewModel.fetchCaloriesConsumption(object :
+            NutritionViewModel.OnRequestCompleteCallBack<MutableMap<String, Int>> {
+            override fun onSuccess(list: MutableMap<String, Int>) {
+                val breakfastKcal = list.getOrDefault("Breakfast", 0)
+                val lunchKcal = list.getOrDefault("Lunch", 0)
+                val dinnerKcal = list.getOrDefault("Dinner", 0)
 
-        // Retrieve the data for today from Firebase
-        dbRef.child(username).child(currentDate)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Create a map to store the total calories consumption for each meal type
-                    val caloriesConsumptionMap = arrayMapOf<String, Int>()
+                tvBreakfastKcal.text = breakfastKcal.toString()
+                tvLunchKcal.text = lunchKcal.toString()
+                tvDinnerKcal.text = dinnerKcal.toString()
 
-                    // Iterate through the dataSnapshot to calculate the total calories consumption for each meal type
-                    for (mealTypeSnapshot in dataSnapshot.children) {
-                        val mealType = mealTypeSnapshot.key.toString()
+                tvTotalConsumptionCalories.text =
+                    (breakfastKcal + lunchKcal + dinnerKcal).toString()
+            }
 
-                        // Retrieve the total calories consumption for the current meal type
-                        val totalCaloriesConsumption =
-                            mealTypeSnapshot.child("totalCaloriesConsumption")
-                                .getValue(Int::class.java) ?: 0
-
-                        // Update the calories consumption map
-                        caloriesConsumptionMap[mealType] = totalCaloriesConsumption
-                    }
-
-                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0)
-                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0)
-                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0)
-
-                    val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
-
-                    tvBreakfastKcal.text =
-                        breakfastKcal.toString()
-                    tvLunchKcal.text = lunchKcal.toString()
-                    tvDinnerKcal.text = dinnerKcal.toString()
-                    tvTotalConsumptionCalories.text = totalConsumption.toString()
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Toast.makeText(requireContext(), "Error: $databaseError", Toast.LENGTH_LONG)
-                        .show()
-                }
-            })
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun fetchHydrationIntake() {
-        val username = getUsername() ?: return
-        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
-
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal").child(username).child(date)
-            .child("Hydration")
-        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val hydrationIntake = snapshot.getValue(Int::class.java)
-                displayHydrationIntake(
-                    hydrationIntake ?: 0
-                ) // Call function to display hydration intake
+        userViewModel.fetchHydrationIntake(object : UserViewModel.OnRequestCompleteCallBack<Int> {
+            override fun onSuccess(list: List<Int>) {
+                displayHydrationIntake(list[0])
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    requireContext(),
-                    "Error fetching hydration : $error",
-                    Toast.LENGTH_LONG
-                ).show()
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
             }
         })
     }

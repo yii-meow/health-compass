@@ -73,8 +73,8 @@ class nutrition : Fragment() {
         val calendar = Calendar.getInstance()
         val dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK) - 1
         val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH) + 1
-        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = String.format("%02d", calendar.get(Calendar.MONTH) + 1)
+        val dayOfMonth = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH))
 
         tvNutrionDate.text = "$year-$month-$dayOfMonth"
 
@@ -222,9 +222,11 @@ class nutrition : Fragment() {
                 }
                 tvCaloriesGoal.text = caloriesGoal.toInt().toString()
 
-                if(tvTotalConsumptionCalories.text.toString().toDouble() > caloriesGoal){
+                if (tvTotalConsumptionCalories.text.toString().toDouble() > caloriesGoal) {
                     tvRemainingCalories.text =
-                        "Over " + Math.abs(caloriesGoal - tvTotalConsumptionCalories.text.toString().toDouble())
+                        "Over " + Math.abs(
+                            caloriesGoal - tvTotalConsumptionCalories.text.toString().toDouble()
+                        )
                 }
 
                 tvRemainingCalories.text =

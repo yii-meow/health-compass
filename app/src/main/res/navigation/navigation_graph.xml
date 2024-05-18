@@ -93,6 +93,9 @@
             android:name="nutritionDay"
             android:defaultValue="2"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_previous_day_nutrition_to_nutrition"
+            app:destination="@id/nutrition" />
     </fragment>
     <fragment
         android:id="@+id/fitness_routines_list"

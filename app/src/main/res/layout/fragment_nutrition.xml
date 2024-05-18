@@ -275,18 +275,6 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/lblRemaining"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:text="Remaining Today"
-                            android:textColor="@android:color/white"
-                            android:textSize="13dp"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/tvRemainingCalories"
-                            app:layout_constraintStart_toEndOf="@id/tvRemainingCalories" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
 

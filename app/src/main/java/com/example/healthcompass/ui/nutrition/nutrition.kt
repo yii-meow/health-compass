@@ -58,8 +58,6 @@ class nutrition : Fragment() {
         val imgEditMealDinner: ImageView = view.findViewById(R.id.imgDinnerArrow)
         val imgAddHydration: ImageView = view.findViewById(R.id.imgAddHydration)
 
-        val calendar = Calendar.getInstance()
-
         val flMonday: FrameLayout = view.findViewById(R.id.flMonday)
         val flTuesday: FrameLayout = view.findViewById(R.id.flTuesday)
         val flWednesday: FrameLayout = view.findViewById(R.id.flWednesday)
@@ -72,14 +70,13 @@ class nutrition : Fragment() {
         val previousNutritionAction =
             nutritionDirections.actionNutritionToPreviousDayNutrition()
 
-        val dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK)
-
+        val calendar = Calendar.getInstance()
+        val dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK) - 1
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
         tvNutrionDate.text = "$year-$month-$dayOfMonth"
-
 
         when (dayOfWeek) {
             1 -> {
@@ -112,7 +109,7 @@ class nutrition : Fragment() {
                 flSaturday.isEnabled = false
             }
 
-            7 -> {
+            0 -> {
                 flSunday.setBackgroundResource(R.drawable.today_nutrition_circle)
                 flSunday.isEnabled = false
             }
@@ -225,9 +222,14 @@ class nutrition : Fragment() {
                 }
                 tvCaloriesGoal.text = caloriesGoal.toInt().toString()
 
+                if(tvTotalConsumptionCalories.text.toString().toDouble() > caloriesGoal){
+                    tvRemainingCalories.text =
+                        "Over " + Math.abs(caloriesGoal - tvTotalConsumptionCalories.text.toString().toDouble())
+                }
+
                 tvRemainingCalories.text =
                     (caloriesGoal - tvTotalConsumptionCalories.text.toString()
-                        .toDouble()).toInt().toString()
+                        .toDouble()).toInt().toString() + "    remaining"
             }
 
             override fun onFailure(error: DatabaseError) {

@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
+import java.util.Calendar
 
 class previous_day_nutrition : Fragment() {
     private val args by navArgs<previous_day_nutritionArgs>()
@@ -37,45 +38,75 @@ class previous_day_nutrition : Fragment() {
             7 -> flSunday.setBackgroundResource(R.drawable.today_nutrition_circle)
         }
 
+        val calendar = Calendar.getInstance()
+        val dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK) - 1
+
         val action =
             previous_day_nutritionDirections.actionPreviousDayNutritionSelf()
 
         // View another previous day nutrition
-        flMonday.setOnClickListener{
-            action.nutritionDay = 1
-            findNavController().navigate(action)
+        flMonday.setOnClickListener {
+            if (dayOfWeek == 1) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 1
+                findNavController().navigate(action)
+            }
         }
 
-        flTuesday.setOnClickListener{
-            action.nutritionDay = 2
-            findNavController().navigate(action)
+        flTuesday.setOnClickListener {
+            if (dayOfWeek == 2) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 2
+                findNavController().navigate(action)
+            }
         }
 
-        flWednesday.setOnClickListener{
-            action.nutritionDay = 3
-            findNavController().navigate(action)
+        flWednesday.setOnClickListener {
+            if (dayOfWeek == 3) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 3
+                findNavController().navigate(action)
+            }
         }
 
-        flThursday.setOnClickListener{
-            action.nutritionDay = 4
-            findNavController().navigate(action)
+        flThursday.setOnClickListener {
+            if (dayOfWeek == 4) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 4
+                findNavController().navigate(action)
+            }
         }
 
-        flFriday.setOnClickListener{
-            action.nutritionDay = 5
-            findNavController().navigate(action)
+        flFriday.setOnClickListener {
+            if (dayOfWeek == 5) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 5
+                findNavController().navigate(action)
+            }
         }
 
-        flSaturday.setOnClickListener{
-            action.nutritionDay = 6
-            findNavController().navigate(action)
+        flSaturday.setOnClickListener {
+            if (dayOfWeek == 6) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 6
+                findNavController().navigate(action)
+            }
         }
 
-        flSunday.setOnClickListener{
-            action.nutritionDay = 7
-            findNavController().navigate(action)
+        flSunday.setOnClickListener {
+            if (dayOfWeek == 0) {
+                findNavController().navigate(R.id.action_previous_day_nutrition_to_nutrition)
+            } else {
+                action.nutritionDay = 7
+                findNavController().navigate(action)
+            }
         }
-
         return view
     }
 }

@@ -22,6 +22,8 @@ import org.w3c.dom.Text
 class fitness_routines_details : Fragment() {
     private val args by navArgs<fitness_routines_detailsArgs>()
     private lateinit var fitnessActivityViewModel: FitnessActivityViewModel
+    private lateinit var fitnessActivity: FitnessActivity
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,18 +32,19 @@ class fitness_routines_details : Fragment() {
         val view = inflater.inflate(R.layout.fragment_fitness_routines_details, container, false)
 
         val tvActivityName: TextView = view.findViewById(R.id.tvActivityName)
-        val imgActivityName: ImageView = view.findViewById(R.id.imgActivity)
-        val tvActivityTime : TextView = view.findViewById(R.id.tvActivityTime)
+        val imgActivity: ImageView = view.findViewById(R.id.imgActivity)
+        val tvActivityTime: TextView = view.findViewById(R.id.tvActivityTime)
         val tvActivityDesc: TextView = view.findViewById(R.id.tvActivityDesc)
         val tvCaloriesBurnt: TextView = view.findViewById(R.id.tvActivityCalories)
         val tvActivityDuration: TextView = view.findViewById(R.id.tvActivityDuration)
-        val tvNote : TextView = view.findViewById(R.id.tvNote)
+        val tvNote: TextView = view.findViewById(R.id.tvNote)
+        val btnAddNote: Button = view.findViewById(R.id.btnAddNote)
 
         // Find the fitness activity
         fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
         fitnessActivityViewModel.getFitnessActivityDetails(object : OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
-                val fitnessActivity: FitnessActivity = list.get(0)
+                fitnessActivity = list[0]
 
                 tvActivityName.text = fitnessActivity.activityName
                 tvActivityDesc.text = fitnessActivity.activityName
@@ -49,6 +52,12 @@ class fitness_routines_details : Fragment() {
                 tvActivityDuration.text = fitnessActivity.duration
                 tvActivityTime.text = fitnessActivity.activityDate + " " + fitnessActivity.startTime
                 tvNote.text = fitnessActivity.extraNote
+
+                imgActivity.setBackgroundResource(getImgFitness(fitnessActivity.activityName))
+
+                if (fitnessActivity.extraNote == "") {
+                    btnAddNote.text = "Add note"
+                } else btnAddNote.text = "Update note"
             }
 
             override fun onFailure(error: DatabaseError) {
@@ -56,12 +65,20 @@ class fitness_routines_details : Fragment() {
             }
         }, args.fitnessDay, args.fitnessTime)
 
-        val btnAddNote: Button = view.findViewById(R.id.btnAddNote)
-
         btnAddNote.setOnClickListener {
-
+            val note = tvNote.text.toString()
+            fitnessActivityViewModel.updateFitnessActivityNote(fitnessActivity, note)
         }
 
         return view
+    }
+
+    fun getImgFitness(acitivtyName: String): Int {
+        return when (acitivtyName) {
+            "Running", "Jogging", "Treadmill" -> R.drawable.running
+            "Walking" -> R.drawable.walking
+            "Badminton" -> R.drawable.badminton
+            else -> R.drawable.cycling
+        }
     }
 }

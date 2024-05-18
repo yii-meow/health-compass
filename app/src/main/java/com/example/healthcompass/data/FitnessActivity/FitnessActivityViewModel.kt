@@ -223,6 +223,22 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         })
     }
 
+    fun updateFitnessActivityNote(fitnessActivity: FitnessActivity, note: String) {
+        val username = getUsername() ?: return
+        val dbRef = FirebaseDatabase.getInstance().getReference("Fitness").child(username)
+
+        val noteRef = dbRef.child(fitnessActivity.activityDate).child(fitnessActivity.startTime)
+            .child("extraNote")
+        noteRef.setValue(note)
+            .addOnCompleteListener {
+                Toast.makeText(getApplication(), "updated note successfully", Toast.LENGTH_LONG)
+                    .show()
+            }
+            .addOnFailureListener { error ->
+                Toast.makeText(getApplication(), "$error", Toast.LENGTH_LONG).show()
+            }
+    }
+
     private fun getUsername(): String? {
         val sharedPref: SharedPreferences =
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)

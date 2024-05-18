@@ -230,7 +230,7 @@ class SummaryFragment : Fragment() {
         return sharedPref.getString("username", null)
     }
 
-    private fun getImgFitness(acitivtyName: String): Int {
+    fun getImgFitness(acitivtyName: String): Int {
         return when (acitivtyName) {
             "Running", "Jogging", "Treadmill" -> R.drawable.running
             "Walking" -> R.drawable.walking

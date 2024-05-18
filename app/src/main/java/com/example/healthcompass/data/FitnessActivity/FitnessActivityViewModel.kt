@@ -3,12 +3,10 @@ package com.example.healthcompass.data.FitnessActivity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.ui.fitness.log_workout_recordDirections
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,7 +14,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class FitnessActivityViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dbRef: DatabaseReference
@@ -159,7 +159,66 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(getApplication(),"$error",Toast.LENGTH_LONG).show()
+                Toast.makeText(getApplication(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    fun fetchWeeklyFitnessDetails(callback: OnCaloriesCalculationCallback<WeeklyFitnessSummary>) {
+        val username = getUsername() ?: return
+        val dbRef = FirebaseDatabase.getInstance().getReference("Fitness").child(username)
+
+        val calendar = Calendar.getInstance()
+        // Set the calendar to the start of the current week
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+        val startDate = calendar.time
+        // Set the calendar to the end of the current week
+        calendar.add(Calendar.DAY_OF_WEEK, 6)
+        val endDate = calendar.time
+
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val fitnessActivities = arrayListOf<FitnessActivity>()
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+                for (dateSnapshot in snapshot.children) {
+                    val dateStr = dateSnapshot.key
+                    val date = dateFormat.parse(dateStr)
+                    if (date != null && !date.before(startDate) && !date.after(endDate)) {
+                        for (timeSnapshot in dateSnapshot.children) {
+                            val activity = timeSnapshot.getValue(FitnessActivity::class.java)
+                            activity?.let { fitnessActivities.add(it) }
+                        }
+                    }
+                }
+
+                // Calculate total workouts
+                val totalWorkouts = fitnessActivities.size
+
+                // Total calories burnt
+                val totalCalories = fitnessActivities.sumOf { it.caloriesBurnt }
+
+                // Calculate total workout duration
+                var totalDuration = 0
+                fitnessActivities.forEach {
+                    val parts = it.duration.split(":")
+                    val hours = parts[0].toInt()
+                    val minutes = parts[1].toInt()
+                    totalDuration += hours * 60 + minutes
+                }
+
+                val summary = WeeklyFitnessSummary(
+                    totalWorkouts,
+                    totalDuration,
+                    totalCalories
+                )
+
+                callback.onCaloriesSuccess(summary)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(getApplication(), "$error", Toast.LENGTH_LONG).show()
+                callback.onFailure(error)
             }
         })
     }
@@ -175,3 +234,14 @@ interface OnRequestCompleteCallBack {
     fun onSuccess(list: List<FitnessActivity>)
     fun onFailure(error: DatabaseError)
 }
+
+interface OnCaloriesCalculationCallback<T> {
+    fun onCaloriesSuccess(result: T)
+    fun onFailure(error: DatabaseError)
+}
+
+data class WeeklyFitnessSummary(
+    val totalWorkouts: Int,
+    val totalDuration: Int,
+    val totalCaloriesBurnt: Int
+)

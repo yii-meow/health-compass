@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -15,9 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
-import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
 import com.google.firebase.database.DatabaseError
-import org.w3c.dom.Text
 
 class fitness_routines_details : Fragment() {
     private val args by navArgs<fitness_routines_detailsArgs>()
@@ -42,7 +39,7 @@ class fitness_routines_details : Fragment() {
 
         // Find the fitness activity
         fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
-        fitnessActivityViewModel.getFitnessActivityDetails(object : OnRequestCompleteCallBack {
+        fitnessActivityViewModel.getFitnessActivityDetails(object : FitnessActivityViewModel.OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
                 fitnessActivity = list[0]
 

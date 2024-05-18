@@ -242,20 +242,20 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)
         return sharedPref.getString("username", null)
     }
-}
 
-interface OnRequestCompleteCallBack {
-    fun onSuccess(list: List<FitnessActivity>)
-    fun onFailure(error: DatabaseError)
-}
+    interface OnRequestCompleteCallBack {
+        fun onSuccess(list: List<FitnessActivity>)
+        fun onFailure(error: DatabaseError)
+    }
 
-interface OnCaloriesCalculationCallback<T> {
-    fun onCaloriesSuccess(result: T)
-    fun onFailure(error: DatabaseError)
-}
+    interface OnCaloriesCalculationCallback<T> {
+        fun onCaloriesSuccess(result: T)
+        fun onFailure(error: DatabaseError)
+    }
 
-data class WeeklyFitnessSummary(
-    val totalWorkouts: Int,
-    val totalDuration: Int,
-    val totalCaloriesBurnt: Int
-)
+    data class WeeklyFitnessSummary(
+        val totalWorkouts: Int,
+        val totalDuration: Int,
+        val totalCaloriesBurnt: Int
+    )
+}

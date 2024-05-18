@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import com.example.healthcompass.data.FitnessActivity.FitnessActivity
-import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -19,7 +17,7 @@ import java.util.Locale
 class NutritionViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dbRef: DatabaseReference
 
-    private fun fetchCaloriesConsumption() {
+    fun fetchCaloriesConsumption(callback: OnRequestCompleteCallBack<MutableMap<String, Int>>) {
         val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
 
@@ -43,26 +41,7 @@ class NutritionViewModel(application: Application) : AndroidViewModel(applicatio
                         // Update the calories consumption map
                         caloriesConsumptionMap[mealType] = totalCaloriesConsumption.toInt()
                     }
-
-                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0)
-                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0)
-                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0)
-                    val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
-
-//                    tvBreakfastKcal.text = breakfastKcal.toString()
-//                    tvLunchKcal.text = lunchKcal.toString()
-//                    tvDinnerKcal.text = dinnerKcal.toString()
-//                    tvIntakeKcal.text = totalConsumption.toString()
-//
-//                    val TDEE = tvBMRKcal.text.toString().toDouble() * 1.2
-//
-//                    // Normal intake range
-//                    if (totalConsumption > TDEE - 100 && totalConsumption < TDEE + 500) {
-//                        tvMealStatus.text = "NORMAL"
-//                    } else {
-//                        tvMealStatus.text = "ABNORMAL"
-//                        tvMealStatus.setTextColor(Color.RED)
-//                    }
+                    callback.onSuccess(caloriesConsumptionMap)
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -76,5 +55,10 @@ class NutritionViewModel(application: Application) : AndroidViewModel(applicatio
         val sharedPref: SharedPreferences =
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)
         return sharedPref.getString("username", null)
+    }
+
+    interface OnRequestCompleteCallBack<T> {
+        fun onSuccess(list: MutableMap<String, Int>)
+        fun onFailure(error: DatabaseError)
     }
 }

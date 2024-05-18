@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
-import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
+import com.example.healthcompass.data.Nutrition.NutritionViewModel
 import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
@@ -42,8 +42,21 @@ class SummaryFragment : Fragment() {
     private lateinit var tvBMIStatus: TextView
     private lateinit var tvBMRKcal: TextView
     private lateinit var fitnessActivityViewModel: FitnessActivityViewModel
-    private lateinit var userViewModel : UserViewModel
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var nutritionViewModel: NutritionViewModel
     private lateinit var tvMealStatus: TextView
+
+    private lateinit var tvSport1Type: TextView
+    private lateinit var tvSport1Date: TextView
+    private lateinit var tvSport1Calories: TextView
+    private lateinit var tvSport1Duration: TextView
+    private lateinit var imgSport1: ImageView
+
+    private lateinit var tvSport2Type: TextView
+    private lateinit var tvSport2Date: TextView
+    private lateinit var tvSport2Calories: TextView
+    private lateinit var tvSport2Duration: TextView
+    private lateinit var imgSport2: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -74,37 +87,25 @@ class SummaryFragment : Fragment() {
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         fetchUserDetails()
+
+        nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
         fetchCaloriesConsumption()
 
-
         // Latest two records
+        tvSport1Type = view.findViewById(R.id.tvSport1Type)
+        tvSport1Date = view.findViewById(R.id.tvSport1Date)
+        tvSport1Calories = view.findViewById(R.id.tvSport1Calories)
+        tvSport1Duration = view.findViewById(R.id.tvSport1Duration)
+        imgSport1 = view.findViewById(R.id.imgSport1)
+
+        tvSport2Type = view.findViewById(R.id.tvSport2Type)
+        tvSport2Date = view.findViewById(R.id.tvSport2Date)
+        tvSport2Calories = view.findViewById(R.id.tvSport2Calories)
+        tvSport2Duration = view.findViewById(R.id.tvSport2Duration)
+        imgSport2 = view.findViewById(R.id.imgSport2)
+
         fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
-        fitnessActivityViewModel.fetchLatestFitnessActivity(object : OnRequestCompleteCallBack {
-            override fun onSuccess(list: List<FitnessActivity>) {
-                // Set text view data
-                view.findViewById<TextView>(R.id.tvSport1Type).text = list[0].activityName
-                view.findViewById<TextView>(R.id.tvSport1Date).text = list[0].activityDate
-                view.findViewById<TextView>(R.id.tvSport1Calories).text =
-                    list[0].caloriesBurnt.toString()
-                view.findViewById<TextView>(R.id.tvSport1Duration).text =
-                    list[0].startTime.substring(0, 5) + " - " + list[0].endTime.substring(0, 5)
-                view.findViewById<ImageView>(R.id.imgSport1)
-                    .setBackgroundResource(getImgFitness(list[0].activityName))
-
-                view.findViewById<TextView>(R.id.tvSport2Type).text = list[1].activityName
-                view.findViewById<TextView>(R.id.tvSport2Date).text = list[1].activityDate
-                view.findViewById<TextView>(R.id.tvSport2Calories).text =
-                    list[1].caloriesBurnt.toString()
-                view.findViewById<TextView>(R.id.tvSport2Duration).text =
-                    list[1].startTime.substring(0, 5) + " - " + list[1].endTime.substring(0, 5)
-                view.findViewById<ImageView>(R.id.imgSport2)
-                    .setBackgroundResource(getImgFitness(list[1].activityName))
-            }
-
-            override fun onFailure(error: DatabaseError) {
-                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
-            }
-        })
+        fetchLatestFitnessActivities()
 
         nutritionView.setOnClickListener {
             findNavController().navigate(R.id.action_summary_to_nutrition)
@@ -162,7 +163,7 @@ class SummaryFragment : Fragment() {
     }
 
     private fun fetchUserDetails() {
-        userViewModel.fetchUserDetails(object: UserViewModel.OnRequestCompleteCallBack<UserClass>{
+        userViewModel.fetchUserDetails(object : UserViewModel.OnRequestCompleteCallBack<UserClass> {
             override fun onSuccess(list: List<UserClass>) {
                 val user = list[0]
                 calculateBMI(user!!.weight, user!!.height)
@@ -170,6 +171,7 @@ class SummaryFragment : Fragment() {
                     user!!.weight, user!!.height, user!!.gender, user!!.age
                 )
             }
+
             override fun onFailure(error: DatabaseError) {
                 Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
             }
@@ -177,63 +179,60 @@ class SummaryFragment : Fragment() {
     }
 
     private fun fetchCaloriesConsumption() {
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+        nutritionViewModel.fetchCaloriesConsumption(object :
+            NutritionViewModel.OnRequestCompleteCallBack<MutableMap<String, Int>> {
+            override fun onSuccess(list: MutableMap<String, Int>) {
+                val breakfastKcal = list.getOrDefault("Breakfast", 0)
+                val lunchKcal = list.getOrDefault("Lunch", 0)
+                val dinnerKcal = list.getOrDefault("Dinner", 0)
+                val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
 
-        // Retrieve the data for today from Firebase
-        val username = getUsername() ?: return
-        dbRef.child(username).child(currentDate)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Create a map to store the total calories consumption for each meal type
-                    val caloriesConsumptionMap = mutableMapOf<String, Int>()
+                tvBreakfastKcal.text = breakfastKcal.toString()
+                tvLunchKcal.text = lunchKcal.toString()
+                tvDinnerKcal.text = dinnerKcal.toString()
+                tvIntakeKcal.text = totalConsumption.toString()
 
-                    // Iterate through the dataSnapshot to calculate the total calories consumption for each meal type
-                    for (mealTypeSnapshot in dataSnapshot.children) {
-                        val mealType = mealTypeSnapshot.key.toString()
+                // Normal intake range
+                val TDEE = tvBMRKcal.text.toString().toDouble() * 1.2
 
-                        // Retrieve the total calories consumption for the current meal type
-                        val totalCaloriesConsumption =
-                            mealTypeSnapshot.child("totalCaloriesConsumption")
-                                .getValue(Double::class.java) ?: 0.0
-
-                        // Update the calories consumption map
-                        caloriesConsumptionMap[mealType] = totalCaloriesConsumption.toInt()
-                    }
-
-                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0)
-                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0)
-                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0)
-                    val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
-
-                    tvBreakfastKcal.text = breakfastKcal.toString()
-                    tvLunchKcal.text = lunchKcal.toString()
-                    tvDinnerKcal.text = dinnerKcal.toString()
-                    tvIntakeKcal.text = totalConsumption.toString()
-
-                    val TDEE = tvBMRKcal.text.toString().toDouble() * 1.2
-
-                    // Normal intake range
-                    if (totalConsumption > TDEE - 100 && totalConsumption < TDEE + 500) {
-                        tvMealStatus.text = "NORMAL"
-                    } else {
-                        tvMealStatus.text = "ABNORMAL"
-                        tvMealStatus.setTextColor(Color.RED)
-                    }
+                if (totalConsumption > TDEE - 100 && totalConsumption < TDEE + 500) {
+                    tvMealStatus.text = "NORMAL"
+                } else {
+                    tvMealStatus.text = "ABNORMAL"
+                    tvMealStatus.setTextColor(Color.RED)
                 }
+            }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    Toast.makeText(requireContext(), "Error: $databaseError", Toast.LENGTH_LONG)
-                        .show()
-                }
-            })
-
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
-    private fun getUsername(): String? {
-        val sharedPref: SharedPreferences =
-            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
-        return sharedPref.getString("username", null)
+    private fun fetchLatestFitnessActivities() {
+        fitnessActivityViewModel.fetchLatestFitnessActivity(object :
+            FitnessActivityViewModel.OnRequestCompleteCallBack {
+            override fun onSuccess(list: List<FitnessActivity>) {
+                // Set text view data
+                tvSport1Type.text = list[0].activityName
+                tvSport1Date.text = list[0].activityDate
+                tvSport1Calories.text = list[0].caloriesBurnt.toString()
+                tvSport1Duration.text =
+                    list[0].startTime.substring(0, 5) + " - " + list[0].endTime.substring(0, 5)
+                imgSport1.setBackgroundResource(getImgFitness(list[0].activityName))
+
+                tvSport2Type.text = list[1].activityName
+                tvSport2Date.text = list[1].activityDate
+                tvSport2Calories.text = list[1].caloriesBurnt.toString()
+                tvSport2Duration.text =
+                    list[1].startTime.substring(0, 5) + " - " + list[1].endTime.substring(0, 5)
+                imgSport2.setBackgroundResource(getImgFitness(list[1].activityName))
+            }
+
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     fun getImgFitness(acitivtyName: String): Int {

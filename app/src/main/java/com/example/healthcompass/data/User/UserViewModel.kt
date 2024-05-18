@@ -38,8 +38,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
-
-
     private fun getUsername(): String? {
         val sharedPref: SharedPreferences =
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)

@@ -16,9 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
-import com.example.healthcompass.data.FitnessActivity.OnCaloriesCalculationCallback
-import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
-import com.example.healthcompass.data.FitnessActivity.WeeklyFitnessSummary
 import com.google.firebase.database.DatabaseError
 
 class fitness_routines : Fragment() {
@@ -42,8 +39,8 @@ class fitness_routines : Fragment() {
 
         fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
         fitnessActivityViewModel.fetchWeeklyFitnessDetails(object :
-            OnCaloriesCalculationCallback<WeeklyFitnessSummary> {
-            override fun onCaloriesSuccess(result: WeeklyFitnessSummary) {
+            FitnessActivityViewModel.OnCaloriesCalculationCallback<FitnessActivityViewModel.WeeklyFitnessSummary> {
+            override fun onCaloriesSuccess(result: FitnessActivityViewModel.WeeklyFitnessSummary) {
                 tvCaloriesBurnt.text = result.totalCaloriesBurnt.toString()
                 tvTotalWorkoutsThisWeek.text = result.totalWorkouts.toString()
                 tvTotalWorkoutDuration.text = result.totalDuration.toString()
@@ -61,7 +58,8 @@ class fitness_routines : Fragment() {
             }
         })
 
-        fitnessActivityViewModel.fetchLatestFitnessActivity(object : OnRequestCompleteCallBack {
+        fitnessActivityViewModel.fetchLatestFitnessActivity(object :
+            FitnessActivityViewModel.OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
                 // Set text view data
                 view.findViewById<TextView>(R.id.tvSport1Type).text = list[0].activityName

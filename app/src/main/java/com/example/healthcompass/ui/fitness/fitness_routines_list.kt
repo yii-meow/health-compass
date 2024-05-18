@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.healthcompass.R
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
-import com.example.healthcompass.data.FitnessActivity.OnCaloriesCalculationCallback
-import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
 import com.example.healthcompass.dataAdapter.FitnessListAdapter
 import com.google.firebase.database.DatabaseError
 
@@ -46,7 +43,7 @@ class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener
 //                adapter.submitList(activities)
 //            })
 
-        viewModel.getAllFitnessActivity(object : OnRequestCompleteCallBack {
+        viewModel.getAllFitnessActivity(object : FitnessActivityViewModel.OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
                 fitnessActivityList = list
                 adapter.setData(fitnessActivityList)

@@ -31,7 +31,6 @@ import java.util.Date
 import java.util.Locale
 
 class nutrition : Fragment() {
-    private lateinit var dbRef: DatabaseReference
     private lateinit var tvBreakfastKcal: TextView
     private lateinit var tvLunchKcal: TextView
     private lateinit var tvDinnerKcal: TextView
@@ -270,7 +269,7 @@ class nutrition : Fragment() {
     }
 
     private fun fetchHydrationIntake() {
-        userViewModel.fetchHydrationIntake(object : UserViewModel.OnRequestCompleteCallBack<Int> {
+        nutritionViewModel.fetchHydrationIntake(object : UserViewModel.OnRequestCompleteCallBack<Int> {
             override fun onSuccess(list: List<Int>) {
                 displayHydrationIntake(list[0])
             }

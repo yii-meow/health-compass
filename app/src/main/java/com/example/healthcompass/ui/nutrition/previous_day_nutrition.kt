@@ -8,15 +8,23 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
+import com.example.healthcompass.data.Nutrition.NutritionViewModel
+import com.example.healthcompass.data.Nutrition.UserViewModel
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class previous_day_nutrition : Fragment() {
     private val args by navArgs<previous_day_nutritionArgs>()
+    private lateinit var nutritionViewModel: NutritionViewModel
+    private lateinit var tvNutritionDate: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,46 +45,55 @@ class previous_day_nutrition : Fragment() {
         val flSaturday: FrameLayout = view.findViewById(R.id.flSaturday)
         val flSunday: FrameLayout = view.findViewById(R.id.flSunday)
 
-        val tvNutrionDate: TextView = view.findViewById(R.id.tvNutrionDate)
+        tvNutritionDate = view.findViewById(R.id.tvNutrionDate)
 
         when (args.nutritionDay) {
             1 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flMonday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             2 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flTuesday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
+
             3 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flWednesday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
+
             4 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flThursday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
+
             5 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flFriday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
+
             6 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flSaturday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
+
             7 -> {
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-                tvNutrionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = sdf.format(calendar.time)
                 flSunday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
         }
+
+        nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
+        fetchCaloriesConsumption()
+        fetchHydrationIntake()
 
         val action =
             previous_day_nutritionDirections.actionPreviousDayNutritionSelf()
@@ -145,5 +162,46 @@ class previous_day_nutrition : Fragment() {
             }
         }
         return view
+    }
+
+    private fun fetchCaloriesConsumption() {
+        nutritionViewModel.fetchCaloriesConsumption(object :
+            NutritionViewModel.OnRequestCompleteCallBack<MutableMap<String, Int>> {
+            override fun onSuccess(list: MutableMap<String, Int>) {
+                val breakfastKcal = list.getOrDefault("Breakfast", 0)
+                val lunchKcal = list.getOrDefault("Lunch", 0)
+                val dinnerKcal = list.getOrDefault("Dinner", 0)
+
+                requireActivity().findViewById<TextView>(R.id.tvBreakfastKcal).text =
+                    breakfastKcal.toString()
+                requireActivity().findViewById<TextView>(R.id.tvLunchKcal).text =
+                    lunchKcal.toString()
+                requireActivity().findViewById<TextView>(R.id.tvDinnerKcal).text =
+                    dinnerKcal.toString()
+                requireActivity().findViewById<TextView>(R.id.tvTotalConsumptionCalories).text =
+                    (breakfastKcal + lunchKcal + dinnerKcal).toString()
+            }
+
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        }, tvNutritionDate.text.toString())
+    }
+
+    private fun fetchHydrationIntake() {
+        nutritionViewModel.fetchHydrationIntake(object :
+            UserViewModel.OnRequestCompleteCallBack<Int> {
+            override fun onSuccess(list: List<Int>) {
+                val hydrationTextView =
+                    requireActivity().findViewById<TextView>(R.id.tvTodayHydration)
+
+                // Update the TextView with the hydration intake value
+                hydrationTextView.text = (list[0].toDouble() / 1000).toString()
+            }
+
+            override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
+            }
+        }, tvNutritionDate.text.toString())
     }
 }

@@ -17,13 +17,19 @@ import java.util.Locale
 class NutritionViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dbRef: DatabaseReference
 
-    fun fetchCaloriesConsumption(callback: OnRequestCompleteCallBack<MutableMap<String, Int>>) {
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    fun fetchCaloriesConsumption(
+        callback: OnRequestCompleteCallBack<MutableMap<String, Int>>,
+        date: String? = null
+    ) {
+        var currentDate = date
+        if (date == null) {
+            currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        }
         dbRef = FirebaseDatabase.getInstance().getReference("Meal")
 
         // Retrieve the data for today from Firebase
         val username = getUsername() ?: return
-        dbRef.child(username).child(currentDate)
+        dbRef.child(username).child(currentDate!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Create a map to store the total calories consumption for each meal type
@@ -49,6 +55,37 @@ class NutritionViewModel(application: Application) : AndroidViewModel(applicatio
                         .show()
                 }
             })
+    }
+
+    fun fetchHydrationIntake(
+        callback: UserViewModel.OnRequestCompleteCallBack<Int>,
+        date: String? = null
+    ) {
+        var currentDate = date
+        if (currentDate == null) {
+            currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        }
+        val username = getUsername() ?: return
+
+        dbRef =
+            FirebaseDatabase.getInstance().getReference("Meal").child(username).child(currentDate!!)
+                .child("Hydration")
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            val hydrations = arrayListOf<Int>()
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val hydrationIntake = snapshot.getValue(Int::class.java)
+                hydrations.add(hydrationIntake ?: 0)
+                callback.onSuccess(hydrations)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    getApplication(),
+                    "Error fetching hydration : $error",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
     }
 
     private fun getUsername(): String? {

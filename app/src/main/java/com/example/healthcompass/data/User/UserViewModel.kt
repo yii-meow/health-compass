@@ -65,30 +65,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
-    fun fetchHydrationIntake(callback: OnRequestCompleteCallBack<Int>) {
-        val username = getUsername() ?: return
-        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
-
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal").child(username).child(date)
-            .child("Hydration")
-        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            val hydrations = arrayListOf<Int>()
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val hydrationIntake = snapshot.getValue(Int::class.java)
-                hydrations.add(hydrationIntake ?: 0)
-                callback.onSuccess(hydrations)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    getApplication(),
-                    "Error fetching hydration : $error",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
-    }
-
     private fun getUsername(): String? {
         val sharedPref: SharedPreferences =
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)

@@ -410,7 +410,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardStartWorkout"
             android:layout_width="378dp"
-            android:layout_height="220dp"
+            android:layout_height="180dp"
             android:layout_marginTop="12dp"
             app:cardCornerRadius="12dp"
             app:layout_constraintLeft_toLeftOf="@id/cardFitnessRecords"
@@ -570,28 +570,6 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/flTreadmill">
 
-                        <FrameLayout
-                            android:id="@+id/flOthers"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/circle"
-                            android:gravity="center"
-                            android:padding="6dp">
-
-                            <ImageView
-                                android:id="@+id/imgOthersWorkout"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:src="@drawable/others" />
-                        </FrameLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="Others"
-                            android:textColor="@color/white"
-                            android:textSize="16dp" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         val user = getUsername()
         checkHasUsername(user)
 
-        Toast.makeText(this,"Welcome $user",Toast.LENGTH_LONG).show()
 //        binding.btnNavToProfile.setOnClickListener {
 //            val intent = Intent(this, ProfileActivity::class.java)
 //            startActivity(intent)

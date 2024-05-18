@@ -8,7 +8,7 @@
     tools:context=".ui.fitness.start_quick_workout">
 
     <TextView
-        android:id="@+id/lblStartWorkoutActivityName"
+        android:id="@+id/tvStartWorkoutActivityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -27,29 +27,20 @@
         android:src="@drawable/quick_workout_running"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lblStartWorkoutActivityName" />
+        app:layout_constraintTop_toBottomOf="@id/tvStartWorkoutActivityName" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStart"
-        android:layout_width="117dp"
-        android:layout_height="117dp"
-        android:layout_marginTop="50dp"
-        android:background="@color/black"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="60dp"
         android:text="START"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
         android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgQuickWorkout" />
-
-    <!--    <com.google.android.material.button.MaterialButton-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/btnStart"-->
-    <!--        app:layout_constraintLeft_toLeftOf="@id/btnStart"-->
-    <!--        android:text="START"-->
-    <!--        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"-->
-    <!--        app:icon="@drawable/ic_launcher_background"-->
-    <!--        />-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

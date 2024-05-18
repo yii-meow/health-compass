@@ -1,5 +1,6 @@
 package com.example.healthcompass.ui.fitness
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,20 +33,27 @@ class fitness_routines : Fragment() {
 
         val lblViewMore: TextView = view.findViewById(R.id.lblViewMore)
         val btnLogActivity: Button = view.findViewById(R.id.btnLogActivity)
-
         val flRunning: FrameLayout = view.findViewById(R.id.flRunning)
 
-        fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
+        val tvCaloriesBurnt: TextView = view.findViewById(R.id.tvCaloriesBurnt)
+        val tvTotalWorkoutsThisWeek: TextView = view.findViewById(R.id.tvTotalWorkoutsThisWeek)
+        val tvTotalWorkoutDuration: TextView = view.findViewById(R.id.tvTotalWorkoutDuration)
+        val tvFitnessStatus: TextView = view.findViewById(R.id.tvFitnessStatus)
 
+        fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
         fitnessActivityViewModel.fetchWeeklyFitnessDetails(object :
             OnCaloriesCalculationCallback<WeeklyFitnessSummary> {
             override fun onCaloriesSuccess(result: WeeklyFitnessSummary) {
-                view.findViewById<TextView>(R.id.tvCaloriesBurnt).text =
-                    result.totalCaloriesBurnt.toString()
-                view.findViewById<TextView>(R.id.tvTotalWorkoutsThisWeek).text =
-                    result.totalWorkouts.toString()
-                view.findViewById<TextView>(R.id.tvTotalWorkoutDuration).text =
-                    result.totalDuration.toString()
+                tvCaloriesBurnt.text = result.totalCaloriesBurnt.toString()
+                tvTotalWorkoutsThisWeek.text = result.totalWorkouts.toString()
+                tvTotalWorkoutDuration.text = result.totalDuration.toString()
+
+                if (result.totalDuration > 150) {
+                    tvFitnessStatus.text = "SUFFICIENT"
+                } else {
+                    tvFitnessStatus.text = "INSUFFICIENT"
+                    tvFitnessStatus.setTextColor(Color.RED)
+                }
             }
 
             override fun onFailure(error: DatabaseError) {

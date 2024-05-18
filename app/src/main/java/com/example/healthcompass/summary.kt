@@ -2,6 +2,7 @@ package com.example.healthcompass
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
 import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
 import com.example.healthcompass.data.FitnessActivity.OnRequestCompleteCallBack
+import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,27 +42,24 @@ class SummaryFragment : Fragment() {
     private lateinit var tvBMIStatus: TextView
     private lateinit var tvBMRKcal: TextView
     private lateinit var fitnessActivityViewModel: FitnessActivityViewModel
+    private lateinit var userViewModel : UserViewModel
+    private lateinit var tvMealStatus: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_summary, container, false)
-
         val nutritionView = view.findViewById<CardView>(R.id.cardDailyIntake)
         val fitnessRoutinesView = view.findViewById<CardView>(R.id.cardFitnessRoutines)
         val fitnessListView = view.findViewById<Button>(R.id.btnShowMoreFitness)
-
         val tvDate: TextView = view.findViewById(R.id.tvDate)
-        tvBMI = view.findViewById(R.id.tvBMI)
-        fetchUserDetails()
 
+        tvBMI = view.findViewById(R.id.tvBMI)
         tvBreakfastKcal = view.findViewById(R.id.tvBreakfastKcal)
         tvLunchKcal = view.findViewById(R.id.tvLunchKcal)
         tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
         tvIntakeKcal = view.findViewById(R.id.tvIntakeKcal)
-        fetchCaloriesConsumption()
 
         // Set current date
         val currentDate = Date()
@@ -70,12 +69,16 @@ class SummaryFragment : Fragment() {
 
         imgBMI = view.findViewById(R.id.imgBMI)
         tvBMIStatus = view.findViewById(R.id.tvBMIStatus)
-
         tvBMRKcal = view.findViewById(R.id.tvBMRKcal)
+        tvMealStatus = view.findViewById(R.id.tvMealStatus)
+
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        fetchUserDetails()
+        fetchCaloriesConsumption()
+
 
         // Latest two records
         fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
-
         fitnessActivityViewModel.fetchLatestFitnessActivity(object : OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
                 // Set text view data
@@ -150,32 +153,24 @@ class SummaryFragment : Fragment() {
 
     private fun calculateBMR(weight: Float, height: Float, gender: String, age: Int) {
         tvBMRKcal.text = when (gender) {
-            "male" -> (66.47 + (13.75 * weight) + (5.003 * height) - (6.755 * age)).toInt()
+            "male" -> (88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)).toInt()
                 .toString()
 
-            else -> (655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age)).toInt().toString()
+            else -> (447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)).toInt()
+                .toString()
         }
     }
 
     private fun fetchUserDetails() {
-        dbRef = FirebaseDatabase.getInstance().getReference("Users")
-        val username = getUsername() ?: return
-
-        dbRef.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val userData = snapshot.getValue(UserClass::class.java)
-                    calculateBMI(userData!!.weight, userData!!.height)
-                    calculateBMR(
-                        userData!!.weight,
-                        userData!!.height,
-                        userData!!.gender,
-                        userData!!.age
-                    )
-                }
+        userViewModel.fetchUserDetails(object: UserViewModel.OnRequestCompleteCallBack<UserClass>{
+            override fun onSuccess(list: List<UserClass>) {
+                val user = list[0]
+                calculateBMI(user!!.weight, user!!.height)
+                calculateBMR(
+                    user!!.weight, user!!.height, user!!.gender, user!!.age
+                )
             }
-
-            override fun onCancelled(error: DatabaseError) {
+            override fun onFailure(error: DatabaseError) {
                 Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
             }
         })
@@ -215,6 +210,16 @@ class SummaryFragment : Fragment() {
                     tvLunchKcal.text = lunchKcal.toString()
                     tvDinnerKcal.text = dinnerKcal.toString()
                     tvIntakeKcal.text = totalConsumption.toString()
+
+                    val TDEE = tvBMRKcal.text.toString().toDouble() * 1.2
+
+                    // Normal intake range
+                    if (totalConsumption > TDEE - 100 && totalConsumption < TDEE + 500) {
+                        tvMealStatus.text = "NORMAL"
+                    } else {
+                        tvMealStatus.text = "ABNORMAL"
+                        tvMealStatus.setTextColor(Color.RED)
+                    }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -222,6 +227,7 @@ class SummaryFragment : Fragment() {
                         .show()
                 }
             })
+
     }
 
     private fun getUsername(): String? {

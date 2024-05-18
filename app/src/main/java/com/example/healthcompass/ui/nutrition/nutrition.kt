@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.collection.arrayMapOf
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
 import com.google.firebase.database.DataSnapshot
@@ -31,6 +32,7 @@ class nutrition : Fragment() {
     private lateinit var tvDinnerKcal: TextView
     private lateinit var tvTotalConsumptionCalories: TextView
     private lateinit var tvWeightGoal: TextView
+    private lateinit var tvCaloriesGoal: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -166,6 +168,7 @@ class nutrition : Fragment() {
         tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
         tvTotalConsumptionCalories = view.findViewById(R.id.tvTotalConsumptionCalories)
         tvWeightGoal = view.findViewById(R.id.tvWeightGoal)
+        tvCaloriesGoal = view.findViewById(R.id.tvCaloriesGoal)
 
         fetchCaloriesConsumption()
         fetchGoal()
@@ -176,16 +179,24 @@ class nutrition : Fragment() {
 
     private fun fetchGoal() {
         val username = getUsername() ?: return
-        val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+        var goal = ""
 
         dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
 
         dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                tvWeightGoal.text = if (snapshot.hasChild("goal")) {
-                    snapshot.child("goal").getValue(String::class.java) ?: ""
+                if (snapshot.hasChild("goal")) {
+                    goal = snapshot.child("goal").getValue(String::class.java) ?: ""
                 } else {
                     ""
+                }
+                tvWeightGoal.text = goal
+
+                tvCaloriesGoal.text = when (goal) {
+                    "Maintain Weight" -> ""
+                    "Lose Weight" -> ""
+                    "Gain Weight" -> ""
+                    else -> (0).toString()
                 }
             }
 
@@ -209,7 +220,7 @@ class nutrition : Fragment() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     // Create a map to store the total calories consumption for each meal type
-                    val caloriesConsumptionMap = mutableMapOf<String, Double>()
+                    val caloriesConsumptionMap = arrayMapOf<String, Int>()
 
                     // Iterate through the dataSnapshot to calculate the total calories consumption for each meal type
                     for (mealTypeSnapshot in dataSnapshot.children) {
@@ -218,15 +229,15 @@ class nutrition : Fragment() {
                         // Retrieve the total calories consumption for the current meal type
                         val totalCaloriesConsumption =
                             mealTypeSnapshot.child("totalCaloriesConsumption")
-                                .getValue(Double::class.java) ?: 0.0
+                                .getValue(Int::class.java) ?: 0
 
                         // Update the calories consumption map
                         caloriesConsumptionMap[mealType] = totalCaloriesConsumption
                     }
 
-                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0.0)
-                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0.0)
-                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0.0)
+                    val breakfastKcal = caloriesConsumptionMap.getOrDefault("Breakfast", 0)
+                    val lunchKcal = caloriesConsumptionMap.getOrDefault("Lunch", 0)
+                    val dinnerKcal = caloriesConsumptionMap.getOrDefault("Dinner", 0)
 
                     val totalConsumption = breakfastKcal + lunchKcal + dinnerKcal
 
@@ -234,7 +245,7 @@ class nutrition : Fragment() {
                         breakfastKcal.toString()
                     tvLunchKcal.text = lunchKcal.toString()
                     tvDinnerKcal.text = dinnerKcal.toString()
-                    tvTotalConsumptionCalories.text = String.format("%.2f", totalConsumption)
+                    tvTotalConsumptionCalories.text = totalConsumption.toString()
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {

@@ -25,6 +25,7 @@ import java.io.FileOutputStream
 class achievements_milestones_details : Fragment() {
     private val args by navArgs<achievements_milestones_detailsArgs>()
     private lateinit var btnDownload: Button
+    private lateinit var btnShare: Button
 
     companion object {
         const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1001
@@ -35,7 +36,8 @@ class achievements_milestones_details : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_achievements_milestones_details, container, false)
+        val view =
+            inflater.inflate(R.layout.fragment_achievements_milestones_details, container, false)
 
         val tvBadgeTitle: TextView = view.findViewById(R.id.tvBadgeTitle)
         val tvBadgeDesc: TextView = view.findViewById(R.id.tvBadgeDesc)
@@ -44,6 +46,13 @@ class achievements_milestones_details : Fragment() {
         tvBadgeDesc.text = args.desc
 
         val badge: FrameLayout = view.findViewById(R.id.flBadge)
+
+        btnShare = view.findViewById(R.id.btnShare)
+
+        btnShare.setOnClickListener {
+            val bitmap = captureFrameLayout(badge)
+            shareBitmap(bitmap, requireContext())
+        }
 
         btnDownload = view.findViewById(R.id.btnDownload)
 
@@ -54,8 +63,7 @@ class achievements_milestones_details : Fragment() {
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
                 val bitmap = captureFrameLayout(badge)
-                val file = saveBitmapToFile(bitmap, requireContext())
-                shareFile(file, requireContext())
+                saveBitmapToFile(bitmap, requireContext())
             } else {
                 requestStoragePermissions()
             }
@@ -74,8 +82,28 @@ class achievements_milestones_details : Fragment() {
         return bitmap
     }
 
-    private fun saveBitmapToFile(bitmap: Bitmap, context: Context): File {
-        val picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+    private fun shareBitmap(bitmap: Bitmap, context: Context) {
+        // Create a temporary file in the cache directory
+        val cachePath = File(context.cacheDir, "images")
+        cachePath.mkdirs()
+        val file = File(cachePath, "shared_image.png")
+        FileOutputStream(file).use { out ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+        }
+
+        // Share the file using a FileProvider
+        val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/png"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        context.startActivity(Intent.createChooser(intent, "Share image via"))
+    }
+
+    private fun saveBitmapToFile(bitmap: Bitmap, context: Context) {
+        val picturesDir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         if (!picturesDir.exists()) {
             picturesDir.mkdirs()
         }
@@ -86,20 +114,15 @@ class achievements_milestones_details : Fragment() {
         }
 
         // Notify media scanner to make the file available
-        context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)))
+        context.sendBroadcast(
+            Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+            )
+        )
 
-        return file
-    }
-
-    private fun shareFile(file: File, context: Context) {
-        val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            type = "image/png"
-            putExtra(Intent.EXTRA_STREAM, uri)
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-        Toast.makeText(requireContext(),"File saved to ${file.absolutePath}",Toast.LENGTH_LONG).show()
-        context.startActivity(Intent.createChooser(intent, "Share image via"))
+        Toast.makeText(requireContext(), "File saved to ${file.absolutePath}", Toast.LENGTH_LONG)
+            .show()
     }
 
     private fun requestStoragePermissions() {
@@ -116,7 +139,11 @@ class achievements_milestones_details : Fragment() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_WRITE_EXTERNAL_STORAGE) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {

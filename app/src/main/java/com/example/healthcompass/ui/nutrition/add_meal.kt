@@ -163,7 +163,7 @@ class add_meal : Fragment() {
         val nutritionRowContainer = view?.findViewById<LinearLayout>(R.id.nutritionFactContainer)
 
         val foodList = mutableListOf<FoodItem>()
-        var totalCaloriesConsumption: Double = 0.0
+        var totalCaloriesConsumption = 0.0
 
         // Iterate over each food item in the map
         for ((index, entry) in foodMap.entries.withIndex()) {

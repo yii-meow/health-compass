@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -120,6 +121,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
     fun postWorkoutRecord(fitnessActivity: FitnessActivity) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
         val name = getUsername()
+
         dbRef.child(name!!).child(fitnessActivity.activityDate).child(fitnessActivity.startTime)
             .setValue(fitnessActivity)
             .addOnCompleteListener {
@@ -129,6 +131,15 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                     Toast.LENGTH_LONG
                 )
                     .show()
+
+                val userRef = FirebaseDatabase.getInstance().getReference("Users").child(name)
+                userRef.get().addOnSuccessListener { snapshot ->
+                    val user = snapshot.getValue(UserClass::class.java)
+                    if (user != null) {
+                        updateUserStreak(user, fitnessActivity)
+//                        userRef.setValue(user)
+                    }
+                }
             }
             .addOnFailureListener {
                 Toast.makeText(getApplication(), "Failed to add fitness record!", Toast.LENGTH_LONG)
@@ -258,4 +269,23 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         val totalDuration: Int,
         val totalCaloriesBurnt: Int
     )
+
+    private fun updateUserStreak(user: UserClass, activity: FitnessActivity) {
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val lastActivityDate = sdf.parse(user.lastActivityDate)
+        val currentDate = sdf.parse(activity.activityDate)
+        val diff = (currentDate.time - lastActivityDate.time) / (1000 * 60 * 60 * 24)
+
+        if (diff == 1L) {
+            user.currentStreak++
+        } else if (diff > 1L) {
+            user.currentStreak = 1
+        }
+
+        user.lastActivityDate = activity.activityDate
+
+        if (user.currentStreak > user.longestStreak) {
+            user.longestStreak = user.currentStreak
+        }
+    }
 }

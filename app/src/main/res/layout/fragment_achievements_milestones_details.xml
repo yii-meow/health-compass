@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@id/lblCongratulations">
 
         <FrameLayout
-            android:id="@+id/badgeFitness3Days"
+            android:id="@+id/flBadge"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="30dp"

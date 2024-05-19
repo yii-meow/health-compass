@@ -1,8 +1,16 @@
 package com.example.healthcompass
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +21,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
@@ -21,18 +31,13 @@ import com.example.healthcompass.data.FitnessActivity.FitnessActivityViewModel
 import com.example.healthcompass.data.Nutrition.NutritionViewModel
 import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class SummaryFragment : Fragment() {
-
-    private lateinit var dbRef: DatabaseReference
+class SummaryFragment : Fragment(), SensorEventListener {
     private lateinit var tvBMI: TextView
     private lateinit var tvBreakfastKcal: TextView
     private lateinit var tvLunchKcal: TextView
@@ -58,13 +63,41 @@ class SummaryFragment : Fragment() {
     private lateinit var tvSport2Duration: TextView
     private lateinit var imgSport2: ImageView
 
+    private lateinit var tvStep: TextView
+    private lateinit var sensorManager: SensorManager
+    private var stepCounterSensor: Sensor? = null
+    private var isSensorPresent = false
+    private var totalSteps = 0
+    private var previousStepCount = 0
+    private var isInitialStepCountSet = false
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_BOOT_COMPLETED) {
+                // Reset total steps on device reboot
+                totalSteps = 0
+                previousStepCount = 0
+                isInitialStepCountSet = false
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        isSensorPresent = stepCounterSensor != null
+
+        // Register BroadcastReceiver for ACTION_BOOT_COMPLETED
+        val filter = IntentFilter(Intent.ACTION_BOOT_COMPLETED)
+        requireContext().registerReceiver(broadcastReceiver, filter)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_summary, container, false)
-
-        findNavController().navigate(R.id.action_summary_to_achievements_milestones_list)
 
         val nutritionView = view.findViewById<CardView>(R.id.cardDailyIntake)
         val fitnessRoutinesView = view.findViewById<CardView>(R.id.cardFitnessRoutines)
@@ -109,6 +142,9 @@ class SummaryFragment : Fragment() {
 
         fitnessActivityViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
         fetchLatestFitnessActivities()
+
+        checkPermissions()
+        tvStep = view.findViewById(R.id.tvStep)
 
         nutritionView.setOnClickListener {
             findNavController().navigate(R.id.action_summary_to_nutrition)
@@ -196,7 +232,12 @@ class SummaryFragment : Fragment() {
                 tvIntakeKcal.text = totalConsumption.toString()
 
                 // Normal intake range
-                val TDEE = tvBMRKcal.text.toString().toDouble() * 1.2
+                val bmrText = tvBMRKcal.text.toString()
+                val TDEE = if (bmrText.isNotEmpty()) {
+                    bmrText.toDouble() * 1.2
+                } else {
+                    0.0 // or any default value you want
+                }
 
                 if (totalConsumption > TDEE - 100 && totalConsumption < TDEE + 500) {
                     tvMealStatus.text = "NORMAL"
@@ -245,5 +286,84 @@ class SummaryFragment : Fragment() {
             "Badminton" -> R.drawable.badminton
             else -> R.drawable.cycling
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (isSensorPresent) {
+            sensorManager.registerListener(
+                this,
+                stepCounterSensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (isSensorPresent) {
+            sensorManager.unregisterListener(this)
+        }
+    }
+
+    private val REQUEST_CODE_ACTIVITY_RECOGNITION = 1002
+
+    private fun checkPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACTIVITY_RECOGNITION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
+                REQUEST_CODE_ACTIVITY_RECOGNITION
+            )
+        }
+    }
+
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == REQUEST_CODE_ACTIVITY_RECOGNITION) {
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                // Permission granted, initialize step counter
+//            } else {
+//                // Permission denied, handle accordingly
+//            }
+//        }
+//    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        Toast.makeText(requireContext(),"hi",Toast.LENGTH_LONG).show()
+        if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
+            val currentStepCount = event.values[0].toInt()
+
+            if (!isInitialStepCountSet) {
+                // Set initial step count on first sensor event
+                previousStepCount = currentStepCount
+                isInitialStepCountSet = true
+            }
+
+            // Calculate steps since last sensor event
+            val stepsSinceLastEvent = currentStepCount - previousStepCount
+            previousStepCount = currentStepCount
+
+            // Update total steps
+            totalSteps += stepsSinceLastEvent
+            tvStep.text = totalSteps.toString()
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireContext().unregisterReceiver(broadcastReceiver)
     }
 }

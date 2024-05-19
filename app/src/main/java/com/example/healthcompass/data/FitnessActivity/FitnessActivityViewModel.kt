@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -136,8 +137,81 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                 userRef.get().addOnSuccessListener { snapshot ->
                     val user = snapshot.getValue(UserClass::class.java)
                     if (user != null) {
-                        updateUserStreak(user, fitnessActivity)
-//                        userRef.setValue(user)
+                        user?.let {
+                            val milestones = it.milestones ?: mutableMapOf()
+
+                            when (fitnessActivity.activityName.toLowerCase()) {
+                                "badminton" -> {
+                                    // Calculate the total number of walking activities and update milestones
+                                    calculateTotalActivities("badminton",
+                                        object : ActivityCountCallback {
+                                            override fun onActivityCountRetrieved(count: Int) {
+                                                if (count >= 3) milestones["badminton"]?.set(
+                                                    "3_times",
+                                                    true
+                                                )
+                                                if (count >= 7) milestones["badminton"]?.set(
+                                                    "7_times",
+                                                    true
+                                                )
+                                                if (count >= 30) milestones["badminton"]?.set(
+                                                    "30_times",
+                                                    true
+                                                )
+                                                userRef.child("milestones").child("badminton")
+                                                    .setValue(milestones["badminton"])
+                                            }
+                                        })
+                                }
+
+                                "walking" -> {
+                                    // Calculate the total number of walking activities and update milestones
+                                    calculateTotalActivities("walking",
+                                        object : ActivityCountCallback {
+                                            override fun onActivityCountRetrieved(count: Int) {
+                                                if (count >= 3) milestones["walking"]?.set(
+                                                    "3_times",
+                                                    true
+                                                )
+                                                if (count >= 25) milestones["walking"]?.set(
+                                                    "25_times",
+                                                    true
+                                                )
+                                                if (count >= 50) milestones["walking"]?.set(
+                                                    "50_times",
+                                                    true
+                                                )
+                                                userRef.child("milestones").child("walking")
+                                                    .setValue(milestones["walking"])
+                                            }
+                                        })
+                                }
+
+                                "running" -> {
+                                    // Calculate the total number of running activities and update milestones
+                                    calculateTotalActivities(
+                                        "running",
+                                        object : ActivityCountCallback {
+                                            override fun onActivityCountRetrieved(count: Int) {
+                                                if (count >= 3) milestones["running"]?.set(
+                                                    "3_times",
+                                                    true
+                                                )
+                                                if (count >= 25) milestones["running"]?.set(
+                                                    "25_times",
+                                                    true
+                                                )
+                                                if (count >= 50) milestones["running"]?.set(
+                                                    "50_times",
+                                                    true
+                                                )
+                                                userRef.child("milestones").child("running")
+                                                    .setValue(milestones["running"])
+                                            }
+                                        })
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -270,22 +344,25 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
         val totalCaloriesBurnt: Int
     )
 
-    private fun updateUserStreak(user: UserClass, activity: FitnessActivity) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val lastActivityDate = sdf.parse(user.lastActivityDate)
-        val currentDate = sdf.parse(activity.activityDate)
-        val diff = (currentDate.time - lastActivityDate.time) / (1000 * 60 * 60 * 24)
-
-        if (diff == 1L) {
-            user.currentStreak++
-        } else if (diff > 1L) {
-            user.currentStreak = 1
+    private fun calculateTotalActivities(activityName: String, callback: ActivityCountCallback) {
+        val username = getUsername() ?: return
+        var totalActivities = 0
+        val userRef = FirebaseDatabase.getInstance().getReference("Fitness")
+        userRef.child(username).get().addOnSuccessListener { dataSnapshot ->
+            for (dateSnapshot in dataSnapshot.children) {
+                for (timeSnapshot in dateSnapshot.children) {
+                    val activity = timeSnapshot.getValue(FitnessActivity::class.java)
+                    if (activity != null && activity.activityName.toLowerCase() == activityName) {
+                        totalActivities++
+                    }
+                }
+            }
+            callback.onActivityCountRetrieved(totalActivities)
         }
 
-        user.lastActivityDate = activity.activityDate
+    }
 
-        if (user.currentStreak > user.longestStreak) {
-            user.longestStreak = user.currentStreak
-        }
+    interface ActivityCountCallback {
+        fun onActivityCountRetrieved(count: Int)
     }
 }

@@ -114,7 +114,7 @@ class log_workout_record : Fragment(), DatePickerDialog.OnDateSetListener {
 
             var validation = true
 
-            if (duration == "Pick duration...") {
+            if (duration == "Pick duration..." || duration == "00:00:00") {
                 Toast.makeText(
                     requireContext(),
                     "Please fill out the activity duration!",

@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
+import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,13 +23,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class edit_goal : Fragment() {
-    private lateinit var dbRef: DatabaseReference
+    private lateinit var userViewModel: UserViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_edit_goal, container, false)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val goalSpinner: Spinner = view.findViewById(R.id.spinnerSetGoal)
 
@@ -45,42 +48,6 @@ class edit_goal : Fragment() {
     }
 
     private fun editGoal(goal: String) {
-        val username = getUsername() ?: return
-        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
-
-        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // The user already has a goal, so update it
-                dbRef.child("goal").setValue(goal)
-                    .addOnSuccessListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "Edited goal to ${goal} successfully!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "Failed to edit goal.",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to edit goal.",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        })
-    }
-
-    private fun getUsername(): String? {
-        val sharedPref: SharedPreferences =
-            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
-        return sharedPref.getString("username", null)
+        userViewModel.editGoal(goal)
     }
 }

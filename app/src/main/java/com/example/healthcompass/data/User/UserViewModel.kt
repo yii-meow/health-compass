@@ -65,6 +65,40 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
+    fun editGoal(goal: String) {
+        val username = getUsername() ?: return
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
+
+        dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // The user already has a goal, so update it
+                dbRef.child("goal").setValue(goal)
+                    .addOnSuccessListener {
+                        Toast.makeText(
+                            getApplication(),
+                            "Edited goal to ${goal} successfully!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            getApplication(),
+                            "Failed to edit goal.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(
+                    getApplication(),
+                    "Failed to edit goal.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+    }
+
     private fun getUsername(): String? {
         val sharedPref: SharedPreferences =
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)

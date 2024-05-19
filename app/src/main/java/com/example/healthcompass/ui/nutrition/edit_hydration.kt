@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
+import com.example.healthcompass.data.Nutrition.NutritionViewModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -20,7 +22,8 @@ class edit_hydration : Fragment() {
     private var selectedCardId: Int? = null
     private var selectedSizeCardId: Int? = null
     private var selectedServingCardId: Int? = null
-    private lateinit var dbRef: DatabaseReference
+    private lateinit var nutritionViewModel: NutritionViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,8 +78,11 @@ class edit_hydration : Fragment() {
                 findNavController().navigate(R.id.action_edit_hydration_to_nutrition)
             }
         }
+        nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
+
         return view
     }
+
     private fun selectCard(cardId: Int) {
         selectedCardId = cardId
 
@@ -154,65 +160,6 @@ class edit_hydration : Fragment() {
     }
 
     private fun saveHydrationData(totalHydrationIntake: Int) {
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
-
-        val name = "yiyi"
-        val date = Date()
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
-        val strDate: String = formatter.format(date)
-
-        // Retrieve existing hydration data from Firebase
-        dbRef.child(name).child(strDate).child("Hydration").get()
-            .addOnSuccessListener { dataSnapshot ->
-                // Check if the data exists
-                if (dataSnapshot.exists()) {
-                    // Retrieve the existing hydration value
-                    val existingHydration = dataSnapshot.value as Long
-
-                    // Calculate the new hydration intake by adding the existing value with the new value
-                    val newHydration = existingHydration + totalHydrationIntake
-
-                    // Update the hydration value in Firebase
-                    dbRef.child(name).child(strDate).child("Hydration").setValue(newHydration)
-                        .addOnCompleteListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "Added hydration record successfully!",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "Failed to add hydration!",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                } else {
-                    // If no existing data found, set the new hydration value directly
-                    dbRef.child(name).child(strDate).child("Hydration")
-                        .setValue(totalHydrationIntake)
-                        .addOnCompleteListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "Added hydration record successfully!",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                requireContext(),
-                                "Failed to add hydration!",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                }
-            }.addOnFailureListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to retrieve hydration data!",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+        nutritionViewModel.saveHydrationData(totalHydrationIntake)
     }
 }

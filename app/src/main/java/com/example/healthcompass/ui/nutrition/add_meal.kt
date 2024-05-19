@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
+import com.example.healthcompass.data.Nutrition.NutritionViewModel
 import com.example.healthcompass.data.NutritionFact.FoodItem
 import com.example.healthcompass.data.NutritionFact.Meal
 import com.example.healthcompass.data.NutritionFact.NutritionFactViewModel
@@ -31,7 +32,7 @@ import java.util.Date
 class add_meal : Fragment() {
     private val args by navArgs<add_mealArgs>()
     private lateinit var nutritionFactViewModel: NutritionFactViewModel
-    private lateinit var dbRef: DatabaseReference
+    private lateinit var nutritionViewModel: NutritionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +45,10 @@ class add_meal : Fragment() {
         tvMealType.text = args.mealType
 
         nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
+        nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
 
         val imgAddFood: ImageView = view.findViewById(R.id.imgAddFood)
-        val imgDeleteFood : ImageView = view.findViewById(R.id.imgDeleteFood)
+        val imgDeleteFood: ImageView = view.findViewById(R.id.imgDeleteFood)
 
         var foodCounter = 1
 
@@ -232,23 +234,6 @@ class add_meal : Fragment() {
     }
 
     private fun addMealsToDB(meal: Meal) {
-        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
-
-        val name = getUsername()
-
-        dbRef.child(name!!).child(meal.date).child(meal.mealType).setValue(meal)
-            .addOnCompleteListener {
-                Toast.makeText(requireContext(), "Added meal successfully!", Toast.LENGTH_LONG)
-                    .show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed to add meal!", Toast.LENGTH_LONG).show()
-            }
-    }
-
-    private fun getUsername(): String? {
-        val sharedPref: SharedPreferences =
-            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
-        return sharedPref.getString("username", null)
+        nutritionViewModel.addMeals(meal)
     }
 }

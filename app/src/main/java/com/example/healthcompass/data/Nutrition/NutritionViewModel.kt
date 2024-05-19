@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import com.example.healthcompass.data.NutritionFact.Meal
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -88,6 +89,82 @@ class NutritionViewModel(application: Application) : AndroidViewModel(applicatio
         })
     }
 
+    fun addMeals(meal: Meal) {
+        val name = getUsername()
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+
+        dbRef.child(name!!).child(meal.date).child(meal.mealType).setValue(meal)
+            .addOnCompleteListener {
+                Toast.makeText(getApplication(), "Added meal successfully!", Toast.LENGTH_LONG)
+                    .show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(getApplication(), "Failed to add meal!", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    fun saveHydrationData(totalHydrationIntake: Int) {
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+        val name = getUsername()
+        val date = Date()
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val strDate: String = formatter.format(date)
+
+        // Retrieve existing hydration data from Firebase
+        dbRef.child(name!!).child(strDate).child("Hydration").get()
+            .addOnSuccessListener { dataSnapshot ->
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+                    // Retrieve the existing hydration value
+                    val existingHydration = dataSnapshot.value as Long
+
+                    // Calculate the new hydration intake by adding the existing value with the new value
+                    val newHydration = existingHydration + totalHydrationIntake
+
+                    // Update the hydration value in Firebase
+                    dbRef.child(name).child(strDate).child("Hydration").setValue(newHydration)
+                        .addOnCompleteListener {
+                            Toast.makeText(
+                                getApplication(),
+                                "Added hydration record successfully!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                getApplication(),
+                                "Failed to add hydration!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                } else {
+                    // If no existing data found, set the new hydration value directly
+                    dbRef.child(name).child(strDate).child("Hydration")
+                        .setValue(totalHydrationIntake)
+                        .addOnCompleteListener {
+                            Toast.makeText(
+                                getApplication(),
+                                "Added hydration record successfully!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                getApplication(),
+                                "Failed to add hydration!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                }
+            }.addOnFailureListener {
+                Toast.makeText(
+                    getApplication(),
+                    "Failed to retrieve hydration data!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
     private fun getUsername(): String? {
         val sharedPref: SharedPreferences =
             getApplication<Application>().getSharedPreferences("user", Context.MODE_PRIVATE)
@@ -99,3 +176,4 @@ class NutritionViewModel(application: Application) : AndroidViewModel(applicatio
         fun onFailure(error: DatabaseError)
     }
 }
+

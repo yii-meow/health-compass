@@ -1,4 +1,4 @@
-package com.example.healthcompass.ui.achivements
+package com.example.healthcompass.ui.achievements
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,19 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.healthcompass.R
-
-/**
- * A simple [Fragment] subclass.
- * Use the [achievements_challenges_list.newInstance] factory method to
- * create an instance of this fragment.
- */
-class achievements_challenges_list : Fragment() {
+class achievements_milestones_details : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_achievements_challenges_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_achievements_milestones_details, container, false)
         return view
     }
 }

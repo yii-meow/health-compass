@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.achivements.achievements_challenges_list">
+    tools:context=".ui.achievements.achievements_challenges_list">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnViewChallenge"

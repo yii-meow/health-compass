@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#DAFFFB"
     android:padding="15dp"
-    tools:context=".ui.achivements.achievements_milestones_details">
+    tools:context=".ui.achievements.achievements_milestones_details">
 
     <TextView
         android:id="@+id/lblCongratulations"

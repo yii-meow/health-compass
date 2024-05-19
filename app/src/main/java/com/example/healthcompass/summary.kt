@@ -63,6 +63,9 @@ class SummaryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_summary, container, false)
+
+        findNavController().navigate(R.id.action_summary_to_achievements_milestones_list)
+
         val nutritionView = view.findViewById<CardView>(R.id.cardDailyIntake)
         val fitnessRoutinesView = view.findViewById<CardView>(R.id.cardFitnessRoutines)
         val fitnessListView = view.findViewById<Button>(R.id.btnShowMoreFitness)

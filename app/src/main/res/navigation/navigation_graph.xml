@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_summary_to_fitness_routines_list"
             app:destination="@id/fitness_routines_list" />
+        <action
+            android:id="@+id/action_summary_to_achievements_milestones_list"
+            app:destination="@id/achievements_milestones_list" />
     </fragment>
     <fragment
         android:id="@+id/nutrition"
@@ -197,17 +200,17 @@
     </fragment>
     <fragment
         android:id="@+id/achievements_challenges_list"
-        android:name="com.example.healthcompass.ui.achivements.achievements_challenges_list"
+        android:name="com.example.healthcompass.ui.achievements.achievements_challenges_list"
         android:label="fragment_achievements_challenges_list"
         tools:layout="@layout/fragment_achievements_challenges_list" />
     <fragment
         android:id="@+id/achievements_milestones_details"
-        android:name="com.example.healthcompass.ui.achivements.achievements_milestones_details"
+        android:name="com.example.healthcompass.ui.achievements.achievements_milestones_details"
         android:label="fragment_achievements_milestones_details"
         tools:layout="@layout/fragment_achievements_milestones_details" />
     <fragment
         android:id="@+id/achievements_milestones_list"
-        android:name="com.example.healthcompass.ui.achivements.achievements_milestones_list"
+        android:name="com.example.healthcompass.ui.achievements.achievements_milestones_list"
         android:label="fragment_achievements_milestones_list"
         tools:layout="@layout/fragment_achievements_milestones_list">
         <action

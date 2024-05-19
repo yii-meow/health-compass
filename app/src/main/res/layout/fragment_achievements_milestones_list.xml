@@ -41,6 +41,7 @@
                     android:layout_width="90dp"
                     android:layout_height="155dp"
                     android:layout_marginTop="30dp"
+                    android:clickable="false"
                     app:layout_constraintLeft_toLeftOf="@id/lblBadminton"
                     app:layout_constraintTop_toBottomOf="@id/lblBadminton">
 
@@ -81,7 +82,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -90,6 +91,7 @@
                     android:layout_width="94dp"
                     android:layout_height="155dp"
                     android:layout_marginLeft="33dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="@id/badgeBadminton3Times"
                     app:layout_constraintLeft_toRightOf="@id/badgeBadminton3Times"
                     app:layout_constraintTop_toTopOf="@id/badgeBadminton3Times">
@@ -131,7 +133,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -139,6 +141,7 @@
                     android:layout_width="94dp"
                     android:layout_height="155dp"
                     android:layout_marginLeft="33dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="@id/badgeBadminton7Times"
                     app:layout_constraintLeft_toRightOf="@id/badgeBadminton7Times"
                     app:layout_constraintTop_toTopOf="@id/badgeBadminton7Times">
@@ -180,7 +183,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </FrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -216,6 +219,7 @@
                     android:layout_width="90dp"
                     android:layout_height="155dp"
                     android:layout_marginTop="30dp"
+                    android:clickable="false"
                     app:layout_constraintLeft_toLeftOf="@id/lblTotalWalking"
                     app:layout_constraintTop_toBottomOf="@id/lblTotalWalking">
 
@@ -256,7 +260,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -265,6 +269,7 @@
                     android:layout_width="94dp"
                     android:layout_height="155dp"
                     android:layout_marginLeft="33dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="@id/badgeWalking3Times"
                     app:layout_constraintLeft_toRightOf="@id/badgeWalking3Times"
                     app:layout_constraintTop_toTopOf="@id/badgeWalking3Times">
@@ -306,7 +311,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -315,6 +320,7 @@
                     android:layout_width="94dp"
                     android:layout_height="155dp"
                     android:layout_marginLeft="33dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="@id/badgeWalking25Times"
                     app:layout_constraintLeft_toRightOf="@id/badgeWalking25Times"
                     app:layout_constraintTop_toTopOf="@id/badgeWalking25Times">
@@ -356,7 +362,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -393,6 +399,7 @@
                     android:layout_width="90dp"
                     android:layout_height="155dp"
                     android:layout_marginTop="30dp"
+                    android:clickable="false"
                     app:layout_constraintLeft_toLeftOf="@id/lblTotalRunning"
                     app:layout_constraintTop_toBottomOf="@id/lblTotalRunning">
 
@@ -433,7 +440,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </FrameLayout>
 
@@ -442,6 +449,7 @@
                     android:layout_width="94dp"
                     android:layout_height="155dp"
                     android:layout_marginLeft="33dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="@id/badgeRunning3Times"
                     app:layout_constraintLeft_toRightOf="@id/badgeRunning3Times"
                     app:layout_constraintTop_toTopOf="@id/badgeRunning3Times">
@@ -483,7 +491,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -491,6 +499,7 @@
                     android:layout_width="94dp"
                     android:layout_height="155dp"
                     android:layout_marginLeft="33dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="@id/badgeRunning25Times"
                     app:layout_constraintLeft_toRightOf="@id/badgeRunning25Times"
                     app:layout_constraintTop_toTopOf="@id/badgeRunning25Times">
@@ -532,7 +541,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="11dp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
                 </FrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

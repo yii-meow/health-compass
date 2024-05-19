@@ -43,11 +43,10 @@
                 android:src="@drawable/big_badge" />
 
             <TextView
-                android:id="@+id/tvBadgeType"
+                android:id="@+id/tvBadgeTitle"
                 android:layout_width="235dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Fitness"
                 android:layout_marginTop="50dp"
                 android:textAlignment="center"
                 android:textColor="#64CCC5"
@@ -55,12 +54,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvBadgeTitle"
+                android:id="@+id/tvBadgeDesc"
                 android:layout_width="235dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="40dp"
-                android:text="3 Days Streak"
                 android:layout_marginTop="32dp"
                 android:textAlignment="center"
                 android:textColor="@color/black"

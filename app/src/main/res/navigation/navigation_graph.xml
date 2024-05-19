@@ -207,14 +207,23 @@
         android:id="@+id/achievements_milestones_details"
         android:name="com.example.healthcompass.ui.achievements.achievements_milestones_details"
         android:label="fragment_achievements_milestones_details"
-        tools:layout="@layout/fragment_achievements_milestones_details" />
+        tools:layout="@layout/fragment_achievements_milestones_details">
+        <argument
+            android:name="title"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="desc"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/achievements_milestones_list"
         android:name="com.example.healthcompass.ui.achievements.achievements_milestones_list"
         android:label="fragment_achievements_milestones_list"
         tools:layout="@layout/fragment_achievements_milestones_list">
         <action
-            android:id="@+id/action_achievements_milestones_list_to_achievements_milestones_details"
+            android:id="@+id/action_achievements_milestones_list_to_achievements_milestones_details2"
             app:destination="@id/achievements_milestones_details" />
     </fragment>
 </navigation>

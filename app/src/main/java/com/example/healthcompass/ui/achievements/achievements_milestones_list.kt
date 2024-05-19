@@ -1,14 +1,15 @@
 package com.example.healthcompass.ui.achievements
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
 import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
@@ -16,7 +17,6 @@ import com.google.firebase.database.DatabaseError
 
 class achievements_milestones_list : Fragment() {
     private lateinit var userViewModel: UserViewModel
-    private lateinit var lblBadminton: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +27,72 @@ class achievements_milestones_list : Fragment() {
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         updateMilestone()
+
+        val action =
+            achievements_milestones_listDirections.actionAchievementsMilestonesListToAchievementsMilestonesDetails2()
+
+        view.findViewById<FrameLayout>(R.id.badgeBadminton3Times).setOnClickListener {
+            action.title = "Badminton"
+            action.desc = "3 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeBadminton7Times).setOnClickListener {
+            action.title = "Badminton"
+            action.desc = "7 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeBadminton30Times).setOnClickListener {
+            action.title = "Badminton"
+            action.desc = "30 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeWalking3Times).setOnClickListener {
+            action.title = "Walking"
+            action.desc = "3 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeWalking25Times).setOnClickListener {
+            action.title = "Walking"
+            action.desc = "25 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeWalking50Times).setOnClickListener {
+            action.title = "Walking"
+            action.desc = "50 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeRunning3Times).setOnClickListener {
+            action.title = "Running"
+            action.desc = "3 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeRunning25Times).setOnClickListener {
+            action.title = "Running"
+            action.desc = "25 Times"
+
+            findNavController().navigate(action)
+        }
+
+        view.findViewById<FrameLayout>(R.id.badgeRunning50Times).setOnClickListener {
+            action.title = "Running"
+            action.desc = "50 Times"
+
+            findNavController().navigate(action)
+        }
 
         return view
     }
@@ -57,38 +123,57 @@ class achievements_milestones_list : Fragment() {
         milestone.badminton["3_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeBadminton3TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeBadminton3Times)?.isClickable =
+                true
         }
+
         milestone.badminton["7_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeBadminton7TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeBadminton7Times)?.isClickable =
+                true
         }
         milestone.badminton["30_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeBadminton30TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeBadminton30Times)?.isClickable =
+                true
         }
         milestone.running["3_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeRunning3TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeRunning3Times)?.isClickable =
+                true
         }
         milestone.running["25_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeRunning25TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeRunning25Times)?.isClickable =
+                true
         }
         milestone.running["50_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeRunning50TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeRunning50Times)?.isClickable =
+                true
         }
         milestone.walking["3_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeWalking3TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeWalking3Times)?.isClickable =
+                true
         }
         milestone.walking["25_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeWalking25TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeWalking25Times)?.isClickable =
+                true
         }
         milestone.walking["50_times"]?.let {
             if (it) view?.findViewById<TextView>(R.id.badgeWalking50TimesCompleted)?.visibility =
                 View.VISIBLE
+            if (it) view?.findViewById<TextView>(R.id.badgeWalking50Times)?.isClickable =
+                true
         }
     }
 

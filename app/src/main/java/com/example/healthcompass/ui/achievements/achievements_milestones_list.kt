@@ -57,115 +57,140 @@ class achievements_milestones_list : Fragment() {
         val action =
             achievements_milestones_listDirections.actionAchievementsMilestonesListToAchievementsMilestonesDetails2()
 
-        milestone.badminton["3_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeBadminton3TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeBadminton3Times)?.isClickable =
-                true
+        milestone.badminton["3_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeBadminton3TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeBadminton3Times)?.isClickable =
+                    true
 
-            view?.findViewById<FrameLayout>(R.id.badgeBadminton3Times)?.setOnClickListener {
-                action.title = "Badminton"
-                action.desc = "3 Times"
+                view?.findViewById<FrameLayout>(R.id.badgeBadminton3Times)?.setOnClickListener {
+                    action.title = "Badminton"
+                    action.desc = "3 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
 
-        milestone.badminton["7_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeBadminton7TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeBadminton7Times)?.isClickable =
-                true
+        milestone.badminton["7_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                Toast.makeText(
+                    requireContext(),
+                    "${milestone.badminton["7_times"]}",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
 
-            view?.findViewById<FrameLayout>(R.id.badgeBadminton7Times)?.setOnClickListener {
-                action.title = "Badminton"
-                action.desc = "7 Times"
+                view?.findViewById<TextView>(R.id.badgeBadminton7TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeBadminton7Times)?.isClickable =
+                    true
 
-                findNavController().navigate(action)
+                view?.findViewById<FrameLayout>(R.id.badgeBadminton7Times)?.setOnClickListener {
+                    action.title = "Badminton"
+                    action.desc = "7 Times"
+
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.badminton["30_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeBadminton30TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeBadminton30Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeBadminton30Times)?.setOnClickListener {
-                action.title = "Badminton"
-                action.desc = "30 Times"
+        milestone.badminton["30_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeBadminton30TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeBadminton30Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeBadminton30Times)?.setOnClickListener {
+                    action.title = "Badminton"
+                    action.desc = "30 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.running["3_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeRunning3TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeRunning3Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeRunning3Times)?.setOnClickListener {
-                action.title = "Running"
-                action.desc = "3 Times"
+        milestone.running["3_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeRunning3TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeRunning3Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeRunning3Times)?.setOnClickListener {
+                    action.title = "Running"
+                    action.desc = "3 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.running["25_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeRunning25TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeRunning25Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeRunning25Times)?.setOnClickListener {
-                action.title = "Running"
-                action.desc = "25 Times"
+        milestone.running["25_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeRunning25TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeRunning25Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeRunning25Times)?.setOnClickListener {
+                    action.title = "Running"
+                    action.desc = "25 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.running["50_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeRunning50TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeRunning50Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeRunning50Times)?.setOnClickListener {
-                action.title = "Running"
-                action.desc = "50 Times"
+        milestone.running["50_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeRunning50TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeRunning50Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeRunning50Times)?.setOnClickListener {
+                    action.title = "Running"
+                    action.desc = "50 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.walking["3_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeWalking3TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeWalking3Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeWalking3Times)?.setOnClickListener {
-                action.title = "Walking"
-                action.desc = "3 Times"
+        milestone.walking["3_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeWalking3TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeWalking3Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeWalking3Times)?.setOnClickListener {
+                    action.title = "Walking"
+                    action.desc = "3 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.walking["25_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeWalking25TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeWalking25Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeWalking25Times)?.setOnClickListener {
-                action.title = "Walking"
-                action.desc = "25 Times"
+        milestone.walking["25_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeWalking25TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeWalking25Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeWalking25Times)?.setOnClickListener {
+                    action.title = "Walking"
+                    action.desc = "25 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
-        milestone.walking["50_times"]?.let {
-            if (it) view?.findViewById<TextView>(R.id.badgeWalking50TimesCompleted)?.visibility =
-                View.VISIBLE
-            if (it) view?.findViewById<TextView>(R.id.badgeWalking50Times)?.isClickable =
-                true
-            view?.findViewById<FrameLayout>(R.id.badgeWalking50Times)?.setOnClickListener {
-                action.title = "Walking"
-                action.desc = "50 Times"
+        milestone.walking["50_times"]?.let { isCompleted ->
+            if (isCompleted) {
+                view?.findViewById<TextView>(R.id.badgeWalking50TimesCompleted)?.visibility =
+                    View.VISIBLE
+                view?.findViewById<FrameLayout>(R.id.badgeWalking50Times)?.isClickable =
+                    true
+                view?.findViewById<FrameLayout>(R.id.badgeWalking50Times)?.setOnClickListener {
+                    action.title = "Walking"
+                    action.desc = "50 Times"
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         }
     }

@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.bottom_profile -> {
-                    findNavController(R.id.fragmentContainer).navigate(R.id.action_summary_to_profileFragment)
+                    findNavController(R.id.fragmentContainer).navigate(R.id.action_global_profile)
                     true
                 }
 

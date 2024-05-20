@@ -278,7 +278,7 @@
         android:id="@+id/changePasswordFragment"
         android:name="com.example.healthcompass.ui.profile.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
-    <!--    <action-->
-<!--        android:id="@+id/action_global_profile"-->
-<!--        app:destination="@id/profile" />-->
+        <action
+        android:id="@+id/action_global_profile"
+        app:destination="@id/profileFragment" />
 </navigation>

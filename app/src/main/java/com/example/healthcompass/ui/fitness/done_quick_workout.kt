@@ -77,7 +77,6 @@ class done_quick_workout : Fragment() {
 
     private fun saveQuickWorkout(fitnessActivity: FitnessActivity) {
         fitnessViewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
-        Toast.makeText(requireContext(),"$fitnessActivity",Toast.LENGTH_LONG).show()
         fitnessViewModel.postWorkoutRecord(fitnessActivity)
 
         val action = done_quick_workoutDirections.actionDoneQuickWorkoutToFitnessRoutinesDetails()

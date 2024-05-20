@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -36,6 +37,7 @@ class achievements_milestones_details : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        checkPermissions()
         val view =
             inflater.inflate(R.layout.fragment_achievements_milestones_details, container, false)
 
@@ -48,33 +50,22 @@ class achievements_milestones_details : Fragment() {
         val badge: FrameLayout = view.findViewById(R.id.flBadge)
 
         btnShare = view.findViewById(R.id.btnShare)
-
         btnShare.setOnClickListener {
             val bitmap = captureFrameLayout(badge)
             shareBitmap(bitmap, requireContext())
         }
 
         btnDownload = view.findViewById(R.id.btnDownload)
-
         btnDownload.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                val bitmap = captureFrameLayout(badge)
-                saveBitmapToFile(bitmap, requireContext())
-            } else {
-                requestStoragePermissions()
-            }
+            val bitmap = captureFrameLayout(badge)
+            saveBitmapToFile(bitmap, requireContext())
         }
-
-        checkPermissions()
 
         return view
     }
 
     private fun captureFrameLayout(frameLayout: FrameLayout): Bitmap {
+        Toast.makeText(requireContext(),"capturing...",Toast.LENGTH_LONG).show()
         frameLayout.isDrawingCacheEnabled = true
         frameLayout.buildDrawingCache(true)
         val bitmap = Bitmap.createBitmap(frameLayout.drawingCache)
@@ -133,10 +124,18 @@ class achievements_milestones_details : Fragment() {
     }
 
     private fun checkPermissions() {
-        btnDownload.isEnabled = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                REQUEST_CODE_WRITE_EXTERNAL_STORAGE
+            )
+        }
     }
 
     override fun onRequestPermissionsResult(

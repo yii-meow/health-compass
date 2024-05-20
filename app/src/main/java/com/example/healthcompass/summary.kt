@@ -110,6 +110,8 @@ class SummaryFragment : Fragment(), SensorEventListener {
         tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
         tvIntakeKcal = view.findViewById(R.id.tvIntakeKcal)
 
+        findNavController().navigate(R.id.action_summary_to_achievements_milestones_list)
+
         // Set current date
         val currentDate = Date()
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -144,7 +146,6 @@ class SummaryFragment : Fragment(), SensorEventListener {
         fetchLatestFitnessActivities()
 
         checkPermissions()
-        tvStep = view.findViewById(R.id.tvStep)
 
         nutritionView.setOnClickListener {
             findNavController().navigate(R.id.action_summary_to_nutrition)
@@ -323,23 +324,7 @@ class SummaryFragment : Fragment(), SensorEventListener {
         }
     }
 
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == REQUEST_CODE_ACTIVITY_RECOGNITION) {
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission granted, initialize step counter
-//            } else {
-//                // Permission denied, handle accordingly
-//            }
-//        }
-//    }
-
     override fun onSensorChanged(event: SensorEvent?) {
-        Toast.makeText(requireContext(),"hi",Toast.LENGTH_LONG).show()
         if (event?.sensor?.type == Sensor.TYPE_STEP_COUNTER) {
             val currentStepCount = event.values[0].toInt()
 
@@ -355,7 +340,8 @@ class SummaryFragment : Fragment(), SensorEventListener {
 
             // Update total steps
             totalSteps += stepsSinceLastEvent
-            tvStep.text = totalSteps.toString()
+
+            view?.findViewById<TextView>(R.id.tvStep)?.text = totalSteps.toString()
         }
     }
 

@@ -46,59 +46,81 @@ class add_meal : Fragment() {
         val tvMealType: TextView = view.findViewById(R.id.tvMealType)
         tvMealType.text = args.mealType
 
+        var foodCounter = 1
+
         nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
         nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
 
         nutritionViewModel.fetchTodayMeal(object :
             NutritionViewModel.OnRequestCompleteCallBackMeal {
             override fun onSuccess(list: List<FoodItem>) {
-                Toast.makeText(requireContext(), "${list[0].name}", Toast.LENGTH_LONG).show()
+                val foodRowContainer = view.findViewById<LinearLayout>(R.id.foodRowContainer)
+
+                if (list.isNotEmpty()) {
+                    for (food in list) {
+                        val newFoodRow = layoutInflater.inflate(R.layout.food_row_layout, null)
+                        val newTvFoodNo = newFoodRow.findViewById<TextView>(R.id.tvFoodNo)
+                        newTvFoodNo.text = (foodCounter).toString() + ")"
+
+                        val newTvFood = newFoodRow.findViewById<TextView>(R.id.tvSelectFood)
+                        newTvFood.text = food.name
+
+                        val newTvFoodQuantity =
+                            newFoodRow.findViewById<TextView>(R.id.tvFoodQuantity)
+                        newTvFoodQuantity.text = (1).toString()
+
+                        foodRowContainer.addView(newFoodRow)
+
+                        val newImgDeleteFood =
+                            newFoodRow.findViewById<ImageView>(R.id.imgDeleteFood)
+
+                        newImgDeleteFood.setOnClickListener {
+                            foodRowContainer.removeView(newFoodRow)
+                            foodCounter--
+                        }
+
+                        foodCounter++
+                    }
+                } else {
+                    val newFoodRow = layoutInflater.inflate(R.layout.food_row_layout, null)
+                    val newTvFoodNo = newFoodRow.findViewById<TextView>(R.id.tvFoodNo)
+                    newTvFoodNo.text = (foodCounter).toString() + ")"
+
+                    val newTvFood = newFoodRow.findViewById<TextView>(R.id.tvSelectFood)
+                    newTvFood.text = "Enter food here..."
+
+                    val imgDelete = newFoodRow.findViewById<ImageView>(R.id.imgDeleteFood)
+                    imgDelete.isVisible = false
+                    imgDelete.isClickable = false
+
+                    foodRowContainer.addView(newFoodRow)
+                }
+                foodCounter--
             }
 
             override fun onFailure(error: DatabaseError) {
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_LONG).show()
             }
-
         }, args.mealType)
 
-
         val imgAddFood: ImageView = view.findViewById(R.id.imgAddFood)
-        val imgDeleteFood: ImageView = view.findViewById(R.id.imgDeleteFood)
-        imgDeleteFood.isVisible = false
-        imgDeleteFood.isClickable = false
-
-        var foodCounter = 1
 
         // Add new food row
         imgAddFood.setOnClickListener {
-            val tvSelectedFood: EditText = view.findViewById(R.id.tvSelectFood)
-            val tvFoodQuantity: EditText = view.findViewById(R.id.tvFoodQuantity)
+            foodCounter++
+            val foodRowContainer = view.findViewById<LinearLayout>(R.id.foodRowContainer)
+            val newFoodRow = layoutInflater.inflate(R.layout.food_row_layout, null)
 
-            // Validate if food name and quantity are not empty
-            val foodName = tvSelectedFood.text.toString()
-            val foodQuantity = tvFoodQuantity.text.toString().toIntOrNull()
+            val newTvFoodNo = newFoodRow.findViewById<TextView>(R.id.tvFoodNo)
+            newTvFoodNo.text = (foodCounter).toString() + ")"
 
-            if (foodName.isNotEmpty() && foodQuantity != null) {
-                foodCounter++
-                val foodRowContainer = view.findViewById<LinearLayout>(R.id.foodRowContainer)
-                val newFoodRow = layoutInflater.inflate(R.layout.food_row_layout, null)
+            foodRowContainer.addView(newFoodRow)
 
-                val newTvFoodNo = newFoodRow.findViewById<TextView>(R.id.tvFoodNo)
-                newTvFoodNo.text = (foodCounter).toString() + ")"
+            val newImgDeleteFood = newFoodRow.findViewById<ImageView>(R.id.imgDeleteFood)
 
-                foodRowContainer.addView(newFoodRow)
-
-                val newImgDeleteFood = newFoodRow.findViewById<ImageView>(R.id.imgDeleteFood)
-
-                newImgDeleteFood.setOnClickListener {
-                    foodRowContainer.removeView(newFoodRow)
-                    foodCounter--
-                }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Please enter valid food name and quantity",
-                    Toast.LENGTH_SHORT
-                ).show()
+            newImgDeleteFood.setOnClickListener {
+                foodRowContainer.removeView(newFoodRow)
+                foodCounter--
             }
         }
 

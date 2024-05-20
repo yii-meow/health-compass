@@ -104,8 +104,6 @@
                     android:orientation="vertical"
                     app:layout_constraintLeft_toRightOf="@id/lblSelectFood"
                     app:layout_constraintTop_toTopOf="@id/lblSelectFood">
-
-                    <include layout="@layout/food_row_layout" />
                 </LinearLayout>
 
                 <LinearLayout

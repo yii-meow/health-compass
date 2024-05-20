@@ -23,7 +23,7 @@ class NutritionFactViewModel(application: Application) : AndroidViewModel(applic
                 val rs: NutritionFactRespond? = p1.body()
 
                 if(rs?.items.isNullOrEmpty()){
-                    Toast.makeText(getApplication(),"Please ensure food-$foodName is valid!",Toast.LENGTH_LONG).show()
+                    Toast.makeText(getApplication(),"Please ensure food: $foodName is valid!",Toast.LENGTH_LONG).show()
                     return
                 }
 

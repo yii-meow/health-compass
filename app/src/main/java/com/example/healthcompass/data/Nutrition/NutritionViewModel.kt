@@ -5,18 +5,47 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import com.example.healthcompass.data.NutritionFact.FoodItem
 import com.example.healthcompass.data.NutritionFact.Meal
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class NutritionViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dbRef: DatabaseReference
+
+    fun fetchTodayMeal(callback: OnRequestCompleteCallBackMeal, mealType: String) {
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        dbRef = FirebaseDatabase.getInstance().getReference("Meal")
+
+        val username = getUsername() ?: return
+
+        dbRef.child(username).child(date).child(mealType).child("foodItem")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val meals = arrayListOf<FoodItem>()
+
+                    for (foodSnapshot in snapshot.children) {
+                        val foodItem = foodSnapshot.getValue(FoodItem::class.java)
+                        if (foodItem != null) {
+                            meals.add(foodItem)
+                        }
+                    }
+
+                    callback.onSuccess(meals)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(getApplication(), "$error", Toast.LENGTH_LONG).show()
+                }
+            })
+    }
 
     fun fetchCaloriesConsumption(
         callback: OnRequestCompleteCallBack<MutableMap<String, Int>>,
@@ -173,6 +202,11 @@ class NutritionViewModel(application: Application) : AndroidViewModel(applicatio
 
     interface OnRequestCompleteCallBack<T> {
         fun onSuccess(list: MutableMap<String, Int>)
+        fun onFailure(error: DatabaseError)
+    }
+
+    interface OnRequestCompleteCallBackMeal {
+        fun onSuccess(list: List<com.example.healthcompass.data.NutritionFact.FoodItem>)
         fun onFailure(error: DatabaseError)
     }
 }

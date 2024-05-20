@@ -24,6 +24,7 @@ import com.example.healthcompass.data.NutritionFact.FoodItem
 import com.example.healthcompass.data.NutritionFact.Meal
 import com.example.healthcompass.data.NutritionFact.NutritionFactViewModel
 import com.example.healthcompass.data.NutritionFact.OnRequestCompleteCallBack
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -47,6 +48,18 @@ class add_meal : Fragment() {
 
         nutritionFactViewModel = ViewModelProvider(this).get(NutritionFactViewModel::class.java)
         nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
+
+        nutritionViewModel.fetchTodayMeal(object :
+            NutritionViewModel.OnRequestCompleteCallBackMeal {
+            override fun onSuccess(list: List<FoodItem>) {
+                Toast.makeText(requireContext(), "${list[0].name}", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onFailure(error: DatabaseError) {
+            }
+
+        }, args.mealType)
+
 
         val imgAddFood: ImageView = view.findViewById(R.id.imgAddFood)
         val imgDeleteFood: ImageView = view.findViewById(R.id.imgDeleteFood)
@@ -101,7 +114,8 @@ class add_meal : Fragment() {
             val timePickerDialog = TimePickerDialog(
                 requireContext(),
                 { view, hourOfDay, minute ->
-                    btnPickTime.setText("$hourOfDay:$minute")
+                    val formattedTime = String.format("%02d:%02d", hourOfDay, minute)
+                    btnPickTime.setText(formattedTime)
                 },
                 hour,
                 minute,
@@ -115,7 +129,6 @@ class add_meal : Fragment() {
 
         btnMakeMealChanges.setOnClickListener {
             val foodRowContainer = view.findViewById<LinearLayout>(R.id.foodRowContainer)
-
             var filledDetails = true
 
             // Get all meals
@@ -128,7 +141,7 @@ class add_meal : Fragment() {
                 val foodQuantity = tvFoodQuantity.text.toString().toIntOrNull()
 
                 // Ensure both food name and quantity are not empty
-                if (foodName.isNotEmpty() && foodQuantity != null) {
+                if (foodName.isNotEmpty() && foodName != "Enter food here..." && foodQuantity != null) {
                     mealMap[foodName] = foodQuantity
                 } else {
                     filledDetails = false

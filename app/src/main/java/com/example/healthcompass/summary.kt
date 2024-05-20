@@ -110,8 +110,6 @@ class SummaryFragment : Fragment(), SensorEventListener {
         tvDinnerKcal = view.findViewById(R.id.tvDinnerKcal)
         tvIntakeKcal = view.findViewById(R.id.tvIntakeKcal)
 
-        findNavController().navigate(R.id.action_summary_to_achievements_milestones_list)
-
         // Set current date
         val currentDate = Date()
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

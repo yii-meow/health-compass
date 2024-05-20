@@ -37,12 +37,6 @@ class fitness_routines_list : Fragment(), FitnessListAdapter.OnItemClickListener
 
         viewModel = ViewModelProvider(this).get(FitnessActivityViewModel::class.java)
 
-        // Live Data
-//        viewModel.getFitnessActivitiesLiveData()
-//            .observe(viewLifecycleOwner, Observer { activities ->
-//                adapter.submitList(activities)
-//            })
-
         viewModel.getAllFitnessActivity(object : FitnessActivityViewModel.OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
                 fitnessActivityList = list

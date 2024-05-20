@@ -7,6 +7,19 @@
     android:background="#DAFFFB"
     tools:context=".ui.fitness.fitness_routines_details">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:iconSize="40dp"
+        android:gravity="center_horizontal"
+        android:backgroundTint="#DAFFFB"
+        app:iconTint="@color/black"
+        android:layout_marginTop="8dp"
+        app:icon="@drawable/baseline_arrow_back_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvActivityName"
         android:layout_width="wrap_content"

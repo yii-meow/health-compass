@@ -87,13 +87,14 @@ class add_meal : Fragment() {
                     newTvFoodNo.text = (foodCounter).toString() + ")"
 
                     val newTvFood = newFoodRow.findViewById<TextView>(R.id.tvSelectFood)
-                    newTvFood.text = "Enter food here..."
+                    newTvFood.hint = "Enter food here..."
 
                     val imgDelete = newFoodRow.findViewById<ImageView>(R.id.imgDeleteFood)
                     imgDelete.isVisible = false
                     imgDelete.isClickable = false
 
                     foodRowContainer.addView(newFoodRow)
+                    foodCounter++
                 }
                 foodCounter--
             }

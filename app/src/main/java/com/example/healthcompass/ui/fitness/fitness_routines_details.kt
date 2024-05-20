@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
 import com.example.healthcompass.data.FitnessActivity.FitnessActivity
@@ -65,6 +66,10 @@ class fitness_routines_details : Fragment() {
         btnAddNote.setOnClickListener {
             val note = tvNote.text.toString()
             fitnessActivityViewModel.updateFitnessActivityNote(fitnessActivity, note)
+        }
+
+        view.findViewById<Button>(R.id.btnBack).setOnClickListener {
+            findNavController().popBackStack()
         }
 
         return view

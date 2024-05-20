@@ -2,7 +2,6 @@ package com.example.healthcompass.ui.nutrition
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,22 +12,14 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.collection.arrayMapOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.healthcompass.R
 import com.example.healthcompass.data.Nutrition.NutritionViewModel
 import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class nutrition : Fragment() {
     private lateinit var tvBreakfastKcal: TextView
@@ -195,9 +186,11 @@ class nutrition : Fragment() {
 
         userViewModel.fetchWeightGoal(object : UserViewModel.OnRequestCompleteCallBack<String> {
             override fun onSuccess(list: List<String>) {
-                goal = list[0]
-                tvWeightGoal.text = goal
-                fetchCaloriesGoal()
+                if (!list.isNullOrEmpty()) {
+                    goal = list[0]
+                    tvWeightGoal.text = goal
+                    fetchCaloriesGoal()
+                }
             }
 
             override fun onFailure(error: DatabaseError) {
@@ -269,7 +262,8 @@ class nutrition : Fragment() {
     }
 
     private fun fetchHydrationIntake() {
-        nutritionViewModel.fetchHydrationIntake(object : UserViewModel.OnRequestCompleteCallBack<Int> {
+        nutritionViewModel.fetchHydrationIntake(object :
+            UserViewModel.OnRequestCompleteCallBack<Int> {
             override fun onSuccess(list: List<Int>) {
                 displayHydrationIntake(list[0])
             }

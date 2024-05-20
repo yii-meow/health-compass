@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/summary">
+
     <fragment
         android:id="@+id/edit_goal"
         android:name="com.example.healthcompass.ui.nutrition.edit_goal"
@@ -29,6 +30,9 @@
         <action
             android:id="@+id/action_summary_to_achievements_milestones_list"
             app:destination="@id/achievements_milestones_list" />
+        <action
+            android:id="@+id/action_summary_self"
+            app:destination="@id/summary" />
     </fragment>
     <fragment
         android:id="@+id/nutrition"
@@ -221,4 +225,18 @@
             android:id="@+id/action_achievements_milestones_list_to_achievements_milestones_details2"
             app:destination="@id/achievements_milestones_details" />
     </fragment>
+
+    <!-- Global actions -->
+    <action
+        android:id="@+id/action_global_summary"
+        app:destination="@id/summary" />
+    <action
+        android:id="@+id/action_global_fitness_routines"
+        app:destination="@id/fitness_routines" />
+    <action
+        android:id="@+id/action_global_nutrition"
+        app:destination="@id/nutrition" />
+<!--    <action-->
+<!--        android:id="@+id/action_global_profile"-->
+<!--        app:destination="@id/profile" />-->
 </navigation>

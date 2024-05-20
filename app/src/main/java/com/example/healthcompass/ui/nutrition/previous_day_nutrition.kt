@@ -15,8 +15,8 @@ import com.example.healthcompass.R
 import com.example.healthcompass.data.Nutrition.NutritionViewModel
 import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.Calendar
 import java.util.Locale
 
@@ -35,7 +35,17 @@ class previous_day_nutrition : Fragment() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-        val dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        var dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK)
+        val daysToSubtract = if (dayOfWeek == Calendar.SUNDAY) {
+            6 // If today is Sunday, go back to the previous Monday
+        } else if (dayOfWeek == Calendar.MONDAY) {
+            7 // If today is Monday, go back to the previous Monday (1 week ago)
+        } else {
+            dayOfWeek - Calendar.MONDAY // Otherwise, calculate days to the previous Monday
+        }
+
+        // Move calendar to the last Monday
+        calendar.add(Calendar.DAY_OF_YEAR, -daysToSubtract)
 
         val flMonday: FrameLayout = view.findViewById(R.id.flMonday)
         val flTuesday: FrameLayout = view.findViewById(R.id.flTuesday)
@@ -47,49 +57,54 @@ class previous_day_nutrition : Fragment() {
 
         tvNutritionDate = view.findViewById(R.id.tvNutrionDate)
 
+        // Store the dates for the whole week starting from Monday
+        val weekDates = mutableListOf<String>()
+        for (i in 0..6) {
+            weekDates.add(sdf.format(calendar.time))
+            calendar.add(Calendar.DAY_OF_YEAR, 1)
+        }
+        calendar.add(Calendar.DAY_OF_YEAR, -7)
+
         when (args.nutritionDay) {
             1 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[0]
                 flMonday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             2 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[1]
                 flTuesday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             3 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[2]
                 flWednesday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             4 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[3]
                 flThursday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             5 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[4]
                 flFriday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             6 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[5]
                 flSaturday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
 
             7 -> {
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-                tvNutritionDate.text = sdf.format(calendar.time)
+                tvNutritionDate.text = weekDates[6]
                 flSunday.setBackgroundResource(R.drawable.today_nutrition_circle)
             }
         }
+
+        // Reset the calendar to the original position
+        dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        Toast.makeText(requireContext(),"$dayOfWeek",Toast.LENGTH_LONG).show()
 
         nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
         fetchCaloriesConsumption()
@@ -161,6 +176,7 @@ class previous_day_nutrition : Fragment() {
                 findNavController().navigate(action)
             }
         }
+
         return view
     }
 

@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,8 @@ class add_meal : Fragment() {
 
         val imgAddFood: ImageView = view.findViewById(R.id.imgAddFood)
         val imgDeleteFood: ImageView = view.findViewById(R.id.imgDeleteFood)
+        imgDeleteFood.isVisible = false
+        imgDeleteFood.isClickable = false
 
         var foodCounter = 1
 

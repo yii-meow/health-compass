@@ -104,7 +104,6 @@ class previous_day_nutrition : Fragment() {
 
         // Reset the calendar to the original position
         dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
-        Toast.makeText(requireContext(),"$dayOfWeek",Toast.LENGTH_LONG).show()
 
         nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
         fetchCaloriesConsumption()

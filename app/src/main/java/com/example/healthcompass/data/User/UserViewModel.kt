@@ -23,7 +23,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         dbRef = FirebaseDatabase.getInstance().getReference("Users")
         val username = getUsername() ?: return
 
-        dbRef.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
+        dbRef.child(username).child("Profile Information").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val users = arrayListOf<UserClass>()
@@ -43,7 +43,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         val username = getUsername() ?: return
 
         var goals = arrayListOf<String>()
-        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("Profile Information")
         dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.hasChild("goal")) {
@@ -67,7 +67,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun editGoal(goal: String) {
         val username = getUsername() ?: return
-        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username)
+        dbRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("Profile Information")
 
         dbRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

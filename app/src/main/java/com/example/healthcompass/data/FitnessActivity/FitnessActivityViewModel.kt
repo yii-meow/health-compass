@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.healthcompass.data.Nutrition.UserViewModel
 import com.example.healthcompass.data.User.UserClass
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,11 +19,6 @@ import java.util.Locale
 
 class FitnessActivityViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dbRef: DatabaseReference
-    private val fitnessActivitiesLiveData = MutableLiveData<List<FitnessActivity>>()
-
-    fun getFitnessActivitiesLiveData(): LiveData<List<FitnessActivity>> {
-        return fitnessActivitiesLiveData
-    }
 
     fun getAllFitnessActivity(callback: OnRequestCompleteCallBack) {
         dbRef = FirebaseDatabase.getInstance().getReference("Fitness")
@@ -40,7 +34,6 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                 val reversedChildren = snapshot.children.reversed()
 
                 for (dateSnapshot in reversedChildren) {
-                    val date = dateSnapshot.key // Get the date
                     for (activitySnapshot in dateSnapshot.children) {
                         val activityValues = activitySnapshot.value as Map<String, Any>
                         val activityName = activityValues["activityName"] as String
@@ -133,7 +126,7 @@ class FitnessActivityViewModel(application: Application) : AndroidViewModel(appl
                 )
                     .show()
 
-                val userRef = FirebaseDatabase.getInstance().getReference("Users").child(name)
+                val userRef = FirebaseDatabase.getInstance().getReference("Users").child(name).child("Profile Information")
                 userRef.get().addOnSuccessListener { snapshot ->
                     val user = snapshot.getValue(UserClass::class.java)
                     if (user != null) {

@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.profile
 
 import android.content.Context
 import android.content.Intent
@@ -7,13 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.healthcompass.MainActivity
-import com.example.healthcompass.RegisterActivity
 import com.example.healthcompass.databinding.ActivityLoginBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 
 class LoginActivity : AppCompatActivity() {
@@ -43,20 +41,24 @@ class LoginActivity : AppCompatActivity() {
         if (username.isNotEmpty()) {
             database = FirebaseDatabase.getInstance().getReference("Users")
 
-            val checkDb: Query = database.orderByChild("username").equalTo(username)
-            checkDb.addListenerForSingleValueEvent(object : ValueEventListener {
+            database.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val password : String = binding.txtPassword.text.toString().trim()
-                        val passwordDb : String? = snapshot.child(username).child("password").getValue(String::class.java)
+                        val passwordDb : String? = snapshot.child("Profile Information").child("password").getValue(String::class.java)
 
-                        if (password == passwordDb) {
-                            storeUsername(username)
+                        if (password.isNotEmpty()) {
+                            if (password == passwordDb) {
+                                storeUsername(username)
 
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                            } else {
+                                binding.txtPassword.error = "Password invalid"
+                                binding.txtPassword.requestFocus()
+                            }
                         } else {
-                            binding.txtPassword.error = "Password invalid"
+                            binding.txtPassword.error = "Password cannot be empty"
                             binding.txtPassword.requestFocus()
                         }
                     } else {

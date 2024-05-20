@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">@android:color/holo_red_dark</color>
+    <color name="blue">#FF176B87</color>
+    <color name="lightBlue">#99176B87</color>
 </resources>

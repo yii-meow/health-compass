@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_summary"
+        android:title="Summary"
+        android:icon="@drawable/baseline_summarize_24"/>
+    <item
+        android:id="@+id/bottom_fitness"
+        android:title="Fitness"
+        android:icon="@drawable/baseline_fitness_center_24"/>
+    <item
+        android:id="@+id/bottom_nutrition"
+        android:title="Nutrition"
+        android:icon="@drawable/nutrition"/>
+    <item
+        android:id="@+id/bottom_profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_account_circle_24"/>
+</menu>

@@ -1,4 +1,4 @@
-package com.example.healthcompass
+package com.example.healthcompass.ui.profile
 
 import android.content.Context
 import android.content.Intent
@@ -10,16 +10,16 @@ import android.widget.Toast
 import com.example.healthcompass.MainActivity
 import com.example.healthcompass.data.User.UserClass
 import com.example.healthcompass.databinding.ActivityRegisterBinding
+import com.example.healthcompass.ui.profile.LoginActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding
-    private lateinit var database: DatabaseReference
+    private lateinit var binding : ActivityRegisterBinding
+    private lateinit var database : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         checkHasUsername(user)
 
         binding.btnRegister.setOnClickListener { register() }
-        binding.txtLogin.setOnClickListener { navToLogin() }
+        binding.txtLogin.setOnClickListener{ navToLogin() }
     }
 
     private fun navToLogin() {
@@ -39,22 +39,21 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun register() {
-        val username: String = binding.txtUsername.text.toString().trim()
+        val username : String = binding.txtUsername.text.toString().trim()
 
         if (username.isNotEmpty()) {
             database = FirebaseDatabase.getInstance().getReference("Users")
 
-            val checkDb: Query = database.orderByChild("username").equalTo(username)
-            checkDb.addListenerForSingleValueEvent(object : ValueEventListener {
+            database.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (!(snapshot.exists())) {
                         if (checkName() && checkPassword() && checkAge() && checkGender() && checkHeight() && checkWeight()) {
-                            val name: String = binding.txtName.text.toString()
-                            val password: String = binding.txtPassword.text.toString().trim()
-                            val age: Int = binding.txtAge.text.toString().toInt()
-                            val gender: String = binding.spnGender.selectedItem.toString()
-                            val height: Float = binding.txtHeight.text.toString().toFloat()
-                            val weight: Float = binding.txtWeight.text.toString().toFloat()
+                            val name : String = binding.txtName.text.toString()
+                            val password : String = binding.txtPassword.text.toString().trim()
+                            val age : Int = binding.txtAge.text.toString().toInt()
+                            val gender : String = binding.spnGender.selectedItem.toString()
+                            val height : Float = binding.txtHeight.text.toString().toFloat()
+                            val weight : Float = binding.txtWeight.text.toString().toFloat()
 
                             // Setting user default milestones
                             val milestones = mapOf(
@@ -75,18 +74,9 @@ class RegisterActivity : AppCompatActivity() {
                                 )
                             )
 
-                            val userClass =UserClass(
-                                name,
-                                username,
-                                password,
-                                gender,
-                                age,
-                                height,
-                                weight,
-                                milestones
-                            )
+                            val userClass = UserClass(name, username, password, gender, age, height, weight,milestones)
                             database = FirebaseDatabase.getInstance().getReference("Users")
-                            database.child(username).setValue(userClass)
+                            database.child(username).child("Profile Information").setValue(userClass)
 
                             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                             startActivity(intent)
@@ -107,8 +97,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkName(): Boolean {
-        val name: String = binding.txtName.text.toString()
+    private fun checkName() : Boolean {
+        val name : String = binding.txtName.text.toString()
 
         if (name.isEmpty()) {
             binding.txtName.error = "Name cannot be empty"
@@ -125,9 +115,9 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkPassword(): Boolean {
-        val password: String = binding.txtPassword.text.toString().trim()
-        val confirmPassword: String = binding.txtConfirmPassword.text.toString().trim()
+    private fun checkPassword() : Boolean {
+        val password : String = binding.txtPassword.text.toString().trim()
+        val confirmPassword : String = binding.txtConfirmPassword.text.toString().trim()
 
         var hasChar = false
         var hasDigit = false
@@ -156,8 +146,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         if (!(hasChar) || !(hasDigit) || !(hasSpecialChar)) {
-            binding.txtPassword.error =
-                "Password must contains at least 1 character, 1 digit, and 1 special character"
+            binding.txtPassword.error = "Password must contains at least 1 character, 1 digit, and 1 special character"
             binding.txtPassword.requestFocus()
             return false
         }
@@ -177,8 +166,8 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkAge(): Boolean {
-        val ageString: String = binding.txtAge.text.toString()
+    private fun checkAge() : Boolean {
+        val ageString : String = binding.txtAge.text.toString()
 
         if (ageString.isEmpty()) {
             binding.txtAge.error = "Age cannot be empty"
@@ -186,7 +175,7 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
-        val age: Int = binding.txtAge.text.toString().toInt()
+        val age : Int = binding.txtAge.text.toString().toInt()
 
         if (age <= 0) {
             binding.txtAge.error = "Age must larger than 0"
@@ -197,8 +186,8 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkGender(): Boolean {
-        val gender: String = binding.spnGender.selectedItem.toString()
+    private fun checkGender() : Boolean {
+        val gender : String = binding.spnGender.selectedItem.toString()
 
         if (gender == "Gender") {
             (binding.spnGender.selectedView as? TextView)?.error = "Select a gender"
@@ -209,8 +198,8 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkHeight(): Boolean {
-        val heightString: String = binding.txtHeight.text.toString()
+    private fun checkHeight() : Boolean {
+        val heightString : String = binding.txtHeight.text.toString()
 
         if (heightString.isEmpty()) {
             binding.txtHeight.error = "Height cannot be empty"
@@ -218,7 +207,7 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
-        val height: Float = binding.txtHeight.text.toString().toFloat()
+        val height : Float = binding.txtHeight.text.toString().toFloat()
 
         if (height <= 0) {
             binding.txtHeight.error = "Height must larger than 0"
@@ -229,8 +218,8 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkWeight(): Boolean {
-        val weightString: String = binding.txtWeight.text.toString()
+    private fun checkWeight() : Boolean {
+        val weightString : String = binding.txtWeight.text.toString()
 
         if (weightString.isEmpty()) {
             binding.txtWeight.error = "Weight cannot be empty"
@@ -238,7 +227,7 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
-        val weight: Float = binding.txtWeight.text.toString().toFloat()
+        val weight : Float = binding.txtWeight.text.toString().toFloat()
 
         if (weight <= 0) {
             binding.txtWeight.error = "Weight must larger than 0"
@@ -249,15 +238,15 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkHasUsername(user: String?) {
+    private fun checkHasUsername(user : String?) {
         if (user != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun getUsername(): String? {
-        val sharedPref: SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
+    private fun getUsername() : String? {
+        val sharedPref : SharedPreferences = getSharedPreferences("user", Context.MODE_PRIVATE)
         return sharedPref.getString("username", null)
     }
 }

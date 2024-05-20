@@ -5,23 +5,50 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.healthcompass.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
+import com.example.healthcompass.ui.profile.LoginActivity
+import com.example.healthcompass.ui.profile.ProfileFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
         val user = getUsername()
         checkHasUsername(user)
 
-//        binding.btnNavToProfile.setOnClickListener {
-//            val intent = Intent(this, ProfileActivity::class.java)
-//            startActivity(intent)
-//        }
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        bottomNavigationView.setOnItemSelectedListener{ menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottom_summary -> {
+
+                    true
+                }
+                R.id.bottom_fitness -> {
+
+                    true
+                }
+                R.id.bottom_nutrition -> {
+
+                    true
+                }
+                R.id.bottom_profile -> {
+                    replaceFragment(ProfileFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+
+        replaceFragment(ProfileFragment())//Noted: Change to SummaryFragment!!!
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
     }
 
     private fun checkHasUsername(user : String?) {

@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_summary_self"
             app:destination="@id/summary" />
+        <action
+            android:id="@+id/action_summary_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/nutrition"
@@ -236,7 +239,46 @@
     <action
         android:id="@+id/action_global_nutrition"
         app:destination="@id/nutrition" />
-<!--    <action-->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.healthcompass.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_achievements_milestones_list"
+            app:destination="@id/achievements_milestones_list" />
+        <action
+            android:id="@+id/action_profileFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_manageProfileInfoFragment"
+            app:destination="@id/manageProfileInfoFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_friendsFragment"
+            app:destination="@id/friendsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.healthcompass.ui.profile.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/manageProfileInfoFragment"
+        android:name="com.example.healthcompass.ui.profile.ManageProfileInfoFragment"
+        android:label="fragment_manage_profile_info"
+        tools:layout="@layout/fragment_manage_profile_info" />
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.example.healthcompass.ui.profile.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.healthcompass.ui.profile.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+    <!--    <action-->
 <!--        android:id="@+id/action_global_profile"-->
 <!--        app:destination="@id/profile" />-->
 </navigation>

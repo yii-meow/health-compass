@@ -7,16 +7,31 @@
     android:background="#DAFFFB"
     android:padding="15dp"
     tools:context=".ui.achievements.achievements_milestones_details">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:iconSize="40dp"
+        android:gravity="center_horizontal"
+        android:backgroundTint="#DAFFFB"
+        app:iconTint="@color/black"
+        app:icon="@drawable/baseline_arrow_back_24"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/lblCongratulations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
         android:text="Congratulations"
         android:textColor="@color/black"
-        android:textSize="32dp" />
+        android:textSize="38dp"
+        android:layout_marginTop="10dp"
+        />
 
     <androidx.cardview.widget.CardView
         android:layout_width="380dp"
@@ -24,7 +39,7 @@
         android:layout_marginTop="15dp"
         app:cardBackgroundColor="#04364A"
         app:cardCornerRadius="12dp"
-        app:layout_constraintLeft_toLeftOf="@id/lblCongratulations"
+        app:layout_constraintLeft_toLeftOf="@id/btnBack"
         app:layout_constraintTop_toBottomOf="@id/lblCongratulations">
 
         <FrameLayout

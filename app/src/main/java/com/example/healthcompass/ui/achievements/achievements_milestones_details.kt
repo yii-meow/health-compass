@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.healthcompass.R
 import java.io.File
@@ -59,6 +60,10 @@ class achievements_milestones_details : Fragment() {
         btnDownload.setOnClickListener {
             val bitmap = captureFrameLayout(badge)
             saveBitmapToFile(bitmap, requireContext())
+        }
+
+        view.findViewById<Button>(R.id.btnBack).setOnClickListener {
+            findNavController().popBackStack()
         }
 
         return view

@@ -11,15 +11,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DAFFFB"
+            android:gravity="center_horizontal"
+            app:icon="@drawable/baseline_arrow_back_24"
+            app:iconSize="40dp"
+            app:iconTint="@color/black"
+            android:layout_marginTop="12dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblMilestones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Milestones"
+            android:textSize="42dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="10dp"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardFitnessActivity"
             android:layout_width="380dp"
             android:layout_height="242dp"
+            android:layout_marginTop="12dp"
             app:cardBackgroundColor="#04364A"
             app:cardCornerRadius="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/lblMilestones">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -41,8 +67,8 @@
                     android:layout_width="90dp"
                     android:layout_height="155dp"
                     android:layout_marginTop="30dp"
-                    android:clickable="false"
                     android:allowClickWhenDisabled="false"
+                    android:clickable="false"
                     app:layout_constraintLeft_toLeftOf="@id/lblBadminton"
                     app:layout_constraintTop_toBottomOf="@id/lblBadminton">
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -27,6 +28,10 @@ class achievements_milestones_list : Fragment() {
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         updateMilestone()
+
+        view.findViewById<Button>(R.id.btnBack).setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         return view
     }

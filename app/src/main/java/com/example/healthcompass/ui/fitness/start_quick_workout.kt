@@ -37,6 +37,10 @@ class start_quick_workout : Fragment() {
             findNavController().navigate(action)
         }
 
+        view.findViewById<Button>(R.id.btnBack).setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         return view
     }
 

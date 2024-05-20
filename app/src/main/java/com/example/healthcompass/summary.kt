@@ -256,20 +256,22 @@ class SummaryFragment : Fragment(), SensorEventListener {
         fitnessActivityViewModel.fetchLatestFitnessActivity(object :
             FitnessActivityViewModel.OnRequestCompleteCallBack {
             override fun onSuccess(list: List<FitnessActivity>) {
-                // Set text view data
-                tvSport1Type.text = list[0].activityName
-                tvSport1Date.text = list[0].activityDate
-                tvSport1Calories.text = list[0].caloriesBurnt.toString()
-                tvSport1Duration.text =
-                    list[0].startTime.substring(0, 5) + " - " + list[0].endTime.substring(0, 5)
-                imgSport1.setBackgroundResource(getImgFitness(list[0].activityName))
+                if (!list.isNullOrEmpty() && list.size >= 2) {
+                    // Set text view data
+                    tvSport1Type.text = list[0].activityName
+                    tvSport1Date.text = list[0].activityDate
+                    tvSport1Calories.text = list[0].caloriesBurnt.toString()
+                    tvSport1Duration.text =
+                        list[0].startTime.substring(0, 5) + " - " + list[0].endTime.substring(0, 5)
+                    imgSport1.setBackgroundResource(getImgFitness(list[0].activityName))
 
-                tvSport2Type.text = list[1].activityName
-                tvSport2Date.text = list[1].activityDate
-                tvSport2Calories.text = list[1].caloriesBurnt.toString()
-                tvSport2Duration.text =
-                    list[1].startTime.substring(0, 5) + " - " + list[1].endTime.substring(0, 5)
-                imgSport2.setBackgroundResource(getImgFitness(list[1].activityName))
+                    tvSport2Type.text = list[1].activityName
+                    tvSport2Date.text = list[1].activityDate
+                    tvSport2Calories.text = list[1].caloriesBurnt.toString()
+                    tvSport2Duration.text =
+                        list[1].startTime.substring(0, 5) + " - " + list[1].endTime.substring(0, 5)
+                    imgSport2.setBackgroundResource(getImgFitness(list[1].activityName))
+                }
             }
 
             override fun onFailure(error: DatabaseError) {

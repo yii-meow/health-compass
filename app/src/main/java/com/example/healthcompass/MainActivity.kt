@@ -52,17 +52,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.bottom_profile -> {
-                    replaceFragment(ProfileFragment())
+                    findNavController(R.id.fragmentContainer).navigate(R.id.action_summary_to_profileFragment)
                     true
                 }
 
                 else -> false
             }
         }
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer, fragment).commit()
     }
 
     private fun checkHasUsername(user: String?) {

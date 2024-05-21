@@ -35,14 +35,16 @@ class previous_day_nutrition : Fragment() {
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
+        Toast.makeText(requireContext(),"day: ${args.nutritionDay}",Toast.LENGTH_LONG).show()
         var dayOfWeek: Int = calendar.get(Calendar.DAY_OF_WEEK)
-        val daysToSubtract = if (dayOfWeek == Calendar.SUNDAY) {
+        val daysToSubtract = if ((args.nutritionDay + 1) == Calendar.SUNDAY) {
             6 // If today is Sunday, go back to the previous Monday
-        } else if (dayOfWeek == Calendar.MONDAY) {
+        } else if (args.nutritionDay == Calendar.MONDAY) {
             7 // If today is Monday, go back to the previous Monday (1 week ago)
         } else {
             dayOfWeek - Calendar.MONDAY // Otherwise, calculate days to the previous Monday
         }
+        Toast.makeText(requireContext(),"$daysToSubtract",Toast.LENGTH_LONG).show()
 
         // Move calendar to the last Monday
         calendar.add(Calendar.DAY_OF_YEAR, -daysToSubtract)
@@ -103,7 +105,6 @@ class previous_day_nutrition : Fragment() {
         }
 
         // Reset the calendar to the original position
-        dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
 
         nutritionViewModel = ViewModelProvider(this).get(NutritionViewModel::class.java)
         fetchCaloriesConsumption()
@@ -111,6 +112,8 @@ class previous_day_nutrition : Fragment() {
 
         val action =
             previous_day_nutritionDirections.actionPreviousDayNutritionSelf()
+
+        dayOfWeek -= 1
 
         // View another previous day nutrition
         flMonday.setOnClickListener {

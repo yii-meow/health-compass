@@ -99,7 +99,7 @@ class nutrition : Fragment() {
                 flSaturday.isEnabled = false
             }
 
-            0 -> {
+            7 -> {
                 flSunday.setBackgroundResource(R.drawable.today_nutrition_circle)
                 flSunday.isEnabled = false
             }

@@ -1,9 +1,12 @@
 package com.example.healthcompass.data.Friend;
 
+import androidx.annotation.NonNull;
+
 public class FriendClass {
     private String username;
     private String name;
     private String gender;
+    private String status;
 
     public FriendClass() {
     }
@@ -12,6 +15,14 @@ public class FriendClass {
         this.username = username;
         this.name = name;
         this.gender = gender;
+        this.status = "";
+    }
+
+    public FriendClass(String username, String name, String gender, String status) {
+        this.username = username;
+        this.name = name;
+        this.gender = gender;
+        this.status = status;
     }
 
     public String getUsername() {
@@ -36,5 +47,23 @@ public class FriendClass {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "FriendClass{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

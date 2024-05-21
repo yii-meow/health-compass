@@ -24,7 +24,6 @@ class FriendListFragment : Fragment() {
     private var _binding : FragmentFriendListBinding? = null
     private val binding get() = _binding!!
     private lateinit var database : DatabaseReference
-    private lateinit var viewModel : FriendListViewModel
     private lateinit var friendList : MutableList<FriendClass>
     private lateinit var adapter : FriendListAdapter
 
@@ -43,22 +42,8 @@ class FriendListFragment : Fragment() {
         val user = getUsername()
         checkHasUsername(user)
 
-        viewModel = ViewModelProvider(this).get(FriendListViewModel::class.java)
-        friendList = mutableListOf()
-        adapter = FriendListAdapter(requireContext(), friendList)
-
-        binding.gridFriendList.adapter = adapter
-
+        setupAdapter()
         loadFriendsFromFirebase(user)
-        observeFriendList()
-    }
-
-    private fun observeFriendList() {
-        viewModel.friendList.observe(viewLifecycleOwner) { friends ->
-            friendList.clear()
-            friendList.addAll(friends)
-            adapter.notifyDataSetChanged()
-        }
     }
 
     private fun loadFriendsFromFirebase(user : String?) {
@@ -67,14 +52,12 @@ class FriendListFragment : Fragment() {
         database = FirebaseDatabase.getInstance().getReference("Users").child(username).child("Friends")
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val loadedFriends = mutableListOf<FriendClass>()
+                friendList.clear()
+
                 for (data in snapshot.children) {
                     val friendUsername = data.key
-                    friendUsername?.let { loadFriendDetails(it, loadedFriends) }
+                    friendUsername?.let { loadFriendDetails(it) }
                 }
-                friendList.clear()
-                friendList.addAll(loadedFriends)
-                adapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -83,7 +66,7 @@ class FriendListFragment : Fragment() {
         })
     }
 
-    private fun loadFriendDetails(friendUsername : String, loadedFriends : MutableList<FriendClass>) {
+    private fun loadFriendDetails(friendUsername : String) {
         val friendRef = FirebaseDatabase.getInstance().getReference("Users").child(friendUsername).child("Profile Information")
         friendRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -100,6 +83,12 @@ class FriendListFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun setupAdapter() {
+        friendList = mutableListOf()
+        adapter = FriendListAdapter(requireContext(), friendList)
+        binding.gridFriendList.adapter = adapter
     }
 
     private fun checkHasUsername(user : String?) {

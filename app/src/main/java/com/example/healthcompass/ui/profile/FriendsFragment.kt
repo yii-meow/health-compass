@@ -65,3 +65,4 @@ class FriendsFragment : Fragment() {
         return sharedPref.getString("username", null)
     }
 }
+

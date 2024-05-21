@@ -20,9 +20,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class ProfileFragment : Fragment() {
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private lateinit var database: DatabaseReference
+    private lateinit var database : DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +45,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logOut() {
-        val sharedPref: SharedPreferences =
-            requireActivity().getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+        val sharedPref : SharedPreferences = requireActivity().getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("username", null)
         editor.apply()
@@ -55,24 +54,19 @@ class ProfileFragment : Fragment() {
         checkHasUsername(user)
     }
 
-    private fun displayProfileInfo(user: String?) {
-        val username: String = user.toString()
+    private fun displayProfileInfo(user : String?) {
+        val username : String = user.toString()
 
         database = FirebaseDatabase.getInstance().getReference("Users")
 
         database.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+            override fun onDataChange(snapshot : DataSnapshot) {
                 if (snapshot.exists()) {
-                    val nameDb: String? = snapshot.child("Profile Information").child("name")
-                        .getValue(String::class.java)
-                    val ageDb: Int? =
-                        snapshot.child("Profile Information").child("age").getValue(Int::class.java)
-                    val genderDb: String? = snapshot.child("Profile Information").child("gender")
-                        .getValue(String::class.java)
-                    val heightDb: Float? = snapshot.child("Profile Information").child("height")
-                        .getValue(Float::class.java)
-                    val weightDb: Float? = snapshot.child("Profile Information").child("weight")
-                        .getValue(Float::class.java)
+                    val nameDb : String? = snapshot.child("Profile Information").child("name").getValue(String::class.java)
+                    val ageDb : Int? = snapshot.child("Profile Information").child("age").getValue(Int::class.java)
+                    val genderDb : String? = snapshot.child("Profile Information").child("gender").getValue(String::class.java)
+                    val heightDb : Float? = snapshot.child("Profile Information").child("height").getValue(Float::class.java)
+                    val weightDb : Float? = snapshot.child("Profile Information").child("weight").getValue(Float::class.java)
 
                     if (genderDb == "Male") {
                         binding.imgProfile.setImageResource(R.drawable.male)
@@ -97,16 +91,15 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    private fun checkHasUsername(user: String?) {
+    private fun checkHasUsername(user : String?) {
         if (user == null) {
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun getUsername(): String? {
-        val sharedPref: SharedPreferences =
-            requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
+    private fun getUsername() : String? {
+        val sharedPref : SharedPreferences = requireActivity().getSharedPreferences("user", Context.MODE_PRIVATE)
         return sharedPref.getString("username", null)
     }
 }
